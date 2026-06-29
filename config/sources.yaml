@@ -102,12 +102,12 @@ sources:
         date_col: 月份
         value_col: 同比增长
         transform: parse_cn_month
-        unit: CNY_bn_yoy_pct
+        unit: pct
         frequency: monthly
-        source: 东方财富-固定资产投资
+        source: 东方财富-固定资产投资代理
         source_url: https://data.eastmoney.com/cjsj/gdzctz.html
-        confidence: B
-        note: "Fixed-asset investment YoY as grid-investment proxy in MVP"
+        confidence: C
+        note: "Broad fixed-asset investment YoY proxy; prefer manual CEC/NEA/SGCC grid engineering investment YoY when available"
       korea_exports_yoy:
         func: fred_korea_exports_yoy
         unit: pct

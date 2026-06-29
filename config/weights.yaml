@@ -21,3 +21,18 @@ confidence:
     freshness: 0.3
     cross_check: 0.2
     completeness: 0.1
+
+cross_validation:
+  groups:
+    A_fundamental_spot:
+      label: 基本面/现货组
+      modules:
+        - china_demand
+        - inventory
+        - supply
+    B_macro_price:
+      label: 宏观/价格组
+      modules:
+        - macro_liquidity
+        - global_cycle
+        - trend

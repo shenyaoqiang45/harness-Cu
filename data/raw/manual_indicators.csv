@@ -2,3 +2,14 @@ date,indicator,value,unit,source,source_url,updated_at,frequency,confidence,note
 2026-05-01,us_ism_manufacturing,48.5,index,ISM,https://www.ismworld.org/,2026-06-01T09:00:00,monthly,A,manual monthly release
 2026-05-01,global_manufacturing_pmi,50.2,index,S&P Global,https://www.pmi.spglobal.com/,2026-06-01T09:00:00,monthly,B,manual monthly release
 2026-05-01,tc_rc,82.5,USD/ton,Benchmark Mineral Intelligence,https://example.com/tcrc,2026-06-15T09:00:00,monthly,B,manual semi-annual TC/RC benchmark
+2026-03-28,grid_investment,43.3,pct,国家能源局,,2026-06-29T16:00:00,monthly,A,电网工程投资完成额累计同比 Q1, treated as March monthly observation; from data/raw/grid_indicators_2026.csv
+2026-03-31,grid_investment_amount,1370,CNY_100m,国家能源局,,2026-06-29T16:00:00,quarterly,A,电网工程投资完成额累计值 Q1; from data/raw/grid_indicators_2026.csv
+2026-03-31,grid_investment_monthly_amount,450,CNY_100m,能源局,,2026-06-29T16:00:00,quarterly,C,电网工程投资完成额当月值 Q1推算; from data/raw/grid_indicators_2026.csv
+2026-06-29,grid_project_new_starts,13,count,国家电网,,2026-06-29T16:00:00,annual_plan,B,电网重大项目新开工数量全年计划; from data/raw/grid_indicators_2026.csv
+2026-06-30,uhv_approved_projects,400,CNY_100m,发改委,,2026-06-29T16:00:00,semiannual,B,特高压项目核准金额上半年下限; source value >400; from data/raw/grid_indicators_2026.csv
+2026-06-29,grid_tender_value,232.76,CNY_100m,国家电网,,2026-06-29T16:00:00,batch,B,国网设备第2批招标金额; from data/raw/grid_indicators_2026.csv
+2026-06-29,transformer_tender_value,40,CNY_100m,国家电网,,2026-06-29T16:00:00,batch,C,变压器类招标金额约40亿元; from data/raw/grid_indicators_2026.csv
+2026-05-31,wire_cable_output_yoy,4.8,pct,国家统计局,,2026-06-29T16:00:00,monthly,C,电线电缆产量同比约4.8%; from data/raw/grid_indicators_2026.csv
+2026-06-29,copper_rod_operating_rate,65.87,pct,SMM,,2026-06-29T16:00:00,weekly,B,精铜杆开工率; from data/raw/grid_indicators_2026.csv
+2026-05-31,power_consumption_yoy,6.9,pct,国家能源局,,2026-06-29T16:00:00,monthly,A,全社会用电量同比; from data/raw/grid_indicators_2026.csv
+2026-05-31,new_energy_grid_connection,7500,10kW,国家能源局,,2026-06-29T16:00:00,monthly,B,新能源新增并网容量1-5月下限; source value 7500+; from data/raw/grid_indicators_2026.csv

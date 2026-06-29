@@ -65,6 +65,16 @@ def render_report(
                 f"| {label} | {mod.score:+.3f} | {_score_bar(mod.score)}{gaps} |"
             )
 
+    if forecast.cross_validation:
+        lines.extend(["", "## A/B 交叉验证", ""])
+        lines.append(f"结论：**{forecast.cross_validation.agreement}**。{forecast.cross_validation.note}")
+        lines.extend(["", "| 组别 | 模块 | 分数 | 方向 |", "|---|---|---:|---|"])
+        for group in forecast.cross_validation.groups:
+            modules = "、".join(MODULE_LABELS.get(m, m) for m in group.modules)
+            lines.append(
+                f"| {group.label} | {modules} | {group.score:+.3f} | {group.direction} |"
+            )
+
     lines.extend(["", "## 主要支撑", ""])
     for i, factor in enumerate(forecast.supporting_factors, 1):
         lines.append(f"{i}. {factor}")

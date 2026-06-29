@@ -79,6 +79,8 @@ def collect_all(config_dir: Path, project_root: Path) -> FetchResult:
 
 
 def _record_key(rec: FetchedRecord) -> tuple:
+    if rec.frequency == "monthly":
+        return (rec.indicator, f"{rec.date:%Y-%m}")
     return (rec.indicator, rec.date.isoformat())
 
 

@@ -1,27 +1,36 @@
 {
-  "timestamp": "2026-06-29T14:07:20.459661",
-  "record_count": 1521,
+  "timestamp": "2026-06-29T16:01:25.879233",
+  "record_count": 1805,
   "warnings": [
     "fred:us_10y_real_rate: loaded via public CSV (set FRED_API_KEY for API)"
   ],
-  "errors": [
-    "yahoo:lme_copper_price: no data for HG=F"
-  ],
+  "errors": [],
   "indicators": [
     "china_new_orders_pmi",
     "china_pmi",
+    "copper_rod_operating_rate",
     "dxy",
     "global_manufacturing_pmi",
     "grid_investment",
+    "grid_investment_amount",
+    "grid_investment_monthly_amount",
+    "grid_project_new_starts",
+    "grid_tender_value",
     "korea_exports_yoy",
+    "lme_copper_price",
     "lme_inventory",
     "m1",
+    "new_energy_grid_connection",
+    "power_consumption_yoy",
     "shfe_inventory",
     "social_financing",
     "spot_premium",
     "tc_rc",
     "term_structure",
+    "transformer_tender_value",
+    "uhv_approved_projects",
     "us_10y_real_rate",
-    "us_ism_manufacturing"
+    "us_ism_manufacturing",
+    "wire_cable_output_yoy"
   ]
 }

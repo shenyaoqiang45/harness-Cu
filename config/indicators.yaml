@@ -17,6 +17,16 @@ modules:
       - social_financing
       - m1
       - grid_investment
+      - grid_investment_amount
+      - grid_investment_monthly_amount
+      - grid_project_new_starts
+      - uhv_approved_projects
+      - grid_tender_value
+      - transformer_tender_value
+      - wire_cable_output_yoy
+      - copper_rod_operating_rate
+      - power_consumption_yoy
+      - new_energy_grid_connection
   macro_liquidity:
     indicators:
       - dxy
@@ -42,7 +52,17 @@ units:
   china_new_orders_pmi: index
   social_financing: CNY_bn
   m1: CNY_bn
-  grid_investment: CNY_bn_yoy_pct
+  grid_investment: pct
+  grid_investment_amount: CNY_100m
+  grid_investment_monthly_amount: CNY_100m
+  grid_project_new_starts: count
+  uhv_approved_projects: CNY_100m
+  grid_tender_value: CNY_100m
+  transformer_tender_value: CNY_100m
+  wire_cable_output_yoy: pct
+  copper_rod_operating_rate: pct
+  power_consumption_yoy: pct
+  new_energy_grid_connection: 10kW
   dxy: index
   us_10y_real_rate: pct
   us_ism_manufacturing: index
@@ -62,6 +82,16 @@ frequencies:
   social_financing: monthly
   m1: monthly
   grid_investment: monthly
+  grid_investment_amount: quarterly
+  grid_investment_monthly_amount: quarterly
+  grid_project_new_starts: annual_plan
+  uhv_approved_projects: semiannual
+  grid_tender_value: batch
+  transformer_tender_value: batch
+  wire_cable_output_yoy: monthly
+  copper_rod_operating_rate: weekly
+  power_consumption_yoy: monthly
+  new_energy_grid_connection: monthly
   dxy: daily
   us_10y_real_rate: daily
   us_ism_manufacturing: monthly

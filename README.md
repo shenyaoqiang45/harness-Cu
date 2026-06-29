@@ -27,6 +27,7 @@ python -m copper_forecast.cli run
 | LME 库存 | akshare / 东方财富 |
 | SHFE 库存 | akshare `futures_inventory_em` |
 | 中国 PMI / 社融 / M1 | 东方财富 / akshare |
+| 电网投资 | 东方财富固定资产投资代理；优先用人工录入的中电联/能源局/国网电网工程投资同比覆盖 |
 | 韩国出口同比 | FRED 出口额衍生 |
 | 现货升贴水 / 期限结构 | SHFE vs COMEX 衍生 |
 | ISM / 全球 PMI / TC/RC | `data/raw/manual_indicators.csv` 人工维护 |
@@ -34,6 +35,17 @@ python -m copper_forecast.cli run
 复制 `.env.example` 为 `.env` 并填入 `FRED_API_KEY`（可选）。
 
 未覆盖：`comex_inventory`（东方财富仅金银库存）、`tc_rc`（需人工录入）。
+
+电网投资自动源当前为宽口径固定资产投资代理，置信度为 C。拿到真实电网工程投资完成额同比后，可在 `data/raw/manual_indicators.csv` 添加同月 `grid_investment` 记录；月频数据按指标+月份合并，人工记录会覆盖同月代理值。
+
+### A/B 交叉验证
+
+报告会将模块分成两组做交叉验证：
+
+- A 组：基本面/现货组（中国需求、库存现货、供应扰动）
+- B 组：宏观/价格组（美元利率、全球制造业、价格趋势）
+
+两组分别按模块权重归一化打分。若 A/B 同向，说明信号相互确认；若背离，说明基本面与宏观/价格信号冲突，方向置信度应谨慎解读。
 
 ## 数据格式
 

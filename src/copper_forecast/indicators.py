@@ -34,6 +34,22 @@ def _latest_numeric(series: list[DataRow]) -> tuple[date | None, float | None]:
     return d, v
 
 
+def _latest_preferred_numeric(
+    series: list[DataRow], blocked_source_terms: tuple[str, ...]
+) -> tuple[date | None, float | None, DataRow | None]:
+    nums = [r for r in series if r.numeric_value is not None]
+    if not nums:
+        return None, None, None
+
+    preferred = [
+        r
+        for r in nums
+        if not any(term in r.source for term in blocked_source_terms)
+    ]
+    row = preferred[-1] if preferred else nums[-1]
+    return row.date, row.numeric_value, row
+
+
 def _value_n_days_ago(series: list[DataRow], n: int) -> float | None:
     nums = [(r.date, r.numeric_value) for r in series if r.numeric_value is not None]
     if len(nums) <= n:
@@ -283,13 +299,14 @@ def score_china_demand(grouped: dict[str, list[DataRow]]) -> ModuleScore:
 
     grid_series = grouped.get("grid_investment", [])
     if grid_series:
-        _, grid = _latest_numeric(grid_series)
+        _, grid, grid_row = _latest_preferred_numeric(grid_series, ("代理",))
         if grid is not None:
+            source_note = f" ({grid_row.source})" if grid_row else ""
             signals.append(
                 SignalDetail(
                     "grid_investment",
                     1.0 if grid > 0 else -1.0,
-                    f"Grid investment YoY {grid:+.1f}%",
+                    f"Grid investment YoY {grid:+.1f}%{source_note}",
                 )
             )
     else:

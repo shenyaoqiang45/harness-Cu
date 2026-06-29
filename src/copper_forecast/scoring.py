@@ -29,6 +29,23 @@ class ForecastResult:
     invalidation_conditions: list[str] = field(default_factory=list)
     data_cutoff: date | None = None
     generated_at: datetime = field(default_factory=datetime.now)
+    cross_validation: "CrossValidationResult | None" = None
+
+
+@dataclass
+class CrossValidationGroup:
+    name: str
+    label: str
+    score: float
+    direction: str
+    modules: list[str]
+
+
+@dataclass
+class CrossValidationResult:
+    groups: list[CrossValidationGroup]
+    agreement: str
+    note: str
 
 
 def load_weights(config_dir: Path) -> dict[str, Any]:
@@ -132,6 +149,69 @@ def compute_factor_consistency(
     return abs(positive - negative) / active
 
 
+def _direction_sign(score: float, thresholds: dict[str, float]) -> int:
+    if score >= thresholds["bullish"]:
+        return 1
+    if score <= thresholds["bearish"]:
+        return -1
+    return 0
+
+
+def compute_cross_validation(
+    module_scores: dict[str, ModuleScore],
+    module_weights: dict[str, float],
+    thresholds: dict[str, float],
+    cross_cfg: dict[str, Any] | None,
+) -> CrossValidationResult | None:
+    if not cross_cfg:
+        return None
+
+    groups = []
+    for name, cfg in cross_cfg.get("groups", {}).items():
+        modules = cfg.get("modules", [])
+        weighted = 0.0
+        weight_sum = 0.0
+        present = []
+        for module in modules:
+            score = module_scores.get(module)
+            weight = module_weights.get(module, 0.0)
+            if score is None or weight == 0:
+                continue
+            weighted += weight * score.score
+            weight_sum += abs(weight)
+            present.append(module)
+        group_score = weighted / weight_sum if weight_sum else 0.0
+        groups.append(
+            CrossValidationGroup(
+                name=name,
+                label=cfg.get("label", name),
+                score=group_score,
+                direction=_direction_label(group_score, thresholds),
+                modules=present,
+            )
+        )
+
+    signs = [_direction_sign(group.score, thresholds) for group in groups]
+    active_signs = [sign for sign in signs if sign != 0]
+    if len(groups) < 2:
+        agreement = "无法验证"
+        note = "A/B 分组不足"
+    elif not active_signs:
+        agreement = "均为中性"
+        note = "两组都没有给出明确方向"
+    elif len(set(active_signs)) == 1 and len(active_signs) == len(groups):
+        agreement = "同向确认"
+        note = "A/B 两组给出一致方向"
+    elif len(set(active_signs)) == 1:
+        agreement = "弱确认"
+        note = "一组给出方向，另一组偏中性"
+    else:
+        agreement = "相互背离"
+        note = "A/B 两组方向冲突，方向置信度应下调"
+
+    return CrossValidationResult(groups, agreement, note)
+
+
 def _top_signals(module_scores: dict[str, ModuleScore], n: int = 3) -> tuple[list[str], list[str]]:
     bullish: list[tuple[float, str]] = []
     bearish: list[tuple[float, str]] = []
@@ -220,6 +300,12 @@ def compute_forecast(
     data_health = compute_data_health(confirmed, validation, config_dir)
     factor_consistency = compute_factor_consistency(module_scores, active_threshold)
     confidence = min(1.0, abs(total) * data_health * max(factor_consistency, 0.3))
+    cross_validation = compute_cross_validation(
+        module_scores,
+        module_weights,
+        thresholds,
+        weights_cfg.get("cross_validation"),
+    )
 
     supporting, suppressing = _top_signals(module_scores)
     risks = _default_risks(module_scores, data_health)
@@ -240,4 +326,5 @@ def compute_forecast(
         risks=risks,
         invalidation_conditions=invalidation,
         data_cutoff=cutoff,
+        cross_validation=cross_validation,
     )

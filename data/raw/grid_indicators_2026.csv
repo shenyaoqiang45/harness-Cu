@@ -1,0 +1,12 @@
+优先级,指标名建议,数据项,单位,2026年最新值,来源
+1,grid_investment,电网工程投资完成额累计同比,%,43.3 (Q1),国家能源局
+2,grid_investment_amount,电网工程投资完成额累计值,亿元,1370 (Q1),国家能源局
+3,grid_investment_monthly_amount,电网工程投资完成额当月值,亿元,~450 (推算),能源局
+4,grid_project_new_starts,电网重大项目新开工数量,条,13 (全年计划),国网
+5,uhv_approved_projects,特高压项目核准金额,亿元,>400 (上半年),发改委
+8,grid_tender_value,国网设备招标金额,亿元,232.76 (第2批),国网
+10,transformer_tender_value,变压器类招标金额,亿元,约 40 (特高压1次),国网
+13,wire_cable_output_yoy,电线电缆产量同比,%,~4.8,统计局
+15,copper_rod_operating_rate,精铜杆开工率,%,65.87,SMM
+16,power_consumption_yoy,全社会用电量同比,%,6.9,能源局
+18,new_energy_grid_connection,新能源新增并网容量,万千瓦,7500+ (1-5月),能源局
