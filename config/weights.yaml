@@ -1,0 +1,23 @@
+# Mid-term configuration weights (MVP default)
+modules:
+  china_demand: 0.30
+  inventory: 0.25
+  macro_liquidity: 0.20
+  global_cycle: 0.10
+  supply: 0.10
+  trend: 0.05
+
+direction_thresholds:
+  strong_bullish: 0.50
+  bullish: 0.20
+  bearish: -0.20
+  strong_bearish: -0.50
+
+module_active_threshold: 0.20
+
+confidence:
+  data_quality_weights:
+    source: 0.4
+    freshness: 0.3
+    cross_check: 0.2
+    completeness: 0.1

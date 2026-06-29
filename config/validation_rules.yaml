@@ -1,0 +1,64 @@
+required_columns:
+  - date
+  - indicator
+  - value
+  - unit
+  - source
+  - source_url
+  - updated_at
+  - frequency
+  - confidence
+
+# confidence levels: A=1.0, B=0.8, C=0.6, D=0.4
+source_confidence_map:
+  A: 1.0
+  B: 0.8
+  C: 0.6
+  D: 0.4
+
+# Anomaly rules: indicator pattern → threshold
+anomaly_rules:
+  - indicator: lme_copper_price
+    rule: daily_pct_change
+    threshold: 0.08
+    message: "LME copper daily change > 8%"
+  - indicator: lme_inventory
+    rule: daily_pct_change
+    threshold: 0.20
+    message: "LME inventory daily change > 20%"
+  - indicator: dxy
+    rule: daily_pct_change
+    threshold: 0.03
+    message: "DXY daily change > 3%"
+  - indicator: china_pmi
+    rule: range
+    min: 35
+    max: 65
+    message: "PMI outside 35-65 range"
+  - indicator: china_new_orders_pmi
+    rule: range
+    min: 35
+    max: 65
+    message: "New orders PMI outside 35-65 range"
+  - indicator: global_manufacturing_pmi
+    rule: range
+    min: 35
+    max: 65
+    message: "Global PMI outside 35-65 range"
+  - indicator: us_ism_manufacturing
+    rule: range
+    min: 35
+    max: 65
+    message: "ISM outside 35-65 range"
+
+# Reject negative values for these indicators
+non_negative:
+  - lme_copper_price
+  - lme_inventory
+  - shfe_inventory
+  - comex_inventory
+
+term_structure_values:
+  - backwardation
+  - contango
+  - flat

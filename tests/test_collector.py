@@ -1,0 +1,34 @@
+"""Tests for collector merge logic."""
+
+from datetime import date, datetime
+
+from copper_forecast.collector import merge_records
+from copper_forecast.fetchers import FetchedRecord
+
+
+def _rec(indicator: str, day: str, value: float) -> FetchedRecord:
+    return FetchedRecord(
+        date=date.fromisoformat(day),
+        indicator=indicator,
+        value=value,
+        unit="index",
+        source="test",
+        source_url="",
+        frequency="daily",
+        confidence="A",
+    )
+
+
+def test_merge_overwrites_same_key():
+    old = [_rec("dxy", "2026-06-01", 100.0)]
+    new = [_rec("dxy", "2026-06-01", 101.0)]
+    merged = merge_records(old, new)
+    assert len(merged) == 1
+    assert merged[0].value == 101.0
+
+
+def test_merge_keeps_distinct_series():
+    a = [_rec("dxy", "2026-06-01", 100.0)]
+    b = [_rec("china_pmi", "2026-05-28", 50.0)]
+    merged = merge_records(a, b)
+    assert len(merged) == 2

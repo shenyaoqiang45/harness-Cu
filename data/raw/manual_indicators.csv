@@ -1,0 +1,4 @@
+date,indicator,value,unit,source,source_url,updated_at,frequency,confidence,note
+2026-05-01,us_ism_manufacturing,48.5,index,ISM,https://www.ismworld.org/,2026-06-01T09:00:00,monthly,A,manual monthly release
+2026-05-01,global_manufacturing_pmi,50.2,index,S&P Global,https://www.pmi.spglobal.com/,2026-06-01T09:00:00,monthly,B,manual monthly release
+2026-05-01,tc_rc,82.5,USD/ton,Benchmark Mineral Intelligence,https://example.com/tcrc,2026-06-15T09:00:00,monthly,B,manual semi-annual TC/RC benchmark

@@ -1,0 +1,27 @@
+{
+  "timestamp": "2026-06-29T14:07:20.459661",
+  "record_count": 1521,
+  "warnings": [
+    "fred:us_10y_real_rate: loaded via public CSV (set FRED_API_KEY for API)"
+  ],
+  "errors": [
+    "yahoo:lme_copper_price: no data for HG=F"
+  ],
+  "indicators": [
+    "china_new_orders_pmi",
+    "china_pmi",
+    "dxy",
+    "global_manufacturing_pmi",
+    "grid_investment",
+    "korea_exports_yoy",
+    "lme_inventory",
+    "m1",
+    "shfe_inventory",
+    "social_financing",
+    "spot_premium",
+    "tc_rc",
+    "term_structure",
+    "us_10y_real_rate",
+    "us_ism_manufacturing"
+  ]
+}

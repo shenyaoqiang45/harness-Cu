@@ -1,0 +1,18 @@
+[
+  {
+    "timestamp": "2026-06-29T14:55:12.434275",
+    "severity": "pending",
+    "indicator": "lme_copper_price",
+    "date": "2025-07-08",
+    "line": 390,
+    "reason": "LME copper daily change > 8%"
+  },
+  {
+    "timestamp": "2026-06-29T14:55:12.434275",
+    "severity": "pending",
+    "indicator": "lme_copper_price",
+    "date": "2025-07-31",
+    "line": 407,
+    "reason": "LME copper daily change > 8%"
+  }
+]

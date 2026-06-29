@@ -1,0 +1,70 @@
+# Indicator → module mapping and metadata
+modules:
+  trend:
+    indicators:
+      - lme_copper_price
+  inventory:
+    indicators:
+      - lme_inventory
+      - shfe_inventory
+      - comex_inventory
+      - spot_premium
+      - term_structure
+  china_demand:
+    indicators:
+      - china_pmi
+      - china_new_orders_pmi
+      - social_financing
+      - m1
+      - grid_investment
+  macro_liquidity:
+    indicators:
+      - dxy
+      - us_10y_real_rate
+  global_cycle:
+    indicators:
+      - us_ism_manufacturing
+      - global_manufacturing_pmi
+      - korea_exports_yoy
+  supply:
+    indicators:
+      - tc_rc
+    events_file: data/raw/supply_events.csv
+
+units:
+  lme_copper_price: USD/ton
+  lme_inventory: ton
+  shfe_inventory: ton
+  comex_inventory: ton
+  spot_premium: USD/ton
+  term_structure: label
+  china_pmi: index
+  china_new_orders_pmi: index
+  social_financing: CNY_bn
+  m1: CNY_bn
+  grid_investment: CNY_bn_yoy_pct
+  dxy: index
+  us_10y_real_rate: pct
+  us_ism_manufacturing: index
+  global_manufacturing_pmi: index
+  korea_exports_yoy: pct
+  tc_rc: USD/ton
+
+frequencies:
+  lme_copper_price: daily
+  lme_inventory: daily
+  shfe_inventory: daily
+  comex_inventory: daily
+  spot_premium: daily
+  term_structure: daily
+  china_pmi: monthly
+  china_new_orders_pmi: monthly
+  social_financing: monthly
+  m1: monthly
+  grid_investment: monthly
+  dxy: daily
+  us_10y_real_rate: daily
+  us_ism_manufacturing: monthly
+  global_manufacturing_pmi: monthly
+  korea_exports_yoy: monthly
+  tc_rc: monthly
