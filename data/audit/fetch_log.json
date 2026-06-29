@@ -1,13 +1,17 @@
 {
-  "timestamp": "2026-06-29T16:01:25.879233",
-  "record_count": 1805,
+  "timestamp": "2026-06-29T17:30:28.497990",
+  "record_count": 2095,
   "warnings": [
     "fred:us_10y_real_rate: loaded via public CSV (set FRED_API_KEY for API)"
   ],
-  "errors": [],
+  "errors": [
+    "akshare:grid_investment: HTTPSConnectionPool(host='datacenter-web.eastmoney.com', port=443): Max retries exceeded with url: /api/data/v1/get?columns=REPORT_DATE%2CTIME%2CBASE%2CBASE_SAME%2CBASE_SEQUENTIAL%2CBASE_ACCUMULATE&pageNumber=1&pageSize=2000&sortColumns=REPORT_DATE&sortTypes=-1&source=WEB&client=WEB&reportName=RPT_ECONOMY_ASSET_INVEST&p=1&pageNo=1&pageNum=1 (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1006)')))",
+    "cme:comex_inventory: 403 Client Error: Forbidden for url: https://www.cmegroup.com/delivery_reports/Copper_Stocks.xls"
+  ],
   "indicators": [
     "china_new_orders_pmi",
     "china_pmi",
+    "comex_inventory",
     "copper_rod_operating_rate",
     "dxy",
     "global_manufacturing_pmi",
@@ -26,6 +30,7 @@
     "social_financing",
     "spot_premium",
     "tc_rc",
+    "tc_rc_spot",
     "term_structure",
     "transformer_tender_value",
     "uhv_approved_projects",

@@ -38,11 +38,12 @@ modules:
       - korea_exports_yoy
   supply:
     indicators:
-      - tc_rc
+      - tc_rc_spot
     events_file: data/raw/supply_events.csv
 
 units:
   lme_copper_price: USD/ton
+  # Inventory: all stored as metric ton (公吨); SHFE 吨 ≡ 公吨; COMEX official short ton converted on ingest
   lme_inventory: ton
   shfe_inventory: ton
   comex_inventory: ton
@@ -68,7 +69,7 @@ units:
   us_ism_manufacturing: index
   global_manufacturing_pmi: index
   korea_exports_yoy: pct
-  tc_rc: USD/ton
+  tc_rc_spot: USD/ton
 
 frequencies:
   lme_copper_price: daily
@@ -82,8 +83,8 @@ frequencies:
   social_financing: monthly
   m1: monthly
   grid_investment: monthly
-  grid_investment_amount: quarterly
-  grid_investment_monthly_amount: quarterly
+  grid_investment_amount: monthly
+  grid_investment_monthly_amount: monthly
   grid_project_new_starts: annual_plan
   uhv_approved_projects: semiannual
   grid_tender_value: batch
@@ -97,4 +98,4 @@ frequencies:
   us_ism_manufacturing: monthly
   global_manufacturing_pmi: monthly
   korea_exports_yoy: monthly
-  tc_rc: monthly
+  tc_rc_spot: monthly

@@ -51,8 +51,9 @@ sources:
         unit: ton
         frequency: daily
         source: 东方财富-LME
-        source_url: https://data.eastmoney.com/pmetal/lme.html
+        source_url: https://www.lme.com/Market-data/Reports-and-data/Warehouse-and-stock-reports
         confidence: A
+        note: "LME copper warehouse stocks (metric ton); Eastmoney mirror of LME official daily report"
 
   akshare:
     enabled: true
@@ -75,8 +76,9 @@ sources:
         unit: ton
         frequency: daily
         source: 东方财富-SHFE
-        source_url: https://data.eastmoney.com/ifdata/kcsj.html
+        source_url: https://www.shfe.com.cn/reports/businessdata/prmsummary/
         confidence: A
+        note: "SHFE copper warehouse receipt / inventory daily (ton); Eastmoney mirror of SHFE official"
       social_financing:
         func: macro_china_new_financial_credit
         date_col: 月份
@@ -116,6 +118,17 @@ sources:
         source_url: https://fred.stlouisfed.org/series/XTEXVA01KRM667S
         confidence: B
 
+  cme:
+    enabled: true
+    indicators:
+      comex_inventory:
+        unit: ton
+        frequency: daily
+        source: CME Group
+        source_url: https://www.cmegroup.com/delivery_reports/Copper_Stocks.xls
+        confidence: A
+        note: "COMEX high-grade copper warehouse stocks; official report in short tons, stored as metric ton (×0.90718474)"
+
   derived:
     enabled: true
     indicators:
@@ -146,6 +159,5 @@ manual:
   description: "Monthly/daily overrides for series blocked by network or licensing"
 
 optional:
-  - comex_inventory
-  - tc_rc
+  - tc_rc_spot
   - us_ism_manufacturing

@@ -24,17 +24,33 @@ python -m copper_forecast.cli run
 | LME 铜价（COMEX 代理） | Yahoo `HG=F` |
 | DXY | Yahoo `DX-Y.NYB` |
 | 美国 10Y 实际利率 | FRED `DFII10`（可用 `FRED_API_KEY`） |
-| LME 库存 | akshare / 东方财富 |
-| SHFE 库存 | akshare `futures_inventory_em` |
 | 中国 PMI / 社融 / M1 | 东方财富 / akshare |
 | 电网投资 | 东方财富固定资产投资代理；优先用人工录入的中电联/能源局/国网电网工程投资同比覆盖 |
 | 韩国出口同比 | FRED 出口额衍生 |
 | 现货升贴水 / 期限结构 | SHFE vs COMEX 衍生 |
-| ISM / 全球 PMI / TC/RC | `data/raw/manual_indicators.csv` 人工维护 |
+| ISM / 全球 PMI / TC/RC 现货 | `data/raw/manual_indicators.csv` 人工维护 |
+
+### 交易所铜库存（库存现货模块）
+
+项目内统一单位为 **公吨**（`ton`）；SHFE 官方「吨」与公吨等价入库。
+
+| 指标 | 交易所 | 数据类型 | 官方来源 | 自动抓取 | 优先覆盖 |
+|------|--------|----------|----------|----------|----------|
+| `lme_inventory` | 伦敦 LME | 铜库存（公吨） | [LME](https://www.lme.com) | 东方财富 / akshare 日更 | `metal_inventory_monitor.csv` → `import_metal_inventory_monitor.py` |
+| `shfe_inventory` | 上海 SHFE | 铜仓单日报（吨） | [SHFE](https://www.shfe.com.cn) | akshare `futures_inventory_em` 日更 | 同上 |
+| `comex_inventory` | 纽约 COMEX | 铜库存（官方短吨 → 入库公吨） | [CME Group](https://www.cmegroup.com) | `Copper_Stocks.xls`（需 User-Agent；易 403） | 同上 |
+
+近期三所库存建议用 `data/raw/metal_inventory_monitor.csv` 整合（已对齐 LME/SHFE/COMEX 口径）：
+
+```bash
+python scripts/import_metal_inventory_monitor.py --run
+```
+
+`--run` 会写入 `manual_indicators.csv`、执行 `fetch`、剔除监控起始日之前的旧库存行，并更新 `reports/live.md`。东方财富自动源在部分时段与监控表量级不一致，监控表日期范围内以人工合并结果为准。
 
 复制 `.env.example` 为 `.env` 并填入 `FRED_API_KEY`（可选）。
 
-未覆盖：`comex_inventory`（东方财富仅金银库存）、`tc_rc`（需人工录入）。
+`tc_rc_spot`：Argus CIF Asia 现货 TC（USD/ton），月频人工录入；供应模块环比用绝对值变化 `Δ = new - old`（下降 = 精矿更紧 = 看多）。`tc_rc` 行可保留年度谈判基准作参考，不参与打分。
 
 电网投资自动源当前为宽口径固定资产投资代理，置信度为 C。拿到真实电网工程投资完成额同比后，可在 `data/raw/manual_indicators.csv` 添加同月 `grid_investment` 记录；月频数据按指标+月份合并，人工记录会覆盖同月代理值。
 

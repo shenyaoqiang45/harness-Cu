@@ -211,3 +211,33 @@ def test_china_demand_prefers_authoritative_grid_over_newer_proxy():
 
     assert grid_signal.score == 1.0
     assert "+43.3%" in grid_signal.description
+
+
+def test_tc_rc_spot_uses_absolute_change_for_negative_levels():
+    from copper_forecast.indicators import score_supply
+
+    def _spot_row(d: date, value: float) -> DataRow:
+        return DataRow(
+            date=d,
+            indicator="tc_rc_spot",
+            value=value,
+            unit="USD/ton",
+            source="Argus",
+            source_url="https://www.argusmedia.com/",
+            updated_at=datetime.combine(d, datetime.min.time()),
+            frequency="monthly",
+            confidence="B",
+            status="confirmed",
+        )
+
+    rows = [
+        _spot_row(date(2026, 4, 1), -100.0),
+        _spot_row(date(2026, 5, 1), -119.3),
+        _spot_row(date(2026, 6, 1), -126.8),
+    ]
+    grouped = {"tc_rc_spot": rows}
+    result = score_supply(grouped, events_path=None)
+
+    change_signal = next(s for s in result.signals if s.name == "tc_rc_spot_change")
+    assert change_signal.score == 1.0
+    assert "Δ -7.5 USD/ton" in change_signal.description

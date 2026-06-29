@@ -1,0 +1,67 @@
+﻿# 电网行业指标监控数据导出
+# 导出时间: 2026-06-29T08:39:41.481Z
+# =========================
+
+# 指标定义:
+# id,name,name_en,unit,frequency,category,sources,data_type,is_automated
+# grid_investment,电网工程投资完成额累计同比,Grid Investment YoY,%,月度,电网投资,"中电联;国家能源局;国家统计局",percentage,true
+# grid_investment_amount,电网工程投资完成额累计值,Grid Investment Amount,亿元,月度,电网投资,"中电联;国家能源局",amount,true
+# grid_investment_monthly_amount,电网工程投资完成额当月值,Grid Monthly Investment,亿元,月度,电网投资,"中电联;国家能源局",amount,true
+# distribution_grid_investment,配电网投资额/同比,Distribution Grid Investment,亿元/%,季度,电网投资,"国网;南网;地方电网",amount,false
+# rural_grid_investment,农网/县域电网改造投资额,Rural Grid Investment,亿元,季度,电网投资,"能源局;国网",amount,false
+# grid_project_new_starts,电网重大项目新开工数量/金额,New Grid Projects,个/亿元,事件/月度,项目建设,"国网;南网;发改委;能源局",count,false
+# uhv_approved_projects,特高压项目核准数量/金额/线路长度,UHV Approved Projects,个/亿元/km,事件/月度,项目建设,"发改委;能源局;国网",count,false
+# uhv_line_length,特高压在建/核准线路长度,UHV Line Length,km,月度/事件,项目建设,"国网;能源局",length,false
+# substation_capacity_added,新增变电容量,New Substation Capacity,万千伏安,月度/季度,项目建设,"中电联;国网;南网",capacity,true
+# grid_tender_value,国网/南网设备招标金额,Grid Tender Value,亿元,批次/月度,设备招标,"国家电网电子商务平台;南方电网供应链平台",amount,true
+# cable_tender_value,电线电缆类招标金额,Cable Tender Value,亿元,批次/月度,设备招标,"国网/南网招标公告",amount,true
+# transformer_tender_value,变压器类招标金额,Transformer Tender Value,亿元,批次/月度,设备招标,"国网/南网招标公告",amount,true
+# wire_cable_output_yoy,电线电缆产量同比,Wire & Cable Output YoY,%,月度,产业产出,"国家统计局;产业在线",percentage,true
+# transformer_output_yoy,变压器产量同比,Transformer Output YoY,%,月度,产业产出,"国家统计局",percentage,true
+# copper_rod_operating_rate,精铜杆/再生铜杆开工率,Copper Rod Operating Rate,%,周度/月度,产业产出,"SMM;Mysteel;百川",percentage,true
+# power_consumption_yoy,全社会用电量同比,Power Consumption YoY,%,月度,电力消费,"国家能源局;中电联",percentage,true
+# secondary_power_consumption_yoy,第二产业用电量同比,Secondary Industry Power Consumption YoY,%,月度,电力消费,"国家能源局;中电联",percentage,true
+# new_energy_grid_connection,新能源新增并网容量,New Energy Grid Connection,GW,月度,新能源并网,"能源局;中电联",capacity,true
+
+# 数据记录:
+date,indicator_id,indicator_name,value,unit,source,source_url,updated_at,frequency,confidence,note,is_manual
+2026-01-01,grid_investment,"电网工程投资完成额累计同比",5.3,%,国家能源局,,2026-01-15T09:00:00,月度,A,"",false
+2026-02-01,grid_investment,"电网工程投资完成额累计同比",6.1,%,国家能源局,,2026-02-15T09:00:00,月度,A,"",false
+2026-03-01,grid_investment,"电网工程投资完成额累计同比",6.6,%,国家能源局,,2026-03-15T09:00:00,月度,A,"",false
+2026-04-01,grid_investment,"电网工程投资完成额累计同比",5.5,%,国家能源局,,2026-04-15T09:00:00,月度,A,"",false
+2026-05-01,grid_investment,"电网工程投资完成额累计同比",5.2,%,国家能源局,,2026-05-15T09:00:00,月度,A,"",false
+2026-01-01,grid_investment_amount,"电网工程投资完成额累计值",189,亿元,国家能源局,,2026-01-15T09:00:00,月度,A,"",false
+2026-02-01,grid_investment_amount,"电网工程投资完成额累计值",381,亿元,国家能源局,,2026-02-15T09:00:00,月度,A,"",false
+2026-03-01,grid_investment_amount,"电网工程投资完成额累计值",592,亿元,国家能源局,,2026-03-15T09:00:00,月度,A,"",false
+2026-04-01,grid_investment_amount,"电网工程投资完成额累计值",757,亿元,国家能源局,,2026-04-15T09:00:00,月度,A,"",false
+2026-05-01,grid_investment_amount,"电网工程投资完成额累计值",922,亿元,国家能源局,,2026-05-15T09:00:00,月度,A,"",false
+2026-01-01,power_consumption_yoy,"全社会用电量同比",5.9,%,国家能源局,,2026-01-20T09:00:00,月度,A,"",false
+2026-02-01,power_consumption_yoy,"全社会用电量同比",4.8,%,国家能源局,,2026-02-20T09:00:00,月度,A,"",false
+2026-03-01,power_consumption_yoy,"全社会用电量同比",5.6,%,国家能源局,,2026-03-20T09:00:00,月度,A,"",false
+2026-04-01,power_consumption_yoy,"全社会用电量同比",4.5,%,国家能源局,,2026-04-20T09:00:00,月度,A,"",false
+2026-05-01,power_consumption_yoy,"全社会用电量同比",6.2,%,国家能源局,,2026-05-20T09:00:00,月度,A,"",false
+2026-01-01,secondary_power_consumption_yoy,"第二产业用电量同比",4.8,%,国家能源局,,2026-01-20T09:00:00,月度,A,"",false
+2026-02-01,secondary_power_consumption_yoy,"第二产业用电量同比",4.6,%,国家能源局,,2026-02-20T09:00:00,月度,A,"",false
+2026-03-01,secondary_power_consumption_yoy,"第二产业用电量同比",5.1,%,国家能源局,,2026-03-20T09:00:00,月度,A,"",false
+2026-04-01,secondary_power_consumption_yoy,"第二产业用电量同比",5.1,%,国家能源局,,2026-04-20T09:00:00,月度,A,"",false
+2026-05-01,secondary_power_consumption_yoy,"第二产业用电量同比",5.4,%,国家能源局,,2026-05-20T09:00:00,月度,A,"",false
+2026-01-01,wire_cable_output_yoy,"电线电缆产量同比",5.5,%,国家统计局,,2026-01-18T09:00:00,月度,B,"",false
+2026-02-01,wire_cable_output_yoy,"电线电缆产量同比",4.3,%,国家统计局,,2026-02-18T09:00:00,月度,B,"",false
+2026-03-01,wire_cable_output_yoy,"电线电缆产量同比",3.3,%,国家统计局,,2026-03-18T09:00:00,月度,B,"",false
+2026-04-01,wire_cable_output_yoy,"电线电缆产量同比",8.7,%,国家统计局,,2026-04-18T09:00:00,月度,B,"",false
+2026-05-01,wire_cable_output_yoy,"电线电缆产量同比",5,%,国家统计局,,2026-05-18T09:00:00,月度,B,"",false
+2026-01-01,transformer_output_yoy,"变压器产量同比",4.6,%,国家统计局,,2026-01-18T09:00:00,月度,B,"",false
+2026-02-01,transformer_output_yoy,"变压器产量同比",5.6,%,国家统计局,,2026-02-18T09:00:00,月度,B,"",false
+2026-03-01,transformer_output_yoy,"变压器产量同比",8,%,国家统计局,,2026-03-18T09:00:00,月度,B,"",false
+2026-04-01,transformer_output_yoy,"变压器产量同比",3.8,%,国家统计局,,2026-04-18T09:00:00,月度,B,"",false
+2026-05-01,transformer_output_yoy,"变压器产量同比",6.2,%,国家统计局,,2026-05-18T09:00:00,月度,B,"",false
+2026-01-01,new_energy_grid_connection,"新能源新增并网容量",17,GW,国家能源局,,2026-01-25T09:00:00,月度,A,"",false
+2026-02-01,new_energy_grid_connection,"新能源新增并网容量",26.7,GW,国家能源局,,2026-02-25T09:00:00,月度,A,"",false
+2026-03-01,new_energy_grid_connection,"新能源新增并网容量",13.8,GW,国家能源局,,2026-03-25T09:00:00,月度,A,"",false
+2026-04-01,new_energy_grid_connection,"新能源新增并网容量",18.4,GW,国家能源局,,2026-04-25T09:00:00,月度,A,"",false
+2026-05-01,new_energy_grid_connection,"新能源新增并网容量",25.5,GW,国家能源局,,2026-05-25T09:00:00,月度,A,"",false
+2026-01-01,copper_rod_operating_rate,"精铜杆/再生铜杆开工率",25.1,%,SMM,,2026-01-28T09:00:00,周度/月度,B,"",true
+2026-02-01,copper_rod_operating_rate,"精铜杆/再生铜杆开工率",22.2,%,SMM,,2026-02-28T09:00:00,周度/月度,B,"",true
+2026-03-01,copper_rod_operating_rate,"精铜杆/再生铜杆开工率",14.1,%,SMM,,2026-03-28T09:00:00,周度/月度,B,"",true
+2026-04-01,copper_rod_operating_rate,"精铜杆/再生铜杆开工率",21.4,%,SMM,,2026-04-28T09:00:00,周度/月度,B,"",true
+2026-05-01,copper_rod_operating_rate,"精铜杆/再生铜杆开工率",23.2,%,SMM,,2026-05-28T09:00:00,周度/月度,B,"",true

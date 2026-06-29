@@ -13,6 +13,7 @@ import yaml
 from copper_forecast.data_loader import REQUIRED_COLUMNS, DataRow
 from copper_forecast.fetchers import FetchedRecord, FetchResult
 from copper_forecast.fetchers.akshare_src import fetch_akshare
+from copper_forecast.fetchers.comex import fetch_comex
 from copper_forecast.fetchers.derived import fetch_derived
 from copper_forecast.fetchers.eastmoney import fetch_eastmoney
 from copper_forecast.fetchers.fred import fetch_fred
@@ -65,6 +66,8 @@ def collect_all(config_dir: Path, project_root: Path) -> FetchResult:
         merged.extend(fetch_eastmoney(sources["eastmoney"]["indicators"], lookback))
     if sources.get("akshare", {}).get("enabled", True):
         merged.extend(fetch_akshare(sources["akshare"]["indicators"], lookback))
+    if sources.get("cme", {}).get("enabled", True):
+        merged.extend(fetch_comex(sources["cme"]["indicators"], lookback))
 
     if sources.get("derived", {}).get("enabled", True):
         merged.extend(

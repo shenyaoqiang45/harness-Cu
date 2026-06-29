@@ -74,10 +74,60 @@ def _pct_change(series: list[DataRow], days: int) -> float | None:
     return (new - old) / old
 
 
+def _abs_change(series: list[DataRow], periods: int) -> float | None:
+    nums = [r.numeric_value for r in series if r.numeric_value is not None]
+    if len(nums) <= periods:
+        return None
+    old, new = nums[-1 - periods], nums[-1]
+    return new - old
+
+
 def _avg_signals(signals: list[SignalDetail]) -> float:
     if not signals:
         return 0.0
     return sum(s.score for s in signals) / len(signals)
+
+
+def _value_on_or_before(observations: list[tuple[date, float]], target: date) -> float | None:
+    last: float | None = None
+    for d, v in observations:
+        if d > target:
+            break
+        last = v
+    return last
+
+
+def _global_inventory_series(
+    grouped: dict[str, list[DataRow]],
+    inv_keys: list[str],
+) -> list[tuple[date, float]]:
+    """Sum exchange inventories by date; forward-fill each venue to align stale prints."""
+    per_exchange: dict[str, list[tuple[date, float]]] = {}
+    all_dates: set[date] = set()
+    for key in inv_keys:
+        series = grouped.get(key, [])
+        obs = sorted(
+            (r.date, r.numeric_value) for r in series if r.numeric_value is not None
+        )
+        if obs:
+            per_exchange[key] = obs
+            all_dates.update(d for d, _ in obs)
+
+    if not per_exchange:
+        return []
+
+    totals: list[tuple[date, float]] = []
+    for d in sorted(all_dates):
+        total = 0.0
+        contributors = 0
+        for obs in per_exchange.values():
+            v = _value_on_or_before(obs, d)
+            if v is not None:
+                total += v
+                contributors += 1
+        if contributors:
+            totals.append((d, total))
+    return totals
 
 
 def _percentile_rank(series: list[DataRow], lookback: int = 756) -> float | None:
@@ -139,20 +189,13 @@ def score_inventory(grouped: dict[str, list[DataRow]]) -> ModuleScore:
     gaps: list[str] = []
 
     inv_keys = ["lme_inventory", "shfe_inventory", "comex_inventory"]
-    global_series: list[tuple[date, float]] = []
-
-    by_date: dict[date, float] = {}
+    gaps: list[str] = []
     for key in inv_keys:
-        series = grouped.get(key, [])
-        if not series:
+        if not grouped.get(key):
             gaps.append(f"{key} missing")
-            continue
-        for row in series:
-            if row.numeric_value is not None:
-                by_date[row.date] = by_date.get(row.date, 0.0) + row.numeric_value
 
-    if by_date:
-        global_series = sorted(by_date.items())
+    global_series = _global_inventory_series(grouped, inv_keys)
+    if global_series:
         global_rows = [
             DataRow(
                 d,
@@ -414,26 +457,30 @@ def score_supply(
     signals: list[SignalDetail] = []
     gaps: list[str] = []
 
-    tc_series = grouped.get("tc_rc", [])
+    tc_series = grouped.get("tc_rc_spot", [])
     if tc_series:
-        chg = _pct_change(tc_series, 1)
+        delta = _abs_change(tc_series, 1)
         pct = _percentile_rank(tc_series, lookback=36)
-        if chg is not None:
-            # Falling TC/RC = tighter concentrate market = bullish
-            score = 1.0 if chg < 0 else -1.0
+        if delta is not None:
+            # Falling spot TC (USD/ton) = tighter concentrate = bullish
+            score = 1.0 if delta < 0 else -1.0
             signals.append(
-                SignalDetail("tc_rc_change", score, f"TC/RC mom change {chg:+.2%}")
+                SignalDetail(
+                    "tc_rc_spot_change",
+                    score,
+                    f"TC/RC spot mom Δ {delta:+.1f} USD/ton",
+                )
             )
         if pct is not None and pct <= 0.25:
             signals.append(
                 SignalDetail(
-                    "tc_rc_low",
+                    "tc_rc_spot_low",
                     1.0,
-                    f"TC/RC at {pct:.0%} historical percentile (low)",
+                    f"TC/RC spot at {pct:.0%} historical percentile (low)",
                 )
             )
     else:
-        gaps.append("tc_rc missing")
+        gaps.append("tc_rc_spot missing")
 
     if events_path:
         from pathlib import Path
