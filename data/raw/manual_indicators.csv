@@ -306,6 +306,8 @@ date,indicator,value,unit,source,source_url,updated_at,frequency,confidence,note
 2026-06-01,tc_rc_spot,-126.8,USD/ton,Argus,https://www.argusmedia.com/,2026-06-28T00:00:00,monthly,B,Spot TC CIF Asia late June 2026
 2026-06-29,transformer_tender_value,40,CNY_100m,国家电网,,2026-06-29T16:00:00,batch,C,变压器类招标金额约40亿元; from data/raw/grid_indicators_2026.csv
 2026-06-30,uhv_approved_projects,400,CNY_100m,发改委,,2026-06-29T16:00:00,semiannual,B,特高压项目核准金额上半年下限; source value >400; from data/raw/grid_indicators_2026.csv
+2026-05-01,china_new_orders_pmi,49.9,index,国家统计局,https://www.stats.gov.cn/,2026-06-30T09:32:00,monthly,A,NBS manufacturing new orders sub-index May 2026
+2026-06-01,china_new_orders_pmi,51.2,index,国家统计局,https://www.stats.gov.cn/,2026-06-30T09:32:00,monthly,A,NBS manufacturing new orders sub-index June 2026
 2026-05-01,us_ism_manufacturing,54.0,index,ISM,https://www.ismworld.org/,2026-06-01T10:00:00,monthly,A,May 2026 official release (was 48.5 erroneous)
 2026-01-01,wire_cable_output_yoy,5.5,pct,国家统计局,,2026-01-18T09:00:00,monthly,B,from 电网指标监控数据_2026-06-29.csv
 2026-02-01,wire_cable_output_yoy,4.3,pct,国家统计局,,2026-02-18T09:00:00,monthly,B,from 电网指标监控数据_2026-06-29.csv

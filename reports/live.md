@@ -1,6 +1,6 @@
 # 伦敦铜走势判断报告
 
-生成日期：2026-06-30 10:29
+生成日期：2026-06-30 14:17
 数据截止：2026-06-30
 
 ## 结论
@@ -33,15 +33,15 @@
 
 ## 主要支撑
 
-1. [trend] Price 13569 > MA120 (13184)
-2. [trend] 60d return +9.44%
+1. [trend] Price 13618 > MA120 (13186)
+2. [trend] 60d return +11.04%
 3. [supply] confirmed strike at major mine (source: official_news)
 
 ## 主要压制
 
-1. [trend] Price 13569 <= MA60 (13605)
-2. [trend] Price 13569 <= MA20 (13959)
-3. [trend] 20d return -3.22%
+1. [trend] Price 13618 <= MA60 (13626)
+2. [trend] Price 13618 <= MA20 (13914)
+3. [trend] 20d return -5.32%
 
 ## 风险提示
 
@@ -64,7 +64,7 @@
 
 - [+1] China PMI 50.3
 - [+1] China PMI mom +0.3
-- [+1] New orders PMI 51.8
+- [+1] New orders PMI 51.2
 - [+1] Social financing / M1 improving
 - [+1] Grid investment YoY +5.2% (国家能源局)
 
@@ -73,13 +73,13 @@
 - [-1] Global inventory 20d change +0.62%
 - [+1] Global inventory 60d change -2.79%
 - [-1] Global inventory at 76% 3y percentile (high)
-- [+1] Spot premium +1640.7 (contango/premium)
+- [+1] Spot premium +1779.2 (contango/premium)
 - [+1] Term structure: backwardation
 
 ### 美元利率
 
-- [-1] DXY 20d change +2.41%
-- [-1] DXY 60d change +1.65%
+- [-1] DXY 20d change +2.23%
+- [-1] DXY 60d change +1.38%
 - [-1] US 10Y real rate 20d change +5.83%
 - [-1] US 10Y real rate 60d change +7.92%
 
@@ -99,11 +99,11 @@
 
 ### 价格趋势
 
-- [-1] Price 13569 <= MA20 (13959)
-- [-1] Price 13569 <= MA60 (13605)
-- [+1] Price 13569 > MA120 (13184)
-- [-1] 20d return -3.22%
-- [+1] 60d return +9.44%
+- [-1] Price 13618 <= MA20 (13914)
+- [-1] Price 13618 <= MA60 (13626)
+- [+1] Price 13618 > MA120 (13186)
+- [-1] 20d return -5.32%
+- [+1] 60d return +11.04%
 
 ---
 *本报告由 copper-forecast MVP 生成，仅供研究参考，不构成投资建议。*

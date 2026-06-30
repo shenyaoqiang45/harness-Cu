@@ -67,7 +67,7 @@ sources:
         source: 财新网
         source_url: https://www.caixin.com/
         confidence: C
-        note: "Caixin manufacturing PMI as new-orders proxy until NBS sub-index is wired"
+        note: "Historical fallback; recent months overridden by NBS new-orders sub-index in manual_indicators.csv"
       shfe_inventory:
         func: futures_inventory_em
         kwargs: { symbol: "沪铜" }
