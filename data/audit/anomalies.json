@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "timestamp": "2026-06-30T10:29:32.492891",
+    "severity": "pending",
+    "indicator": "lme_inventory",
+    "date": "2026-04-01",
+    "line": 951,
+    "reason": "LME inventory daily change > 20%"
+  }
+]
