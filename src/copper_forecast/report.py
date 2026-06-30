@@ -2,10 +2,14 @@
 
 from __future__ import annotations
 
+from datetime import datetime
 from pathlib import Path
 
 from copper_forecast.scoring import ForecastResult
 from copper_forecast.validator import ValidationIssue, ValidationResult
+
+DEFAULT_REPORT_STEM = "live.md"
+RUNS_SUBDIR = "runs"
 
 MODULE_LABELS = {
     "china_demand": "中国需求",
@@ -127,6 +131,16 @@ def render_report(
     lines.append("---")
     lines.append("*本报告由 copper-forecast MVP 生成，仅供研究参考，不构成投资建议。*")
     return "\n".join(lines)
+
+
+def timestamped_report_path(
+    reports_dir: Path,
+    when: datetime | None = None,
+) -> Path:
+    """Return a non-destructive report path under reports/runs/."""
+    when = when or datetime.now()
+    stamp = when.strftime("%Y-%m-%d_%H%M%S")
+    return reports_dir / RUNS_SUBDIR / f"live_{stamp}.md"
 
 
 def write_report(path: Path, content: str) -> None:

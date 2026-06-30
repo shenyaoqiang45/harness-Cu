@@ -65,7 +65,7 @@ def main() -> None:
     parser.add_argument(
         "--run",
         action="store_true",
-        help="After import: fetch live data and regenerate reports/live.md",
+        help="After import: fetch live data and regenerate timestamped report",
     )
     parser.add_argument(
         "--source",

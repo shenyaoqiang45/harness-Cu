@@ -13,13 +13,17 @@ from dotenv import load_dotenv
 from copper_forecast.collector import run_fetch
 from copper_forecast.data_loader import load_csv, write_csv
 from copper_forecast.indicators import compute_all_module_scores
-from copper_forecast.report import render_report, write_report
+from copper_forecast.report import render_report, timestamped_report_path, write_report
 from copper_forecast.scoring import compute_forecast
 from copper_forecast.validator import ValidationResult, validate_rows
 
 
 def _project_root() -> Path:
     return Path(__file__).resolve().parents[2]
+
+
+def _default_report_path(root: Path) -> Path:
+    return timestamped_report_path(root / "reports")
 
 
 def _write_audit_log(path: Path, validation: ValidationResult) -> None:
@@ -94,7 +98,9 @@ def cmd_report(args: argparse.Namespace) -> int:
     if not args.input.exists():
         print(f"Input file not found: {args.input}", file=sys.stderr)
         return 1
-    return run_pipeline(args.input, args.output, args.config)
+    root = _project_root()
+    output = args.output or _default_report_path(root)
+    return run_pipeline(args.input, output, args.config)
 
 
 def cmd_run(args: argparse.Namespace) -> int:
@@ -109,7 +115,7 @@ def cmd_run(args: argparse.Namespace) -> int:
         return code
     report_args = argparse.Namespace(
         input=root / "data" / "raw" / "live.csv",
-        output=args.output,
+        output=args.output or _default_report_path(root),
         config=args.config,
     )
     return cmd_report(report_args)
@@ -153,7 +159,8 @@ def main(argv: list[str] | None = None) -> int:
         "--output",
         "-o",
         type=Path,
-        default=root / "reports" / "live.md",
+        default=None,
+        help="Report path (default: reports/runs/live_YYYY-MM-DD_HHMMSS.md; does not overwrite reports/live.md)",
     )
 
     run_p = sub.add_parser("run", help="Fetch live data then generate report")
@@ -161,7 +168,8 @@ def main(argv: list[str] | None = None) -> int:
         "--output",
         "-o",
         type=Path,
-        default=root / "reports" / "live.md",
+        default=None,
+        help="Report path (default: reports/runs/live_YYYY-MM-DD_HHMMSS.md)",
     )
     run_p.add_argument("--no-merge", action="store_true")
     run_p.add_argument(
@@ -182,14 +190,14 @@ def main(argv: list[str] | None = None) -> int:
         if args.input is None:
             args.input = root / "data" / "raw" / "live.csv"
         if args.output is None:
-            args.output = root / "reports" / "live.md"
+            args.output = _default_report_path(root)
         return cmd_report(args)
     if args.command == "run":
         return cmd_run(args)
 
     # legacy default
     input_path = args.input or root / "data" / "raw" / "live.csv"
-    output_path = args.output or root / "reports" / "live.md"
+    output_path = args.output or _default_report_path(root)
     legacy = argparse.Namespace(
         input=input_path, output=output_path, config=args.config
     )

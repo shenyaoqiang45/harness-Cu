@@ -1,18 +1,16 @@
 {
-  "timestamp": "2026-06-30T15:51:41.413485",
-  "record_count": 1719,
+  "timestamp": "2026-06-30T17:11:59.203407",
+  "record_count": 1770,
   "warnings": [
     "fred:us_10y_real_rate: loaded via API",
     "fred:korea_exports_yoy: loaded via API",
     "cme:comex_inventory: skipped (using metal_inventory_monitor.csv)",
-    "derived:global_manufacturing_pmi: no china_pmi",
     "inventory: using metal_inventory_monitor.csv from 2026-04-01"
   ],
-  "errors": [
-    "eastmoney:china_pmi: HTTPSConnectionPool(host='datacenter-web.eastmoney.com', port=443): Max retries exceeded with url: /api/data/v1/get?reportName=RPT_ECONOMY_PMI&columns=ALL&pageNumber=1&pageSize=2000&sortColumns=REPORT_DATE&sortTypes=-1&source=WEB&client=WEB (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1006)')))"
-  ],
+  "errors": [],
   "indicators": [
     "china_new_orders_pmi",
+    "china_pmi",
     "comex_inventory",
     "copper_rod_operating_rate",
     "dxy",

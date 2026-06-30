@@ -10,10 +10,10 @@ pip install -e ".[dev]"
 # 1) 拉取真实数据 → data/raw/live.csv
 python -m copper_forecast.cli fetch
 
-# 2) 生成报告
-python -m copper_forecast.cli report -i data/raw/live.csv -o reports/live.md
+# 2) 生成报告（默认写入 reports/runs/live_时间戳.md，不覆盖 reports/live.md）
+python -m copper_forecast.cli report -i data/raw/live.csv
 
-# 或一步完成（自动同步 metal_inventory_monitor.csv → 报告写入 reports/live.md）
+# 或一步完成
 python -m copper_forecast.cli run
 ```
 
@@ -45,7 +45,7 @@ python -m copper_forecast.cli run
 1. 自动导入三所库存到 `manual_indicators.csv`
 2. 跳过东方财富/akshare/CME 的库存自动抓取
 3. 剔除 cutover 日之前的旧库存行
-4. 生成报告到 `reports/live.md`
+4. 生成报告到 `reports/runs/live_YYYY-MM-DD_HHMMSS.md`（保留历史；`reports/live.md` 仅在手写 `-o` 时更新）
 
 也可单独导入监控表后拉数：
 
@@ -94,7 +94,9 @@ data/raw/
 data/validated/  # 校验后数据（latest.csv）
 data/clean/      # confirmed 数据（latest.csv）
 data/audit/      # 拉取/校验日志
-reports/         # live.md
+reports/
+  live.md                       # 基准/手工留存（cli 默认不覆盖）
+  runs/live_YYYY-MM-DD_*.md     # 每次 run/report 自动生成
 src/copper_forecast/
 tests/
 ```
