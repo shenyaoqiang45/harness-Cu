@@ -18,6 +18,12 @@ from copper_forecast.fetchers.derived import fetch_derived
 from copper_forecast.fetchers.eastmoney import fetch_eastmoney
 from copper_forecast.fetchers.fred import fetch_fred
 from copper_forecast.fetchers.yahoo import fetch_yahoo
+from copper_forecast.inventory_monitor import (
+    INVENTORY_INDICATORS,
+    MonitorState,
+    filter_inventory_records,
+    sync_monitor_to_manual,
+)
 
 
 def load_sources_config(config_dir: Path) -> dict:
@@ -52,10 +58,15 @@ def _load_manual(path: Path) -> FetchResult:
     return result
 
 
-def collect_all(config_dir: Path, project_root: Path) -> FetchResult:
+def collect_all(
+    config_dir: Path,
+    project_root: Path,
+    monitor: MonitorState | None = None,
+) -> FetchResult:
     cfg = load_sources_config(config_dir)
     lookback = int(cfg.get("lookback_days", 400))
     merged = FetchResult()
+    use_monitor_inventory = monitor is not None
 
     sources = cfg.get("sources", {})
     if sources.get("yahoo", {}).get("enabled", True):
@@ -63,11 +74,27 @@ def collect_all(config_dir: Path, project_root: Path) -> FetchResult:
     if sources.get("fred", {}).get("enabled", True):
         merged.extend(fetch_fred(sources["fred"]["indicators"], lookback))
     if sources.get("eastmoney", {}).get("enabled", True):
-        merged.extend(fetch_eastmoney(sources["eastmoney"]["indicators"], lookback))
+        eastmoney_cfg = sources["eastmoney"]["indicators"]
+        if use_monitor_inventory:
+            eastmoney_cfg = {
+                k: v for k, v in eastmoney_cfg.items() if k not in INVENTORY_INDICATORS
+            }
+        if eastmoney_cfg:
+            merged.extend(fetch_eastmoney(eastmoney_cfg, lookback))
     if sources.get("akshare", {}).get("enabled", True):
-        merged.extend(fetch_akshare(sources["akshare"]["indicators"], lookback))
-    if sources.get("cme", {}).get("enabled", True):
+        akshare_cfg = sources["akshare"]["indicators"]
+        if use_monitor_inventory:
+            akshare_cfg = {
+                k: v for k, v in akshare_cfg.items() if k not in INVENTORY_INDICATORS
+            }
+        if akshare_cfg:
+            merged.extend(fetch_akshare(akshare_cfg, lookback))
+    if sources.get("cme", {}).get("enabled", True) and not use_monitor_inventory:
         merged.extend(fetch_comex(sources["cme"]["indicators"], lookback))
+    elif sources.get("cme", {}).get("enabled", True) and use_monitor_inventory:
+        merged.warnings.append(
+            "cme:comex_inventory: skipped (using metal_inventory_monitor.csv)"
+        )
 
     if sources.get("derived", {}).get("enabled", True):
         merged.extend(
@@ -142,6 +169,13 @@ def run_fetch(
     output_path = output_path or project_root / "data" / "raw" / "live.csv"
     history_path = project_root / "data" / "raw" / "history.csv"
 
+    cfg = load_sources_config(config_dir)
+    monitor_cfg = cfg.get("inventory_monitor", {})
+    monitor_path_cfg = monitor_cfg.get("path")
+    monitor = None
+    if monitor_cfg.get("enabled", True):
+        monitor = sync_monitor_to_manual(project_root, monitor_path_cfg)
+
     existing: list[FetchedRecord] = []
     if merge_history and output_path.exists():
         from copper_forecast.data_loader import load_csv
@@ -160,9 +194,16 @@ def run_fetch(
                     updated_at=row.updated_at,
                 )
             )
+    if monitor is not None:
+        existing = filter_inventory_records(existing, monitor)
 
-    fetched = collect_all(config_dir, project_root)
+    fetched = collect_all(config_dir, project_root, monitor)
+    if monitor is not None:
+        fetched.warnings.append(
+            f"inventory: using metal_inventory_monitor.csv from {monitor.cutover.isoformat()}"
+        )
     merged = merge_records(existing, fetched.records)
+    merged = filter_inventory_records(merged, monitor)
     write_fetched_csv(output_path, merged)
     if merge_history:
         write_fetched_csv(history_path, merged)

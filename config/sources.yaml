@@ -158,6 +158,11 @@ manual:
   path: data/raw/manual_indicators.csv
   description: "Monthly/daily overrides for series blocked by network or licensing"
 
+inventory_monitor:
+  enabled: true
+  path: data/raw/metal_inventory_monitor.csv
+  description: "When present, LME/SHFE/COMEX inventory comes only from this monitor table"
+
 optional:
   - tc_rc_spot
   - us_ism_manufacturing

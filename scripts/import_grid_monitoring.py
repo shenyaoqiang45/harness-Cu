@@ -7,7 +7,6 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "data" / "raw" / "电网指标监控数据_2026-06-29.csv"
-OUT = ROOT / "data" / "raw" / "grid_indicators_from_monitoring.csv"
 MANUAL = ROOT / "data" / "raw" / "manual_indicators.csv"
 
 # indicator_id -> (project_indicator, unit, frequency, confidence)
@@ -132,7 +131,6 @@ def merge_into_manual(manual_path: Path, grid_rows: list[dict], keep_indicators:
 
 def main() -> None:
     rows = build_import_rows(SOURCE)
-    write_csv(OUT, rows)
     merge_into_manual(
         MANUAL,
         rows,
@@ -145,8 +143,7 @@ def main() -> None:
             "new_energy_grid_connection",
         },
     )
-    print(f"Wrote {len(rows)} rows -> {OUT}")
-    print(f"Merged grid indicators into {MANUAL}")
+    print(f"Synced {len(rows)} grid rows into {MANUAL}")
 
 
 if __name__ == "__main__":

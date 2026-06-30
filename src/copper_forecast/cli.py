@@ -8,6 +8,8 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
+from dotenv import load_dotenv
+
 from copper_forecast.collector import run_fetch
 from copper_forecast.data_loader import load_csv, write_csv
 from copper_forecast.indicators import compute_all_module_scores
@@ -115,6 +117,7 @@ def cmd_run(args: argparse.Namespace) -> int:
 
 def main(argv: list[str] | None = None) -> int:
     root = _project_root()
+    load_dotenv(root / ".env")
     parser = argparse.ArgumentParser(
         description="London copper trend judgment system (MVP)"
     )
@@ -150,7 +153,7 @@ def main(argv: list[str] | None = None) -> int:
         "--output",
         "-o",
         type=Path,
-        default=root / "reports" / "latest.md",
+        default=root / "reports" / "live.md",
     )
 
     run_p = sub.add_parser("run", help="Fetch live data then generate report")
@@ -158,7 +161,7 @@ def main(argv: list[str] | None = None) -> int:
         "--output",
         "-o",
         type=Path,
-        default=root / "reports" / "latest.md",
+        default=root / "reports" / "live.md",
     )
     run_p.add_argument("--no-merge", action="store_true")
     run_p.add_argument(
@@ -179,14 +182,14 @@ def main(argv: list[str] | None = None) -> int:
         if args.input is None:
             args.input = root / "data" / "raw" / "live.csv"
         if args.output is None:
-            args.output = root / "reports" / "latest.md"
+            args.output = root / "reports" / "live.md"
         return cmd_report(args)
     if args.command == "run":
         return cmd_run(args)
 
     # legacy default
-    input_path = args.input or root / "data" / "raw" / "sample.csv"
-    output_path = args.output or root / "reports" / "latest.md"
+    input_path = args.input or root / "data" / "raw" / "live.csv"
+    output_path = args.output or root / "reports" / "live.md"
     legacy = argparse.Namespace(
         input=input_path, output=output_path, config=args.config
     )

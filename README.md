@@ -11,9 +11,9 @@ pip install -e ".[dev]"
 python -m copper_forecast.cli fetch
 
 # 2) 生成报告
-python -m copper_forecast.cli report -i data/raw/live.csv -o reports/latest.md
+python -m copper_forecast.cli report -i data/raw/live.csv -o reports/live.md
 
-# 或一步完成
+# 或一步完成（自动同步 metal_inventory_monitor.csv → 报告写入 reports/live.md）
 python -m copper_forecast.cli run
 ```
 
@@ -38,15 +38,22 @@ python -m copper_forecast.cli run
 |------|--------|----------|----------|----------|----------|
 | `lme_inventory` | 伦敦 LME | 铜库存（公吨） | [LME](https://www.lme.com) | 东方财富 / akshare 日更 | `metal_inventory_monitor.csv` → `import_metal_inventory_monitor.py` |
 | `shfe_inventory` | 上海 SHFE | 铜仓单日报（吨） | [SHFE](https://www.shfe.com.cn) | akshare `futures_inventory_em` 日更 | 同上 |
-| `comex_inventory` | 纽约 COMEX | 铜库存（官方短吨 → 入库公吨） | [CME Group](https://www.cmegroup.com) | `Copper_Stocks.xls`（需 User-Agent；易 403） | 同上 |
+| `comex_inventory` | 纽约 COMEX | 铜库存（官方短吨 → 入库公吨） | [CME Group](https://www.cmegroup.com) | `Copper_Stocks.xls`（易 403） | `metal_inventory_monitor.csv`（`cli run` 自动同步） |
 
-近期三所库存建议用 `data/raw/metal_inventory_monitor.csv` 整合（已对齐 LME/SHFE/COMEX 口径）：
+`cli run` / `cli fetch` 在存在 `data/raw/metal_inventory_monitor.csv` 时，会：
+
+1. 自动导入三所库存到 `manual_indicators.csv`
+2. 跳过东方财富/akshare/CME 的库存自动抓取
+3. 剔除 cutover 日之前的旧库存行
+4. 生成报告到 `reports/live.md`
+
+也可单独导入监控表后拉数：
 
 ```bash
 python scripts/import_metal_inventory_monitor.py --run
 ```
 
-`--run` 会写入 `manual_indicators.csv`、执行 `fetch`、剔除监控起始日之前的旧库存行，并更新 `reports/live.md`。东方财富自动源在部分时段与监控表量级不一致，监控表日期范围内以人工合并结果为准。
+监控表日期范围内仅以 `金属库存监控` 来源为准；东方财富自动源在部分时段与监控表量级不一致。
 
 复制 `.env.example` 为 `.env` 并填入 `FRED_API_KEY`（可选）。
 
@@ -77,11 +84,17 @@ date,indicator,value,unit,source,source_url,updated_at,frequency,confidence
 
 ```text
 config/          # 指标、权重、校验规则
-data/raw/        # 原始输入
-data/validated/  # 校验后数据
-data/clean/      # 模型使用的 confirmed 数据
-data/audit/      # 异常日志
-reports/         # Markdown 报告
+data/raw/
+  live.csv                      # 主数据表（fetch 输出）
+  history.csv                   # live 累积备份
+  manual_indicators.csv         # 人工/导入覆盖
+  metal_inventory_monitor.csv   # 三所库存监控源表
+  电网指标监控数据_*.csv          # 电网监控源表
+  supply_events.csv             # 供应扰动事件
+data/validated/  # 校验后数据（latest.csv）
+data/clean/      # confirmed 数据（latest.csv）
+data/audit/      # 拉取/校验日志
+reports/         # live.md
 src/copper_forecast/
 tests/
 ```
