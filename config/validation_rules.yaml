@@ -50,6 +50,21 @@ anomaly_rules:
     min: 35
     max: 65
     message: "ISM outside 35-65 range"
+  # P1 fix: Korea exports YoY had no anomaly rule, so extreme month-over-month
+  # jumps (e.g. a source switch from FRED to a national agency on a different
+  # basis) were silently treated as normal. Use an absolute-change rule (in
+  # percentage points) instead of a fixed band, so persistently high-but-stable
+  # readings are NOT mis-flagged, while genuine discontinuities are caught.
+  - indicator: korea_exports_yoy
+    rule: abs_change
+    threshold: 18
+    message: "Korea exports YoY MoM jump > 18pp (possible source switch / base effect)"
+  # P1 fix: guard the derived SHFE-COMEX spread against day-over-day jumps that
+  # usually indicate an FX glitch or a stale leg in the merge_asof join.
+  - indicator: spot_premium
+    rule: daily_pct_change
+    threshold: 0.50
+    message: "SHFE-COMEX spread daily change > 50% (check FX / stale leg)"
 
 # Reject negative values for these indicators
 non_negative:

@@ -52,9 +52,38 @@ def _latest_preferred_numeric(
 
 def _value_n_days_ago(series: list[DataRow], n: int) -> float | None:
     nums = [(r.date, r.numeric_value) for r in series if r.numeric_value is not None]
+    # P0 fix: when history is insufficient, return None instead of falling back
+    # to the current value. The old fallback made prev == current, which turned
+    # a flat / data-missing momentum into a spurious bearish (-1) signal.
     if len(nums) <= n:
-        return nums[0][1] if nums else None
+        return None
     return nums[-1 - n][1]
+
+
+# Momentum tolerance: changes within +/- this band are treated as flat (neutral).
+MOM_FLAT_TOL = 1e-9
+
+
+def _mom_score(current: float, previous: float, tol: float = MOM_FLAT_TOL) -> float:
+    """Momentum sign with a flat band. Returns +1 / -1 / 0 (neutral)."""
+    delta = current - previous
+    if abs(delta) <= tol:
+        return 0.0
+    return 1.0 if delta > 0 else -1.0
+
+
+def _same_source_prev(series: list[DataRow]) -> tuple[float | None, bool]:
+    """Return the previous numeric value and whether it shares the latest row's
+    source. Used to suppress momentum signals computed across a source switch
+    (e.g. FRED history spliced with a different statistical agency print), where
+    a month-over-month difference is not comparable.
+    """
+    nums = [r for r in series if r.numeric_value is not None]
+    if len(nums) < 2:
+        return None, False
+    latest, prev = nums[-1], nums[-2]
+    same = (latest.source or "").strip().lower() == (prev.source or "").strip().lower()
+    return prev.numeric_value, same
 
 
 def _ma(series: list[DataRow], window: int) -> float | None:
@@ -245,29 +274,47 @@ def score_inventory(grouped: dict[str, list[DataRow]]) -> ModuleScore:
                 )
 
     premium_series = grouped.get("spot_premium", [])
+    premium_is_derived = False
     if premium_series:
+        last_prem_row = premium_series[-1]
+        premium_is_derived = "derived" in (last_prem_row.source or "").lower()
         _, prem = _latest_numeric(premium_series)
         if prem is not None:
             score = 1.0 if prem > 0 else -1.0
+            # P0 fix: this series is the SHFE-vs-COMEX cross-market spread
+            # (derived in fetchers/derived.py), NOT a physical spot-vs-futures
+            # premium. Label it accurately and drop the contradictory
+            # "contango/premium" wording.
+            stance = "SHFE rich vs COMEX" if prem > 0 else "SHFE cheap vs COMEX"
             signals.append(
                 SignalDetail(
-                    "spot_premium",
+                    "shfe_comex_spread",
                     score,
-                    f"Spot premium {prem:+.1f} ({'contango/premium' if prem > 0 else 'discount'})",
+                    f"SHFE-COMEX spread {prem:+.1f} USD/ton ({stance})",
                 )
             )
 
     term_series = grouped.get("term_structure", [])
     if term_series:
-        label = str(term_series[-1].value).lower()
-        if label == "backwardation":
-            signals.append(
-                SignalDetail("term_structure", 1.0, "Term structure: backwardation")
-            )
-        elif label == "contango":
-            signals.append(
-                SignalDetail("term_structure", -1.0, "Term structure: contango")
-            )
+        last_term_row = term_series[-1]
+        term_is_derived = "derived" in (last_term_row.source or "").lower()
+        # P0 fix: when term_structure is mechanically derived from the sign of
+        # spot_premium (see fetchers/derived.py: premium_to_curve), it carries
+        # no information independent of the spread signal above. Counting it as
+        # a separate vote double-counts the same spread. Only score it when it
+        # comes from an independent (non-derived) source, or when the spread
+        # signal itself is absent.
+        independent = not (term_is_derived and premium_is_derived and premium_series)
+        if independent:
+            label = str(last_term_row.value).lower()
+            if label == "backwardation":
+                signals.append(
+                    SignalDetail("term_structure", 1.0, "Term structure: backwardation")
+                )
+            elif label == "contango":
+                signals.append(
+                    SignalDetail("term_structure", -1.0, "Term structure: contango")
+                )
 
     if not signals:
         return ModuleScore("inventory", 0.0, data_gaps=gaps or ["no inventory data"])
@@ -282,7 +329,7 @@ def score_china_demand(grouped: dict[str, list[DataRow]]) -> ModuleScore:
     pmi_series = grouped.get("china_pmi", [])
     if pmi_series:
         _, pmi = _latest_numeric(pmi_series)
-        prev = _value_n_days_ago(pmi_series, 1)
+        prev, same_src = _same_source_prev(pmi_series)
         if pmi is not None:
             signals.append(
                 SignalDetail(
@@ -291,14 +338,18 @@ def score_china_demand(grouped: dict[str, list[DataRow]]) -> ModuleScore:
                     f"China PMI {pmi:.1f}",
                 )
             )
-        if pmi is not None and prev is not None:
-            signals.append(
-                SignalDetail(
-                    "china_pmi_mom",
-                    1.0 if pmi > prev else -1.0,
-                    f"China PMI mom {pmi - prev:+.1f}",
+        if pmi is not None and prev is not None and same_src:
+            mom = _mom_score(pmi, prev)
+            if mom != 0.0:
+                signals.append(
+                    SignalDetail(
+                        "china_pmi_mom",
+                        mom,
+                        f"China PMI mom {pmi - prev:+.1f}",
+                    )
                 )
-            )
+        elif pmi is not None and prev is not None and not same_src:
+            gaps.append("china_pmi mom skipped (source switch, not comparable)")
     else:
         gaps.append("china_pmi missing")
 
@@ -408,7 +459,7 @@ def score_global_cycle(grouped: dict[str, list[DataRow]]) -> ModuleScore:
             gaps.append(f"{key} missing")
             continue
         _, val = _latest_numeric(series)
-        prev = _value_n_days_ago(series, 1)
+        prev, same_src = _same_source_prev(series)
         if val is not None:
             signals.append(
                 SignalDetail(
@@ -417,28 +468,42 @@ def score_global_cycle(grouped: dict[str, list[DataRow]]) -> ModuleScore:
                     f"{label} {val:.1f}",
                 )
             )
-        if val is not None and prev is not None:
-            signals.append(
-                SignalDetail(
-                    f"{key}_mom",
-                    1.0 if val > prev else -1.0,
-                    f"{label} mom {val - prev:+.1f}",
+        # P1 fix: skip mom across a source switch (e.g. derived -> S&P Global);
+        # P0 fix: flat / insufficient history yields no momentum signal.
+        if val is not None and prev is not None and same_src:
+            mom = _mom_score(val, prev)
+            if mom != 0.0:
+                signals.append(
+                    SignalDetail(
+                        f"{key}_mom",
+                        mom,
+                        f"{label} mom {val - prev:+.1f}",
+                    )
                 )
-            )
+        elif val is not None and prev is not None and not same_src:
+            gaps.append(f"{key} mom skipped (source switch, not comparable)")
 
     korea = grouped.get("korea_exports_yoy", [])
     if korea:
         _, val = _latest_numeric(korea)
-        prev = _value_n_days_ago(korea, 1)
-        if val is not None and prev is not None:
-            improved = val > prev
-            signals.append(
-                SignalDetail(
-                    "korea_exports",
-                    1.0 if improved else -1.0,
-                    f"Korea exports YoY {val:+.1f}% ({'improving' if improved else 'deteriorating'})",
+        # P1 fix: only compute the month-over-month "improving" signal when the
+        # latest point shares the same source as the previous one. The history
+        # comes from FRED while the latest print may come from a national
+        # statistics agency on a different basis, making the diff non-comparable.
+        prev, same_src = _same_source_prev(korea)
+        if val is not None and prev is not None and same_src:
+            mom = _mom_score(val, prev)
+            if mom != 0.0:
+                signals.append(
+                    SignalDetail(
+                        "korea_exports",
+                        mom,
+                        f"Korea exports YoY {val:+.1f}% "
+                        f"({'improving' if mom > 0 else 'deteriorating'})",
+                    )
                 )
-            )
+        elif val is not None and prev is not None and not same_src:
+            gaps.append("korea_exports_yoy mom skipped (source switch, not comparable)")
     else:
         gaps.append("korea_exports_yoy missing")
 

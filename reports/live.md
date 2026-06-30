@@ -1,24 +1,26 @@
 # 伦敦铜走势判断报告
 
-生成日期：2026-06-30 15:51
+生成日期：2026-06-30 08:54
 数据截止：2026-06-30
 
 ## 结论
 
-1 周判断：**偏多**
-1 月判断：**偏多**
-总分：**+0.355**（偏多）
-置信度：**15%**
+1 周判断：**中性偏多（低置信）**
+1 月判断：**中性偏多（低置信）**
+总分：**+0.327**（偏多）
+置信度：**17%**
 数据健康度：**85%**
+
+> ⚠ 方向为低置信信号，建议按中性偏多对待，不宜作为单边交易依据（A/B 交叉验证方向背离；置信度 17% 低于 25% 阈值）
 
 ## 模块分数
 
 | 模块 | 分数 | 状态 |
 |---|---:|---|
 | 中国需求 | +1.000 | 🟢 强多 |
-| 库存现货 | +0.500 | 🟢 强多 |
+| 库存现货 | +0.333 | 🟡 偏多 |
 | 美元利率 | -1.000 | 🔴 强空 |
-| 全球制造业 | +0.200 | 🟡 偏多 |
+| 全球制造业 | +0.333 | 🟡 偏多（缺口: 1） |
 | 供应扰动 | +1.000 | 🟢 强多 |
 | 价格趋势 | +0.200 | 🟡 偏多 |
 
@@ -28,8 +30,8 @@
 
 | 组别 | 模块 | 分数 | 方向 |
 |---|---|---:|---|
-| 基本面/现货组 | 中国需求、库存现货、供应扰动 | +0.808 | 看多 |
-| 宏观/价格组 | 美元利率、全球制造业、价格趋势 | -0.486 | 偏空 |
+| 基本面/现货组 | 中国需求、库存现货、供应扰动 | +0.744 | 看多 |
+| 宏观/价格组 | 美元利率、全球制造业、价格趋势 | -0.448 | 偏空 |
 
 ## 主要支撑
 
@@ -46,6 +48,7 @@
 ## 风险提示
 
 1. 多空模块严重分裂，方向判断不确定性较高
+2. global_cycle 存在数据缺口: korea_exports_yoy mom skipped (source switch, not comparable)
 
 ## 判断失效条件
 
@@ -55,7 +58,9 @@
 
 ## 数据异常
 
-1. 无异常数据
+1. [pending] korea_exports_yoy (2026-03-01): Korea exports YoY MoM jump > 18pp (possible source switch / base effect)
+2. [pending] spot_premium (2025-07-08): SHFE-COMEX spread daily change > 50% (check FX / stale leg)
+3. [pending] spot_premium (2025-07-31): SHFE-COMEX spread daily change > 50% (check FX / stale leg)
 
 ## 模块信号明细
 
@@ -71,8 +76,7 @@
 
 - [-1] Global inventory 20d change +0.62%
 - [+1] Global inventory 60d change -2.79%
-- [+1] Spot premium +1792.0 (contango/premium)
-- [+1] Term structure: backwardation
+- [+1] SHFE-COMEX spread +1792.0 USD/ton (SHFE rich vs COMEX)
 
 ### 美元利率
 
@@ -84,10 +88,9 @@
 ### 全球制造业
 
 - [+1] US ISM 54.0
-- [-1] US ISM mom +0.0
 - [+1] Global PMI 50.3
 - [-1] Global PMI mom -2.3
-- [+1] Korea exports YoY +53.2% (improving)
+- ⚠ 数据缺口: korea_exports_yoy mom skipped (source switch, not comparable)
 
 ### 供应扰动
 

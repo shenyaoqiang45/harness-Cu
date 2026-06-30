@@ -80,6 +80,12 @@ def premium_to_curve(existing: list[FetchedRecord], lookback_days: int = LOOKBAC
         result.warnings.append("derived:term_structure: no spot_premium available")
         return result
 
+    # NOTE: This label is mechanically inferred from the sign of the
+    # SHFE-COMEX cross-market spread, NOT observed from a real forward curve.
+    # Downstream scoring (indicators.score_inventory) therefore treats a
+    # derived term_structure as non-independent and does not double-count it
+    # against the spread signal. Keep the `source="derived"` tag below intact
+    # so that de-duplication keeps working.
     for rec in premiums[-lookback_days:]:
         label = "backwardation" if float(rec.value) > 0 else "contango"
         result.records.append(

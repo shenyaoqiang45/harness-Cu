@@ -30,6 +30,8 @@ class ForecastResult:
     data_cutoff: date | None = None
     generated_at: datetime = field(default_factory=datetime.now)
     cross_validation: "CrossValidationResult | None" = None
+    confidence_note: str = ""
+    low_confidence: bool = False
 
 
 @dataclass
@@ -63,6 +65,17 @@ def _direction_label(score: float, thresholds: dict[str, float]) -> str:
     if score <= thresholds["bearish"]:
         return "偏空"
     return "中性"
+
+
+def _hedge_outlook(outlook: str) -> str:
+    """Soften a directional outlook into a hedged/neutral label under low
+    confidence, so the headline no longer over-states conviction."""
+    mapping = {
+        "偏多": "中性偏多（低置信）",
+        "偏空": "中性偏空（低置信）",
+        "中性": "中性",
+    }
+    return mapping.get(outlook, outlook)
 
 
 def _outlook_from_direction(direction: str, horizon: str) -> str:
@@ -307,6 +320,32 @@ def compute_forecast(
         weights_cfg.get("cross_validation"),
     )
 
+    # P1 fix: previously `direction` was decided purely by `total` vs thresholds
+    # and was fully decoupled from confidence / cross-validation. The report
+    # would assert a firm "偏多/偏空" even when A/B diverged and confidence was
+    # ~15%, while only printing a passive note that direction "should be"
+    # downgraded. Now that downgrade is actually applied to the outlook.
+    low_conf_threshold = float(weights_cfg.get("low_confidence_threshold", 0.25))
+    diverged = bool(cross_validation and cross_validation.agreement == "相互背离")
+    low_confidence = confidence < low_conf_threshold or diverged
+    confidence_note = ""
+    if low_confidence:
+        reasons = []
+        if diverged:
+            reasons.append("A/B 交叉验证方向背离")
+        if confidence < low_conf_threshold:
+            reasons.append(f"置信度 {confidence:.0%} 低于 {low_conf_threshold:.0%} 阈值")
+        confidence_note = (
+            "方向为低置信信号，建议按中性偏"
+            + ("多" if total > 0 else "空" if total < 0 else "")
+            + "对待，不宜作为单边交易依据（"
+            + "；".join(reasons)
+            + "）"
+        )
+        # Downgrade the directional outlook to a hedged/neutral stance.
+        week_outlook = _hedge_outlook(week_outlook)
+        month_outlook = _hedge_outlook(month_outlook)
+
     supporting, suppressing = _top_signals(module_scores)
     risks = _default_risks(module_scores, data_health)
     invalidation = _invalidation_conditions(module_scores, direction)
@@ -327,4 +366,6 @@ def compute_forecast(
         invalidation_conditions=invalidation,
         data_cutoff=cutoff,
         cross_validation=cross_validation,
+        confidence_note=confidence_note,
+        low_confidence=low_confidence,
     )

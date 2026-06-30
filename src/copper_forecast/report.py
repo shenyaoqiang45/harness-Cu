@@ -50,6 +50,10 @@ def render_report(
         f"总分：**{forecast.total_score:+.3f}**（{forecast.direction}）",
         f"置信度：**{_pct(forecast.confidence)}**",
         f"数据健康度：**{_pct(forecast.data_health)}**",
+    ]
+    if forecast.confidence_note:
+        lines.append(f"\n> ⚠ {forecast.confidence_note}")
+    lines += [
         "",
         "## 模块分数",
         "",

@@ -143,10 +143,13 @@ def _check_time_series_anomalies(
     result: ValidationResult, anomaly_rules: list[dict]
 ) -> None:
     """Move confirmed rows with large daily changes to pending."""
+    # Support both relative (daily_pct_change) and absolute (abs_change) jump
+    # rules. abs_change is better for already-normalized series such as YoY %,
+    # where a relative ratio of two percentages is not meaningful.
     pct_rules = {
         r["indicator"]: r
         for r in anomaly_rules
-        if r.get("rule") == "daily_pct_change"
+        if r.get("rule") in ("daily_pct_change", "abs_change")
     }
     if not pct_rules:
         return
@@ -162,13 +165,19 @@ def _check_time_series_anomalies(
 
         series_sorted = sorted(series, key=lambda r: r.date)
         flagged_dates: set[date] = set()
+        is_abs = rule.get("rule") == "abs_change"
         for prev, curr in zip(series_sorted, series_sorted[1:]):
             prev_val = prev.numeric_value
             curr_val = curr.numeric_value
-            if prev_val is None or curr_val is None or prev_val == 0:
+            if prev_val is None or curr_val is None:
                 continue
-            pct = abs((curr_val - prev_val) / prev_val)
-            if pct > rule["threshold"]:
+            if is_abs:
+                jump = abs(curr_val - prev_val)
+            else:
+                if prev_val == 0:
+                    continue
+                jump = abs((curr_val - prev_val) / prev_val)
+            if jump > rule["threshold"]:
                 flagged_dates.add(curr.date)
 
         for row in series_sorted:

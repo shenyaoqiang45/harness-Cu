@@ -15,6 +15,10 @@ direction_thresholds:
 
 module_active_threshold: 0.20
 
+# When confidence falls below this, or A/B cross-validation diverges, the
+# headline direction is downgraded to a hedged/neutral stance (P1 fix).
+low_confidence_threshold: 0.25
+
 confidence:
   data_quality_weights:
     source: 0.4
