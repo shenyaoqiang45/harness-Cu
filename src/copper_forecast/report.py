@@ -5,6 +5,7 @@ from __future__ import annotations
 from datetime import datetime
 from pathlib import Path
 
+from copper_forecast.indicators import SignalDetail
 from copper_forecast.scoring import ForecastResult
 from copper_forecast.validator import ValidationIssue, ValidationResult
 
@@ -23,6 +24,17 @@ MODULE_LABELS = {
 
 def _pct(value: float) -> str:
     return f"{value:.0%}"
+
+
+def _format_signal_score(sig: SignalDetail) -> str:
+    """Show confidence-adjusted score; expose raw score when discounted."""
+    sign = "+" if sig.score > 0 else ""
+    if sig.confidence and sig.raw_score is not None and sig.confidence != "A":
+        raw_sign = "+" if sig.raw_score > 0 else ""
+        return f"{sign}{sig.score:.1f} {sig.confidence} (raw {raw_sign}{sig.raw_score:.0f})"
+    if abs(sig.score - round(sig.score)) < 1e-9:
+        return f"{sign}{sig.score:.0f}"
+    return f"{sign}{sig.score:.1f}"
 
 
 def _score_bar(score: float) -> str:
@@ -122,8 +134,7 @@ def render_report(
         lines.append(f"### {label}")
         lines.append("")
         for sig in mod.signals:
-            sign = "+" if sig.score > 0 else ""
-            lines.append(f"- [{sign}{sig.score:.0f}] {sig.description}")
+            lines.append(f"- [{_format_signal_score(sig)}] {sig.description}")
         if mod.data_gaps:
             lines.append(f"- ⚠ 数据缺口: {', '.join(mod.data_gaps)}")
         lines.append("")

@@ -61,6 +61,21 @@ python scripts/import_metal_inventory_monitor.py --run
 
 电网投资自动源当前为宽口径固定资产投资代理，置信度为 C。拿到真实电网工程投资完成额同比后，可在 `data/raw/manual_indicators.csv` 添加同月 `grid_investment` 记录；月频数据按指标+月份合并，人工记录会覆盖同月代理值。
 
+### 供应扰动事件（`supply_events.csv`）
+
+半人工录入，规则见 `config/supply_event_rules.yaml`。CSV 列：`date,event,score,confidence,source,note`。
+
+| 事件类型 | 原始分 | 置信度 | 说明 |
+|----------|--------|--------|------|
+| 矿山罢工/冶炼减产 | +1（重大 +2） | A | 已确认扰动 |
+| 美国铜 232 精炼铜关税（商务部报告已提交、待总统签署） | +1 | **B** | 90 天窗口；未签署则精炼铜零关税不变 |
+| 同上（总统公告已签署） | +1 | A | 2027-01-01 起 15%，2028-01-01 起 30% |
+| 方案被拒/过期 | 0 或删除行 | — | 不再计分 |
+
+模块打分使用 `score × confidence_multiplier`（A=1.0, B=0.8, C=0.6）。报告信号明细展示加权分与置信度标签。
+
+**美国铜 232 背景**：2025 年启动全品类调查；2025-08 起半成品/铜制品 50% 关税已生效，精炼铜仍排除；2026-06-30 商务部最终报告维持分阶段精炼铜关税方案。
+
 ### A/B 交叉验证
 
 报告会将模块分成两组做交叉验证：
@@ -84,6 +99,7 @@ date,indicator,value,unit,source,source_url,updated_at,frequency,confidence
 
 ```text
 config/          # 指标、权重、校验规则
+  supply_event_rules.yaml       # 供应扰动事件录入与打分规则
 data/raw/
   live.csv                      # 主数据表（fetch 输出）
   history.csv                   # live 累积备份

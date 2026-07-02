@@ -16,6 +16,8 @@ class SignalDetail:
     name: str
     score: float
     description: str
+    confidence: str | None = None
+    raw_score: float | None = None
 
 
 @dataclass
@@ -551,13 +553,17 @@ def score_supply(
         from pathlib import Path
 
         for event in load_supply_events(Path(events_path)):
-            conf_mult = {"A": 1.0, "B": 0.8, "C": 0.6}.get(event["confidence"], 0.5)
-            adj_score = max(-1.0, min(1.0, event["score"] * conf_mult))
+            raw = float(event["score"])
+            conf = event["confidence"]
+            conf_mult = {"A": 1.0, "B": 0.8, "C": 0.6, "D": 0.4}.get(conf, 0.5)
+            adj_score = max(-1.0, min(1.0, raw * conf_mult))
             signals.append(
                 SignalDetail(
                     event["event"],
                     adj_score,
                     f"{event['note']} (source: {event['source']})",
+                    confidence=conf,
+                    raw_score=raw,
                 )
             )
 

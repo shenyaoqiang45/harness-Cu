@@ -1,0 +1,56 @@
+# Manual supply events — data/raw/supply_events.csv
+# CSV columns: date,event,score,confidence,source,note
+#
+# score: raw directional signal in [-2, 2]; module applies confidence multiplier
+# confidence: A=1.0, B=0.8, C=0.6 (see validation_rules.yaml source_confidence_map)
+
+confidence_multiplier:
+  A: 1.0
+  B: 0.8
+  C: 0.6
+  D: 0.4
+
+# Event catalog — scoring guidance for manual录入
+event_catalog:
+  chile_mine_strike:
+    direction: bullish
+    score_confirmed: 1
+    score_resolved: 0
+    confidence_confirmed: A
+    sources: [official_news, company_disclosure]
+    summary: 重大矿山罢工确认生效
+
+  smelter_cutback:
+    direction: bullish
+    score_confirmed: 1
+    confidence_confirmed: A
+    sources: [official_news, company_disclosure]
+    summary: 冶炼厂减产/停产
+
+  us_copper_232_refined_tariff:
+    direction: bullish
+    score_recommended_pending: 1
+    score_signed: 1
+    score_rejected_or_expired: 0
+    confidence_commerce_report_pending_signature: B
+    confidence_presidential_proclamation: A
+    sources: [us_commerce, whitehouse]
+    summary: 美国铜 Section 232 精炼铜分阶段全球统一从价关税
+    lifecycle:
+      investigation_start: "2025 全品类铜 232 国家安全调查启动"
+      semi_finished_tariff: "2025-08 起半成品/铜制品 50% 232 关税已生效；精炼铜仍排除"
+      commerce_final_report: "2026-06-30 商务部向总统提交最终更新报告，维持原方案"
+      presidential_window: "总统 90 天签署窗口；未签署则精炼铜维持零关税"
+      phase_1: "2027-01-01 起所有进口精炼铜统一 15% 从价关税"
+      phase_2: "2028-01-01 起上调至 30%"
+      companion: "配套建议本土铜原料强制国产化比例、高品质废铜出口管制"
+    report_risk: "美国精炼铜232分阶段关税方案待总统签署（90天窗口），未签署则精炼铜维持零关税"
+    invalidation_bullish: "美国总统在90天窗口内拒绝签署或未行动，精炼铜232关税方案失效"
+
+scoring_rules:
+  tc_rc_spot_falling: "+1 现货 TC 环比下降（精矿更紧）"
+  tc_rc_spot_low_percentile: "+1 现货 TC 处于历史低分位（≤25%）"
+  major_mine_disruption: "+1 或 +2 重大矿山扰动（罢工/事故）"
+  smelter_cutback: "+1 冶炼减产"
+  trade_policy_tightening: "+1 进口限制/关税收紧（按生命周期调 confidence）"
+  no_source_no_score: "无可靠官方来源不得录入"

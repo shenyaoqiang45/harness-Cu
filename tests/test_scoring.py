@@ -241,3 +241,53 @@ def test_tc_rc_spot_uses_absolute_change_for_negative_levels():
     change_signal = next(s for s in result.signals if s.name == "tc_rc_spot_change")
     assert change_signal.score == 1.0
     assert "Δ -7.5 USD/ton" in change_signal.description
+
+
+def test_supply_232_pending_event_applies_confidence_b(tmp_path):
+    from copper_forecast.indicators import score_supply
+
+    events = tmp_path / "supply_events.csv"
+    events.write_text(
+        "date,event,score,confidence,source,note\n"
+        "2026-06-30,us_copper_232_refined_tariff,1,B,us_commerce,pending signature\n",
+        encoding="utf-8",
+    )
+    result = score_supply({}, events_path=str(events))
+    sig = next(s for s in result.signals if s.name == "us_copper_232_refined_tariff")
+    assert sig.raw_score == 1.0
+    assert sig.confidence == "B"
+    assert sig.score == 0.8
+
+
+def test_supply_policy_risk_surfaces_in_forecast():
+    from copper_forecast.scoring import _supply_policy_notes
+
+    supply = ModuleScore(
+        "supply",
+        0.8,
+        signals=[
+            SignalDetail(
+                "us_copper_232_refined_tariff",
+                0.8,
+                "pending (source: us_commerce)",
+                confidence="B",
+                raw_score=1.0,
+            )
+        ],
+    )
+    risks, invalidations = _supply_policy_notes({"supply": supply})
+    assert any("90天" in r for r in risks)
+    assert any("拒绝签署" in c for c in invalidations)
+
+
+def test_report_shows_confidence_adjusted_supply_signal():
+    from copper_forecast.report import _format_signal_score
+
+    sig = SignalDetail(
+        "us_copper_232_refined_tariff",
+        0.8,
+        "pending tariff",
+        confidence="B",
+        raw_score=1.0,
+    )
+    assert _format_signal_score(sig) == "+0.8 B (raw +1)"

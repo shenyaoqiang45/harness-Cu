@@ -239,8 +239,36 @@ def _top_signals(module_scores: dict[str, ModuleScore], n: int = 3) -> tuple[lis
     return [t[1] for t in bullish[:n]], [t[1] for t in bearish[:n]]
 
 
+def _supply_policy_notes(module_scores: dict[str, ModuleScore]) -> tuple[list[str], list[str]]:
+    """Return (risk lines, invalidation lines) for pending supply policy events."""
+    supply = module_scores.get("supply")
+    if not supply:
+        return [], []
+
+    risks: list[str] = []
+    invalidations: list[str] = []
+    for sig in supply.signals:
+        if sig.name != "us_copper_232_refined_tariff":
+            continue
+        if sig.confidence == "B":
+            risks.append(
+                "美国精炼铜232分阶段关税方案待总统签署（90天窗口），"
+                "未签署则精炼铜维持零关税"
+            )
+            invalidations.append(
+                "美国总统在90天窗口内拒绝签署或未行动，精炼铜232关税方案失效"
+            )
+        elif sig.confidence == "A":
+            risks.append(
+                "美国精炼铜232分阶段关税已签署，关注2027-01-01起15%与2028-01-01起30%生效节奏"
+            )
+    return risks, invalidations
+
+
 def _default_risks(module_scores: dict[str, ModuleScore], data_health: float) -> list[str]:
-    risks = []
+    risks: list[str] = []
+    policy_risks, _ = _supply_policy_notes(module_scores)
+    risks.extend(policy_risks)
     if data_health < 0.7:
         risks.append("数据健康度偏低，部分指标缺失或待复核")
     split = sum(1 for m in module_scores.values() if abs(m.score) > 0.2)
@@ -285,7 +313,12 @@ def _invalidation_conditions(
     if macro and macro.score < -0.3:
         conditions.append("DXY 与实际利率同步走强超过 4 周")
 
-    return conditions[:3]
+    _, policy_invalidations = _supply_policy_notes(module_scores)
+    for note in reversed(policy_invalidations):
+        if note not in conditions:
+            conditions.insert(0, note)
+
+    return conditions[:4]
 
 
 def compute_forecast(
