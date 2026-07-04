@@ -1,15 +1,13 @@
 {
-  "timestamp": "2026-07-03T00:05:23.974427",
-  "record_count": 1769,
+  "timestamp": "2026-07-04T00:03:59.911680",
+  "record_count": 1782,
   "warnings": [
     "fred:us_10y_real_rate: loaded via public CSV (set FRED_API_KEY for API)",
     "fred:korea_exports_yoy: loaded via public CSV (set FRED_API_KEY for API)",
     "cme:comex_inventory: skipped (using metal_inventory_monitor.csv)",
     "inventory: using metal_inventory_monitor.csv from 2026-04-01"
   ],
-  "errors": [
-    "akshare:china_new_orders_pmi: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
-  ],
+  "errors": [],
   "indicators": [
     "china_new_orders_pmi",
     "china_pmi",
