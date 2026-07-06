@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-07-05T00:03:26.812420",
-  "record_count": 1777,
+  "timestamp": "2026-07-06T00:03:16.377321",
+  "record_count": 1776,
   "warnings": [
     "fred:us_10y_real_rate: loaded via public CSV (set FRED_API_KEY for API)",
     "fred:korea_exports_yoy: loaded via public CSV (set FRED_API_KEY for API)",
