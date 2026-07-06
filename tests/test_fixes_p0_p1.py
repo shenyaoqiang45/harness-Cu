@@ -86,14 +86,14 @@ def test_korea_momentum_skipped_on_source_switch():
 def test_global_pmi_momentum_kept_when_same_source():
     grouped = {
         "global_manufacturing_pmi": [
-            _row("global_manufacturing_pmi", date(2026, 5, 1), 52.6, source="S&P Global"),
+            _row("global_manufacturing_pmi", date(2026, 5, 1), 49.5, source="S&P Global"),
             _row("global_manufacturing_pmi", date(2026, 6, 1), 50.3, source="S&P Global"),
         ]
     }
     mod = score_global_cycle(grouped)
     moms = [s for s in mod.signals if s.name == "global_manufacturing_pmi_mom"]
     assert len(moms) == 1
-    assert moms[0].score == -1.0  # 52.6 -> 50.3 is a real decline
+    assert moms[0].score == 1.0  # 49.5 -> 50.3 is a real improvement
 
 
 # ---------- P0-2: term_structure de-dup & label ----------
