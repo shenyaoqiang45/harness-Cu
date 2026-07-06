@@ -1,13 +1,16 @@
 {
-  "timestamp": "2026-07-06T00:03:16.377321",
-  "record_count": 1776,
+  "timestamp": "2026-07-06T08:54:44.566569",
+  "record_count": 1233,
   "warnings": [
-    "fred:us_10y_real_rate: loaded via public CSV (set FRED_API_KEY for API)",
-    "fred:korea_exports_yoy: loaded via public CSV (set FRED_API_KEY for API)",
+    "fred:us_10y_real_rate: loaded via API",
+    "fred:korea_exports_yoy: loaded via API",
     "cme:comex_inventory: skipped (using metal_inventory_monitor.csv)",
+    "derived:term_structure: no spot_premium available",
     "inventory: using metal_inventory_monitor.csv from 2026-04-01"
   ],
-  "errors": [],
+  "errors": [
+    "derived:spot_premium: HTTPSConnectionPool(host='stock2.finance.sina.com.cn', port=443): Max retries exceeded with url: /futures/api/jsonp.php/var%20_CU02021_08_17=/InnerFuturesNewService.getDailyKLine?symbol=CU0&_=2021_08_17 (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1006)')))"
+  ],
   "indicators": [
     "china_new_orders_pmi",
     "china_pmi",
@@ -28,10 +31,8 @@
     "power_consumption_yoy",
     "shfe_inventory",
     "social_financing",
-    "spot_premium",
     "tc_rc",
     "tc_rc_spot",
-    "term_structure",
     "transformer_tender_value",
     "uhv_approved_projects",
     "us_10y_real_rate",
