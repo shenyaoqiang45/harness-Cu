@@ -46,6 +46,38 @@ event_catalog:
       companion: "配套建议本土铜原料强制国产化比例、高品质废铜出口管制"
     report_risk: "美国精炼铜232分阶段关税方案待总统签署（90天窗口），未签署则精炼铜维持零关税"
     invalidation_bullish: "美国总统在90天窗口内拒绝签署或未行动，精炼铜232关税方案失效"
+    monitoring:
+      # 起算日 = commerce_final_report 提交白宫日（非公告 10962 签署日）
+      window_start: "2026-06-30"
+      window_end: "2026-09-28"  # 90 天；美东日历日，遇周末不顺延除非白宫另行说明
+      check_frequency: weekly  # 窗口期内每周至少 1 次
+      primary_sources:
+        - "https://www.whitehouse.gov/presidential-actions/"
+        - "https://www.whitehouse.gov/fact-sheets/"
+      search_keywords:
+        - "Adjusting Imports of Copper"
+        - "refined copper"
+        - "Proclamation 10962"
+        - "copper into the United States"
+      # 已有铜相关公告（非精炼铜专项新签）：2025-07-30、2026-04-02、2026-06-01
+      not_a_new_signing: "Further/Strengthening … Aluminum, Steel, and Copper 仅调整衍生品/完税价，不等于精炼铜 15%/30% 落地"
+      on_presidential_proclamation_signed:
+        update_csv: "data/raw/supply_events.csv"
+        event: us_copper_232_refined_tariff
+        score: 1
+        confidence: A
+        source: whitehouse
+        note: "President signed phased refined-copper ad-valorem tariff per Commerce update"
+        then: "python -m copper_forecast.cli run"
+      on_rejected_or_window_expired:
+        update_csv: "data/raw/supply_events.csv"
+        event: us_copper_232_refined_tariff
+        score: 0
+        confidence: null  # 删行或 score=0；note 注明 expired/rejected
+        note: "90-day window closed without refined-copper proclamation; exemption remains"
+        then: "python -m copper_forecast.cli run"
+      on_whitehouse_check_no_change:
+        action: none  # 维持 score=1 confidence=B，勿改 supply_events.csv
 
 scoring_rules:
   tc_rc_spot_falling: "+1 现货 TC 环比下降（精矿更紧）"

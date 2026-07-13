@@ -2,7 +2,8 @@
 
 > 用于按月滚动、事件驱动更新 `reports/runs/live_*.md`。  
 > 窗口：**2026-07-02 → 2026-08-02**（含首尾）  
-> 上次刷新：**2026-07-06**
+> 上次刷新：**2026-07-13**  
+> **232 精炼铜签署窗口**（2026-06-30 → **2026-09-28**）跨出本 30 天窗口，见下方专项跟踪。
 
 ---
 
@@ -34,9 +35,39 @@
 | [ ] | P1 | 日 | LME / SHFE / COMEX 铜库存 | 库存现货 | 优先 `metal_inventory_monitor.csv` → `import_metal_inventory_monitor.py` |
 | [ ] | P2 | 日 | SHFE–COMEX 价差、期限结构 | 库存现货 | `cli fetch`（衍生指标） |
 | [ ] | P0↑ | 周 | 智利重大矿山罢工进展 | 供应扰动 | 有官方来源则更新 `supply_events.csv`（`chile_mine_strike`）；**有变化升 P0** |
-| [ ] | P1 | 周 | 美国精炼铜 232 总统签署窗口（起算 2026-06-30，约 **90 天至 2026-09-28**） | 供应扰动 | 签署 → confidence **A**；拒签/过期 → score **0** 或删行；**签署/拒签升 P0** |
+| [ ] | P1 | 周 | 美国精炼铜 232 总统签署窗口（起算 **2026-06-30**，约 **90 天至 2026-09-28**） | 供应扰动 | 见下方「232 专项」；签署/拒签/到期 → **P0** 当日 `cli run` |
 | [ ] | P1 | 月 | Argus CIF Asia 现货 TC/RC | 供应扰动 | 录入 `manual_indicators.csv` → `tc_rc_spot` |
 | [ ] | P1 | 批 | 电网招标 / 变压器招标 / 线缆产量等监控表 | 中国需求 | `import_grid_monitoring.py` 或手工 CSV |
+
+---
+
+## 232 精炼铜签署窗口 · 专项跟踪
+
+> 规则详情：`config/supply_event_rules.yaml` → `us_copper_232_refined_tariff.monitoring`  
+> 当前 CSV 状态：`supply_events.csv` 已录 2026-06-30 商务部报告，**confidence B，待总统 Proclamation**。
+
+| 里程碑 | 日期 | 状态 |
+|--------|------|------|
+| 商务部更新报告交白宫 | 2026-06-30 | ✓ 已发生（已录入） |
+| 90 天窗口截止（未签则精炼铜维持零关税） | **2026-09-28** | 待观察 |
+| 若签署：15% 从价税生效 | 2027-01-01 | — |
+| 若签署：30% 从价税生效 | 2028-01-01 | — |
+
+### 每周检查（窗口期内）
+
+1. 打开 [Presidential Actions](https://www.whitehouse.gov/presidential-actions/) 与 [Fact Sheets](https://www.whitehouse.gov/fact-sheets/)。
+2. 检索标题/全文是否出现 **Adjusting Imports of Copper**、**refined copper**、或对 **Proclamation 10962** 的精炼铜专项修订。
+3. **不算新签**：2026-04-02 / 2026-06-01 的「Aluminum, Steel, and Copper」公告仅调整衍生品/完税价，**不等于**精炼铜 15%/30% 落地。
+4. **截至 2026-07-13**：7 月 Presidential Actions 无新铜/精炼铜公告（最近铜相关仍为 2026-06-01）。
+
+### 触发动作（`supply_events.csv`）
+
+| 情形 | 操作 |
+|------|------|
+| 总统签署精炼铜分阶段关税新 Proclamation | `confidence` **B→A**；`note` 附白宫链接；`cli run` + push |
+| 总统明确拒签 | `score` **0** 或删行；`note` 注明 rejected；`cli run` + push |
+| **2026-09-28** 前无新 Proclamation | 视同窗口关闭：`score` **0** 或删行；报告失效条件 #1 触发；`cli run` + push |
+| 仅商务部/媒体传闻、无白宫文本 | **不录入**；维持 B |
 
 ---
 
@@ -66,6 +97,13 @@
 | [ ] | P1 | **08-03 ~ 08-04** | 全球制造业 PMI（7 月） | 全球制造业 | 录 `global_manufacturing_pmi`；`cli run` |
 | [ ] | P2 | **08-02** | **窗口截止 · 生成月报对照** | 全模块 | 对比月初 `reports/runs/` 快照；更新下月 checklist |
 
+### 2026-09（232 窗口外 · 需纳入下月 checklist 滚动）
+
+| 状态 | 优先级 | 日期 | 事件 | 影响模块 | 触发动作 |
+|:---:|---|---|---|---|---|
+| [ ] | P0 | **09-21 ~ 09-28** | **232 精炼铜 90 天签署窗口截止** | 供应扰动 | 截止前最后一次查 White House；无 Proclamation → score **0**；有签 → **A**；`cli run` |
+| [ ] | P1 | **09-28 后** | 232 窗口结论写入归档 | 供应扰动 | 更新 checklist 归档；复核报告失效条件 #1 |
+
 ---
 
 ## 供应 / 政策事件（待发生 · 无固定日）
@@ -86,6 +124,7 @@
 - [ ] `supply_events.csv` 与 checklist 供应项状态一致
 - [ ] A/B 组是否同向；若背离，结论是否标注低置信
 - [ ] 失效条件（232、累库、美元、中国 PMI）是否仍适用
+- [ ] **232 窗口期内**（至 2026-09-28）：是否已查 [Presidential Actions](https://www.whitehouse.gov/presidential-actions/) 无新精炼铜 Proclamation（有变化则先改 `supply_events.csv`）
 - [ ] 新报告已写入 `reports/runs/live_YYYY-MM-DD_*.md`
 - [ ] **已 commit 并 `git push origin HEAD`**（仅含本次报告链路文件；message 含日期与触发事件）
 
@@ -105,7 +144,7 @@ git push origin HEAD
 ```text
 窗口：YYYY-MM-DD → YYYY-MM-DD
 上月归档：reports/runs/live_<月初>_*  vs  live_<月末>_*
-待延续：232 签署窗口 / 智利罢工 / 未发布的社融·PMI
+待延续：232 签署窗口（截止 2026-09-28）/ 智利罢工 / 未发布的社融·PMI
 ```
 
 ---
