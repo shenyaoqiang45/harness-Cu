@@ -1,9 +1,9 @@
 {
-  "timestamp": "2026-07-13T09:17:28.261605",
-  "record_count": 1853,
+  "timestamp": "2026-07-14T00:02:42.892220",
+  "record_count": 1869,
   "warnings": [
-    "fred:us_10y_real_rate: loaded via API",
-    "fred:korea_exports_yoy: loaded via API",
+    "fred:us_10y_real_rate: loaded via public CSV (set FRED_API_KEY for API)",
+    "fred:korea_exports_yoy: loaded via public CSV (set FRED_API_KEY for API)",
     "cme:comex_inventory: skipped (using metal_inventory_monitor.csv)",
     "inventory: using metal_inventory_monitor.csv from 2026-03-16"
   ],
