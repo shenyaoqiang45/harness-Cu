@@ -110,6 +110,10 @@ data/raw/
 data/validated/  # 校验后数据（latest.csv）
 data/clean/      # confirmed 数据（latest.csv）
 data/audit/      # 拉取/校验日志
+data/forecast/
+  latest.json                   # 当前判断快照（Dashboard 主读）
+  history/*.json                # 历史快照（总分曲线）
+dashboard/       # Vite + React + TS 前端面板
 reports/
   live.md                       # 基准/手工留存（cli 默认不覆盖）
   runs/live_YYYY-MM-DD_*.md     # 每次 run/report 自动生成
@@ -117,10 +121,24 @@ src/copper_forecast/
 tests/
 ```
 
+### Dashboard
+
+`cli report` / `cli run` 在写出 Markdown 报告的同时，写入 `data/forecast/latest.json` 与 `data/forecast/history/`。
+
+本地启动前端：
+
+```bash
+cd dashboard
+npm install
+npm run dev
+```
+
+浏览器打开提示的本地地址（默认 `http://localhost:5173`）。开发服务器通过 `/api/*` 读取仓库根目录的 `data/forecast/`。
+
 ## MVP 范围
 
-已实现：CSV 读取、数据校验、六模块打分、总分与置信度、Markdown 报告、异常日志。
+已实现：CSV 读取、数据校验、六模块打分、总分与置信度、Markdown 报告、异常日志、预测 JSON、本地 Dashboard。
 
-未实现：自动抓数、机器学习、Web 前端、自动交易。
+未实现：机器学习、自动交易、历史命中率回测面板。
 
 详见 [problem-framing.md](problem-framing.md)。

@@ -13,6 +13,7 @@ from dotenv import load_dotenv
 from copper_forecast.collector import run_fetch
 from copper_forecast.data_loader import load_csv, write_csv
 from copper_forecast.indicators import compute_all_module_scores
+from copper_forecast.json_export import write_forecast_json
 from copper_forecast.report import render_report, timestamped_report_path, write_report
 from copper_forecast.scoring import compute_forecast
 from copper_forecast.validator import ValidationResult, validate_rows
@@ -72,7 +73,13 @@ def run_pipeline(
     report_text = render_report(forecast, validation)
     write_report(output_path, report_text)
 
+    forecast_dir = data_dir / "forecast"
+    latest_json, history_json = write_forecast_json(
+        forecast, validation, forecast_dir, when=forecast.generated_at
+    )
+
     print(f"Report written to {output_path}")
+    print(f"Forecast JSON: {latest_json} (history: {history_json})")
     print(f"Direction: {forecast.direction} | Score: {forecast.total_score:+.3f}")
     print(f"Confirmed rows: {len(validation.confirmed)}")
     print(f"Anomalies: {len(validation.anomalies)} (see {audit_path})")

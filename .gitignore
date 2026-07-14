@@ -17,6 +17,10 @@ build/
 dist/
 *.egg-info/
 
+# Dashboard
+dashboard/node_modules/
+dashboard/dist/
+
 # Local editor/OS noise
 .vscode/
 .idea/

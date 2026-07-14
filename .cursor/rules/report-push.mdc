@@ -18,9 +18,9 @@ alwaysApply: true
 1. 确认 `cli run` 成功，新报告路径已知。
 2. 复核报告更新检查项（见 `checklist.md`）。
 3. **仅 stage 本次报告链路相关文件**（勿 `git add .` 扫入无关 probe 脚本或未请求改动）：
-   - `reports/runs/live_*.md`（本次新生成的）
-   - `data/raw/`、`data/validated/latest.csv`、`data/clean/latest.csv`、`data/audit/`
-   - 若本次有改：`data/raw/supply_events.csv`、`data/raw/manual_indicators.csv`、`checklist.md`
+ - `reports/runs/live_*.md`（本次新生成的）
+ - `data/raw/`、`data/validated/latest.csv`、`data/clean/latest.csv`、`data/audit/`、`data/forecast/`
+ - 若本次有改：`data/raw/supply_events.csv`、`data/raw/manual_indicators.csv`、`checklist.md`
 4. Commit（一句说明「为何」）：
 
 ```bash
