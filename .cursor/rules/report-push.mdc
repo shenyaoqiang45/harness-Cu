@@ -7,6 +7,8 @@ alwaysApply: true
 
 完成伦敦铜预测报告更新（`python -m copper_forecast.cli run` / `fetch` + `report`，或事件驱动手工改数后重跑）后，**在同一轮工作内**提交并推送，不要只生成本地报告。
 
+**前置**：跑报告前必须已按 `.cursor/rules/checklist-before-report.mdc` 处理 `checklist.md`；本规则只管跑完之后的复核与 push。
+
 ## 触发条件
 
 - 生成了新的 `reports/runs/live_*.md`
@@ -16,7 +18,7 @@ alwaysApply: true
 ## 标准流程
 
 1. 确认 `cli run` 成功，新报告路径已知。
-2. 复核报告更新检查项（见 `checklist.md`）。
+2. 复核「报告更新检查项」（`checklist.md` 中 **每次 `cli run` 后** 一节）。
 3. **仅 stage 本次报告链路相关文件**（勿 `git add .` 扫入无关 probe 脚本或未请求改动）：
  - `reports/runs/live_*.md`（本次新生成的）
  - `data/raw/`、`data/validated/latest.csv`、`data/clean/latest.csv`、`data/audit/`、`data/forecast/`

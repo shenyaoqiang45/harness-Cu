@@ -2,19 +2,20 @@
 
 > 用于按月滚动、事件驱动更新 `reports/runs/live_*.md`。  
 > 窗口：**2026-07-02 → 2026-08-02**（含首尾）  
-> 上次刷新：**2026-07-16**  
+> 上次刷新：**2026-07-17**  
 > **232 精炼铜签署窗口**（2026-06-30 → **2026-09-28**）跨出本 30 天窗口，见下方专项跟踪。
 
 ---
 
 ## 使用说明
 
-1. **事件触发后**：勾选 `[x]`，按「触发动作」更新数据 / `supply_events.csv`，再执行 `python -m copper_forecast.cli run`。
-2. **报告落地后 Push**：`cli run` 成功且检查项通过后，**commit 并 `git push origin HEAD`**（见 `.cursor/rules/report-push.mdc`）。
-3. **无固定日期的监控项**：放在「持续监控」；有结论时再勾选并记备注日期。
-4. **月底滚动**：将窗口整体前移 30 天；已完成项移至文末「归档」；未发生项按新日历重排或删除。
-5. **录入纪律**：供应扰动见 `config/supply_event_rules.yaml`；指标覆盖见 `data/raw/manual_indicators.csv`；无可靠来源不录入。
-6. **优先级**：先处理 **P0**，再 P1；P2/P3 按常规节奏。供应突变、失效条件相关项一律视为 P0。
+1. **跑报告前强制核 checklist**（见 `.cursor/rules/checklist-before-report.mdc`）：先读本文件，处理到期/已发生的 P0→P1；无待处理项须明确声明后再 `cli run`。禁止未核 checklist 直接出报告。
+2. **事件触发后**：勾选 `[x]`，按「触发动作」更新数据 / `supply_events.csv`，再执行 `python -m copper_forecast.cli run`。
+3. **报告落地后**：按下方「报告更新检查项」复核，再 **commit 并 `git push origin HEAD`**（见 `.cursor/rules/report-push.mdc`）。
+4. **无固定日期的监控项**：放在「持续监控」；有结论时再勾选并记备注日期。
+5. **月底滚动**：将窗口整体前移 30 天；已完成项移至文末「归档」；未发生项按新日历重排或删除。
+6. **录入纪律**：供应扰动见 `config/supply_event_rules.yaml`；指标覆盖见 `data/raw/manual_indicators.csv`；无可靠来源不录入。
+7. **优先级**：先处理 **P0**，再 P1；P2/P3 按常规节奏。供应突变、失效条件相关项一律视为 P0。
 
 ### 优先级定义
 
@@ -58,7 +59,7 @@
 1. 打开 [Presidential Actions](https://www.whitehouse.gov/presidential-actions/) 与 [Fact Sheets](https://www.whitehouse.gov/fact-sheets/)。
 2. 检索标题/全文是否出现 **Adjusting Imports of Copper**、**refined copper**、或对 **Proclamation 10962** 的精炼铜专项修订。
 3. **不算新签**：2026-04-02 / 2026-06-01 的「Aluminum, Steel, and Copper」公告仅调整衍生品/完税价，**不等于**精炼铜 15%/30% 落地。
-4. **截至 2026-07-16**：7 月 Presidential Actions 无新铜/精炼铜公告（最近条目含 07-14 Nominations、07-13 纪念碑/化工监管等；最近铜相关仍为 2026-06-01）。
+4. **截至 2026-07-17**：7 月 Presidential Actions 无新铜/精炼铜公告（最近条目含 07-14 Nominations、07-13 纪念碑/化工监管等；最近铜相关仍为 2026-06-01）。
 
 ### 触发动作（`supply_events.csv`）
 
