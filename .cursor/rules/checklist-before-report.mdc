@@ -1,5 +1,5 @@
 ---
-description: 生成报告前必须先检查并处理 checklist
+description: 生成报告前必须先检查并处理 checklist（含 P0–P3）
 alwaysApply: true
 ---
 
@@ -10,18 +10,19 @@ alwaysApply: true
 ## 强制前置步骤
 
 1. **读取** `checklist.md`（完整打开，勿凭记忆）。
-2. **扫窗口内未勾选项**：优先 **P0**，再 **P1**；持续监控与 232 专项一并核对。
-3. **有到期/已发生事件**：先按「触发动作」更新 `supply_events.csv` / `manual_indicators.csv` / 相关 raw 数据并勾选 `[x]`，再 `cli run`。
-4. **无待处理事件**：在回复中明确写出「checklist 已核：无待录入 P0/P1」，再允许 `cli run`。
-5. **232 窗口期内**（至 checklist 所载截止日）：跑报告前确认是否需查 Presidential Actions；有变化则先改 `supply_events.csv`。
+2. **扫窗口内全部未勾选项**：**P0 → P1 → P2 → P3** 全覆盖；持续监控与 232 专项一并核对。不得因「只是 P2/P3」而跳过。
+3. **有到期/已发生事件（任一优先级）**：先按「触发动作」更新 `supply_events.csv` / `manual_indicators.csv` / 相关 raw 数据并勾选 `[x]`，再 `cli run`。
+4. **窗口内已到日程但数据尚未发布**：在回复中写明「已核、待发布、暂不录入」，不得装作未看见。
+5. **无待处理事件**：在回复中明确写出「checklist 已核：无待录入 P0/P1/P2/P3」，再允许 `cli run`。
+6. **232 窗口期内**（至 checklist 所载截止日）：跑报告前确认是否需查 Presidential Actions；有变化则先改 `supply_events.csv`。
 
 ## 禁止
 
 - 未读 `checklist.md` 就执行 `cli run` / `report`。
-- 明知有未处理 P0/P1 到期项仍直接出报告。
-- 用「稍后补 checklist」作为跳过理由。
+- 明知有未处理 **P0/P1/P2/P3** 到期项仍直接出报告。
+- 用「P2/P3 不急 / 稍后补 checklist」作为跳过理由。
 
 ## 与后续步骤的关系
 
-- **跑报告前**：本规则（事件与数据是否齐）。
+- **跑报告前**：本规则（P0–P3 事件与数据是否齐）。
 - **跑报告后**：`checklist.md`「报告更新检查项」+ `.cursor/rules/report-push.mdc`（复核 → commit → push）。
