@@ -1,16 +1,13 @@
 {
-  "timestamp": "2026-07-19T00:06:17.978681",
-  "record_count": 1336,
+  "timestamp": "2026-07-20T00:05:58.875628",
+  "record_count": 1870,
   "warnings": [
     "fred:us_10y_real_rate: loaded via public CSV (set FRED_API_KEY for API)",
     "fred:korea_exports_yoy: loaded via public CSV (set FRED_API_KEY for API)",
     "cme:comex_inventory: skipped (using metal_inventory_monitor.csv)",
-    "derived:term_structure: no spot_premium available",
     "inventory: using metal_inventory_monitor.csv from 2026-03-16"
   ],
-  "errors": [
-    "derived:spot_premium: missing SHFE or COMEX history"
-  ],
+  "errors": [],
   "indicators": [
     "china_new_orders_pmi",
     "china_pmi",
@@ -31,8 +28,10 @@
     "power_consumption_yoy",
     "shfe_inventory",
     "social_financing",
+    "spot_premium",
     "tc_rc",
     "tc_rc_spot",
+    "term_structure",
     "transformer_tender_value",
     "uhv_approved_projects",
     "us_10y_real_rate",
