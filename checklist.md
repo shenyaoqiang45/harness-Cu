@@ -60,7 +60,7 @@
 1. 打开 [Presidential Actions](https://www.whitehouse.gov/presidential-actions/) 与 [Fact Sheets](https://www.whitehouse.gov/fact-sheets/)。
 2. 检索标题/全文是否出现 **Adjusting Imports of Copper**、**refined copper**、或对 **Proclamation 10962** 的精炼铜专项修订。
 3. **不算新签**：2026-04-02 / 2026-06-01 的「Aluminum, Steel, and Copper」公告仅调整衍生品/完税价，**不等于**精炼铜 15%/30% 落地。
-4. **截至 2026-08-04**：本轮核 White House；未见精炼铜分阶段关税新 Proclamation（铜相关仍止于 2026-06-01 衍生品/完税价调整；媒体称签署仍拖延）。维持 `confidence B`。
+4. **截至 2026-08-06**：本轮核 White House Presidential Actions；未见精炼铜分阶段关税新 Proclamation（近期条目含石英面材进口调整、301 强迫劳动等，无 Adjusting Imports of Copper / refined copper / Proclamation 10962 精炼铜专项修订；铜相关仍止于 2026-06-01 衍生品/完税价调整）。维持 `confidence B`。
 
 ### 触发动作（`supply_events.csv`）
 

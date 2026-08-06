@@ -1,6 +1,6 @@
 [
   {
-    "timestamp": "2026-08-06T00:06:33.985803",
+    "timestamp": "2026-08-06T09:08:11.434650",
     "severity": "pending",
     "indicator": "korea_exports_yoy",
     "date": "2026-03-01",
@@ -8,7 +8,7 @@
     "reason": "Korea exports YoY MoM jump > 18pp (possible source switch / base effect)"
   },
   {
-    "timestamp": "2026-08-06T00:06:33.985820",
+    "timestamp": "2026-08-06T09:08:11.434650",
     "severity": "pending",
     "indicator": "spot_premium",
     "date": "2025-07-08",
@@ -16,7 +16,7 @@
     "reason": "SHFE-COMEX spread daily change > 50% (check FX / stale leg)"
   },
   {
-    "timestamp": "2026-08-06T00:06:33.985826",
+    "timestamp": "2026-08-06T09:08:11.434650",
     "severity": "pending",
     "indicator": "spot_premium",
     "date": "2025-07-10",
@@ -24,7 +24,7 @@
     "reason": "SHFE-COMEX spread daily change > 50% (check FX / stale leg)"
   },
   {
-    "timestamp": "2026-08-06T00:06:33.985830",
+    "timestamp": "2026-08-06T09:08:11.434650",
     "severity": "pending",
     "indicator": "spot_premium",
     "date": "2025-07-31",
