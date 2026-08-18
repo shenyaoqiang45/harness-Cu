@@ -1,13 +1,16 @@
 {
-  "timestamp": "2026-08-17T00:05:46.125049",
-  "record_count": 1875,
+  "timestamp": "2026-08-18T00:04:53.632281",
+  "record_count": 1074,
   "warnings": [
-    "fred:us_10y_real_rate: loaded via public CSV (set FRED_API_KEY for API)",
     "fred:korea_exports_yoy: loaded via public CSV (set FRED_API_KEY for API)",
     "cme:comex_inventory: skipped (using metal_inventory_monitor.csv)",
+    "derived:term_structure: no spot_premium available",
     "inventory: using metal_inventory_monitor.csv from 2026-03-16"
   ],
-  "errors": [],
+  "errors": [
+    "fred:us_10y_real_rate: HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out.",
+    "derived:spot_premium: missing SHFE or COMEX history"
+  ],
   "indicators": [
     "china_new_orders_pmi",
     "china_pmi",
@@ -28,13 +31,10 @@
     "power_consumption_yoy",
     "shfe_inventory",
     "social_financing",
-    "spot_premium",
     "tc_rc",
     "tc_rc_spot",
-    "term_structure",
     "transformer_tender_value",
     "uhv_approved_projects",
-    "us_10y_real_rate",
     "us_ism_manufacturing",
     "wire_cable_output_yoy"
   ]

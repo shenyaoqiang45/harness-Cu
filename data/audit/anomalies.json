@@ -1,42 +1,42 @@
 [
   {
-    "timestamp": "2026-08-17T00:05:46.184380",
+    "timestamp": "2026-08-18T00:04:53.690620",
     "severity": "pending",
     "indicator": "korea_exports_yoy",
     "date": "2026-03-01",
-    "line": 542,
+    "line": 544,
     "reason": "Korea exports YoY MoM jump > 18pp (possible source switch / base effect)"
   },
   {
-    "timestamp": "2026-08-17T00:05:46.184396",
+    "timestamp": "2026-08-18T00:04:53.690633",
     "severity": "pending",
     "indicator": "lme_copper_price",
     "date": "2025-07-08",
-    "line": 576,
+    "line": 578,
     "reason": "LME copper daily change > 8%"
   },
   {
-    "timestamp": "2026-08-17T00:05:46.184400",
+    "timestamp": "2026-08-18T00:04:53.690637",
     "severity": "pending",
     "indicator": "spot_premium",
     "date": "2025-07-08",
-    "line": 1173,
+    "line": 1176,
     "reason": "SHFE-COMEX spread daily change > 50% (check FX / stale leg)"
   },
   {
-    "timestamp": "2026-08-17T00:05:46.184404",
+    "timestamp": "2026-08-18T00:04:53.690640",
     "severity": "pending",
     "indicator": "spot_premium",
     "date": "2025-07-10",
-    "line": 1175,
+    "line": 1178,
     "reason": "SHFE-COMEX spread daily change > 50% (check FX / stale leg)"
   },
   {
-    "timestamp": "2026-08-17T00:05:46.184407",
+    "timestamp": "2026-08-18T00:04:53.690643",
     "severity": "pending",
     "indicator": "spot_premium",
     "date": "2025-07-31",
-    "line": 1190,
+    "line": 1193,
     "reason": "SHFE-COMEX spread daily change > 50% (check FX / stale leg)"
   }
 ]
