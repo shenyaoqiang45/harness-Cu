@@ -1,13 +1,15 @@
 {
-  "timestamp": "2026-08-31T12:23:59.171333",
-  "record_count": 1871,
+  "timestamp": "2026-09-08T11:28:44.117942",
+  "record_count": 1859,
   "warnings": [
     "fred:us_10y_real_rate: loaded via API",
     "fred:korea_exports_yoy: loaded via API",
     "cme:comex_inventory: skipped (using metal_inventory_monitor.csv)",
     "inventory: using metal_inventory_monitor.csv from 2026-03-16"
   ],
-  "errors": [],
+  "errors": [
+    "akshare:china_new_orders_pmi: Expecting value: line 1 column 1 (char 0)"
+  ],
   "indicators": [
     "china_new_orders_pmi",
     "china_pmi",
