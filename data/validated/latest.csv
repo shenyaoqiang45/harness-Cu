@@ -484,6 +484,14 @@ date,indicator,value,unit,source,source_url,updated_at,frequency,confidence,stat
 2026-09-04,dxy,99.16,index,Yahoo Finance,https://finance.yahoo.com/quote/DX-Y.NYB,2026-09-08T11:28:28.240700,daily,B,confirmed
 2026-09-06,dxy,99.168,index,Yahoo Finance,https://finance.yahoo.com/quote/DX-Y.NYB,2026-09-08T11:28:28.240700,daily,B,confirmed
 2026-09-07,dxy,99.176,index,Yahoo Finance,https://finance.yahoo.com/quote/DX-Y.NYB,2026-09-08T11:28:28.241699,daily,B,confirmed
+2026-09-08,dxy,98.87,index,东方财富-美元指数,https://quote.eastmoney.com/gb/zsUDI.html,2026-09-17T09:34:38.854583,daily,B,confirmed
+2026-09-09,dxy,98.79,index,东方财富-美元指数,https://quote.eastmoney.com/gb/zsUDI.html,2026-09-17T09:34:38.854583,daily,B,confirmed
+2026-09-10,dxy,99.09,index,东方财富-美元指数,https://quote.eastmoney.com/gb/zsUDI.html,2026-09-17T09:34:38.854583,daily,B,confirmed
+2026-09-11,dxy,99.09,index,东方财富-美元指数,https://quote.eastmoney.com/gb/zsUDI.html,2026-09-17T09:34:38.854583,daily,B,confirmed
+2026-09-14,dxy,99.47,index,东方财富-美元指数,https://quote.eastmoney.com/gb/zsUDI.html,2026-09-17T09:34:38.854583,daily,B,confirmed
+2026-09-15,dxy,99.63,index,东方财富-美元指数,https://quote.eastmoney.com/gb/zsUDI.html,2026-09-17T09:34:38.854583,daily,B,confirmed
+2026-09-16,dxy,100.33,index,东方财富-美元指数,https://quote.eastmoney.com/gb/zsUDI.html,2026-09-17T09:34:38.854583,daily,B,confirmed
+2026-09-17,dxy,100.29,index,东方财富-美元指数,https://quote.eastmoney.com/gb/zsUDI.html,2026-09-17T09:34:38.854583,daily,B,confirmed
 2025-06-01,global_manufacturing_pmi,49.7,index,derived,,2026-07-06T10:42:56.797618,monthly,C,confirmed
 2025-07-01,global_manufacturing_pmi,49.3,index,derived,,2026-08-05T00:04:40.272513,monthly,C,confirmed
 2025-08-01,global_manufacturing_pmi,49.4,index,derived,,2026-08-31T12:23:59.075255,monthly,C,confirmed
@@ -897,6 +905,14 @@ date,indicator,value,unit,source,source_url,updated_at,frequency,confidence,stat
 2026-09-03,lme_copper_price,14499.8033,USD/ton,Yahoo Finance,https://finance.yahoo.com/quote/HG=F,2026-09-08T11:28:27.799943,daily,B,confirmed
 2026-09-04,lme_copper_price,14543.8957,USD/ton,Yahoo Finance,https://finance.yahoo.com/quote/HG=F,2026-09-08T11:28:27.800944,daily,B,confirmed
 2026-09-07,lme_copper_price,14953.9552,USD/ton,Yahoo Finance,https://finance.yahoo.com/quote/HG=F,2026-09-08T11:28:27.800944,daily,B,confirmed
+2026-09-08,lme_copper_price,14940.7275,USD/ton,东方财富-COMEX铜,https://quote.eastmoney.com/globalfuture/HG00Y.html,2026-09-17T09:34:38.854583,daily,B,confirmed
+2026-09-09,lme_copper_price,15107.1765,USD/ton,东方财富-COMEX铜,https://quote.eastmoney.com/globalfuture/HG00Y.html,2026-09-17T09:34:38.854583,daily,B,confirmed
+2026-09-10,lme_copper_price,14387.3672,USD/ton,东方财富-COMEX铜,https://quote.eastmoney.com/globalfuture/HG00Y.html,2026-09-17T09:34:38.854583,daily,B,confirmed
+2026-09-11,lme_copper_price,14455.7105,USD/ton,东方财富-COMEX铜,https://quote.eastmoney.com/globalfuture/HG00Y.html,2026-09-17T09:34:38.854583,daily,B,confirmed
+2026-09-14,lme_copper_price,14104.0732,USD/ton,东方财富-COMEX铜,https://quote.eastmoney.com/globalfuture/HG00Y.html,2026-09-17T09:34:38.854583,daily,B,confirmed
+2026-09-15,lme_copper_price,14239.6575,USD/ton,东方财富-COMEX铜,https://quote.eastmoney.com/globalfuture/HG00Y.html,2026-09-17T09:34:38.854583,daily,B,confirmed
+2026-09-16,lme_copper_price,14201.0766,USD/ton,东方财富-COMEX铜,https://quote.eastmoney.com/globalfuture/HG00Y.html,2026-09-17T09:34:38.854583,daily,B,confirmed
+2026-09-17,lme_copper_price,14288.1592,USD/ton,东方财富-COMEX铜,https://quote.eastmoney.com/globalfuture/HG00Y.html,2026-09-17T09:34:38.854583,daily,B,confirmed
 2026-03-16,lme_inventory,119060.0,ton,金属库存监控,,2026-09-17T09:26:54.642645,daily,B,confirmed
 2026-03-17,lme_inventory,123784.0,ton,金属库存监控,,2026-09-17T09:26:54.642645,daily,B,confirmed
 2026-03-18,lme_inventory,123814.0,ton,金属库存监控,,2026-09-17T09:26:54.642645,daily,B,confirmed
