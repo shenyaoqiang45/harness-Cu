@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-09-17T09:26:54.731643",
-  "record_count": 775,
+  "timestamp": "2026-09-28T10:11:58.788009",
+  "record_count": 774,
   "warnings": [
     "fred:us_10y_real_rate: loaded via API",
     "fred:korea_exports_yoy: loaded via API",

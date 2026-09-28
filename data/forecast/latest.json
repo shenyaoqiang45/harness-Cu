@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-09-17T09:34:41",
-  "data_cutoff": "2026-09-17",
-  "total_score": 0.515,
+  "generated_at": "2026-09-28T10:16:25",
+  "data_cutoff": "2026-09-25",
+  "total_score": 0.535,
   "direction": "看多",
   "week_outlook": "偏多",
   "month_outlook": "偏多",
-  "confidence": 0.26192369497324897,
-  "data_health": 0.7628845484657737,
+  "confidence": 0.2667957899732353,
+  "data_health": 0.748025579364211,
   "confidence_note": "",
   "low_confidence": false,
   "modules": [
@@ -79,22 +79,22 @@
         {
           "name": "dxy_20d",
           "score": -1.0,
-          "description": "DXY 20d change +1.51%"
+          "description": "DXY 20d change +1.61%"
         },
         {
           "name": "dxy_60d",
           "score": 1.0,
-          "description": "DXY 60d change -0.56%"
+          "description": "DXY 60d change -0.25%"
         },
         {
           "name": "us_10y_real_rate_20d",
           "score": -1.0,
-          "description": "US 10Y real rate 20d change +7.38%"
+          "description": "US 10Y real rate 20d change +21.79%"
         },
         {
           "name": "us_10y_real_rate_60d",
           "score": -1.0,
-          "description": "US 10Y real rate 60d change +18.55%"
+          "description": "US 10Y real rate 60d change +29.55%"
         }
       ],
       "data_gaps": []
@@ -167,32 +167,32 @@
     {
       "key": "trend",
       "label": "价格趋势",
-      "score": 0.6,
+      "score": 1.0,
       "signals": [
         {
           "name": "price_vs_ma20",
-          "score": -1.0,
-          "description": "Price 14288 <= MA20 (14515)"
+          "score": 1.0,
+          "description": "Price 14945 > MA20 (14654)"
         },
         {
           "name": "price_vs_ma60",
           "score": 1.0,
-          "description": "Price 14288 > MA60 (14270)"
+          "description": "Price 14945 > MA60 (14410)"
         },
         {
           "name": "price_vs_ma120",
           "score": 1.0,
-          "description": "Price 14288 > MA120 (13986)"
+          "description": "Price 14945 > MA120 (14073)"
         },
         {
           "name": "return_20d",
           "score": 1.0,
-          "description": "20d return +0.33%"
+          "description": "20d return +3.31%"
         },
         {
           "name": "return_60d",
           "score": 1.0,
-          "description": "60d return +4.14%"
+          "description": "60d return +8.74%"
         }
       ],
       "data_gaps": []
@@ -216,7 +216,7 @@
       {
         "name": "B_macro_price",
         "label": "宏观/价格组",
-        "score": -0.028571428571428595,
+        "score": 0.028571428571428553,
         "direction": "中性",
         "modules": [
           "macro_liquidity",
@@ -227,14 +227,14 @@
     ]
   },
   "supporting_factors": [
-    "[trend] Price 14288 > MA60 (14270)",
-    "[trend] Price 14288 > MA120 (13986)",
-    "[trend] 60d return +4.14%"
+    "[trend] Price 14945 > MA60 (14410)",
+    "[trend] Price 14945 > MA20 (14654)",
+    "[trend] Price 14945 > MA120 (14073)"
   ],
   "suppressing_factors": [
-    "[trend] Price 14288 <= MA20 (14515)",
-    "[macro_liquidity] US 10Y real rate 60d change +18.55%",
-    "[macro_liquidity] US 10Y real rate 20d change +7.38%"
+    "[macro_liquidity] US 10Y real rate 60d change +29.55%",
+    "[macro_liquidity] US 10Y real rate 20d change +21.79%",
+    "[macro_liquidity] DXY 20d change +1.61%"
   ],
   "risks": [
     "美国精炼铜232分阶段关税方案待总统签署（90天窗口），未签署则精炼铜维持零关税",
