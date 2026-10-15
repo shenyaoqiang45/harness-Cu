@@ -1,0 +1,37 @@
+# Gate for `python -m copper_forecast.cli run --unattended`.
+# COMEX copper settles in the previous US session. The workflow runs at
+# 00:30 UTC (08:30 Asia/Shanghai). A weekend run, or a second run the same
+# day with no new confirmed bar, must not publish.
+
+critical_daily:
+  - lme_copper_price
+  - dxy
+  - us_10y_real_rate
+
+# New pending anomalies at or above this count set notify=true.
+anomaly_surge_min: 3
+
+# Calendar-day age allowed for a critical daily series.
+# Monday covers Friday; Sunday covers Friday; Tuesday allows a one-day holiday.
+freshness_max_age_days:
+  0: 3
+  1: 2
+  2: 2
+  3: 2
+  4: 2
+  5: 1
+  6: 2
+
+# Latest monthly print is still inside its normal release window when
+# age_days <= lag. That is "not yet published", not a fetch failure.
+monthly_lag_days:
+  default: 45
+  china_pmi: 45
+  china_new_orders_pmi: 45
+  social_financing: 45
+  m1: 45
+  us_ism_manufacturing: 40
+  global_manufacturing_pmi: 40
+  korea_exports_yoy: 40
+  power_consumption_yoy: 45
+  tc_rc_spot: 60

@@ -135,6 +135,8 @@ npm run dev
 
 浏览器打开提示的本地地址（默认 `http://localhost:5173`）。开发服务器通过 `/api/*` 读取仓库根目录的 `data/forecast/`。
 
+无人值守抓数的工作流和门禁见 [docs/unattended.md](docs/unattended.md)。GitHub Secret 和工作流推到默认分支之前，云端还不会自己跑。
+
 ## MVP 范围
 
 已实现：CSV 读取、数据校验、六模块打分、总分与置信度、Markdown 报告、异常日志、预测 JSON、本地 Dashboard。

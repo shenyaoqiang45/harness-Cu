@@ -26,3 +26,7 @@ dashboard/dist/
 .idea/
 Thumbs.db
 .DS_Store
+
+# Unattended runner state (streak lives in Actions cache, not git)
+.unattended-state/
+.unattended-publish

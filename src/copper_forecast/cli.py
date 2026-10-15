@@ -117,6 +117,14 @@ def cmd_run(args: argparse.Namespace) -> int:
         output=root / "data" / "raw" / "live.csv",
         no_merge=args.no_merge,
     )
+    if getattr(args, "unattended", False):
+        from copper_forecast.unattended import run_unattended
+
+        return run_unattended(
+            args.config or root / "config",
+            root,
+            output=args.output,
+        )
     code = cmd_fetch(fetch_args)
     if code != 0 and not args.allow_empty:
         return code
@@ -183,6 +191,11 @@ def main(argv: list[str] | None = None) -> int:
         "--allow-empty",
         action="store_true",
         help="Continue to report even if fetch returns no rows",
+    )
+    run_p.add_argument(
+        "--unattended",
+        action="store_true",
+        help="Gate the run: publish only confirmed changes; keep trusted files on failure",
     )
 
     # backward compatible: no subcommand => report with --input/--output
