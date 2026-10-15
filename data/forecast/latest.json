@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-10-15T09:04:05",
+  "generated_at": "2026-10-15T10:43:39",
   "data_cutoff": "2026-10-14",
   "total_score": 0.5150000000000001,
   "direction": "看多",
   "week_outlook": "中性偏多（低置信）",
   "month_outlook": "中性偏多（低置信）",
-  "confidence": 0.26729614509395294,
-  "data_health": 0.7785324614386977,
+  "confidence": 0.27203226684957105,
+  "data_health": 0.7923269908239933,
   "confidence_note": "方向为低置信信号，建议按中性偏多对待，不宜作为单边交易依据（A/B 交叉验证方向背离）",
   "low_confidence": true,
   "modules": [
@@ -66,7 +66,7 @@
         {
           "name": "shfe_comex_spread",
           "score": 1.0,
-          "description": "SHFE-COMEX spread +1348.5 USD/ton (SHFE rich vs COMEX)"
+          "description": "SHFE-COMEX spread +2036.1 USD/ton (SHFE rich vs COMEX)"
         }
       ],
       "data_gaps": []
@@ -79,12 +79,12 @@
         {
           "name": "dxy_20d",
           "score": -1.0,
-          "description": "DXY 20d change +2.19%"
+          "description": "DXY 20d change +1.70%"
         },
         {
           "name": "dxy_60d",
           "score": -1.0,
-          "description": "DXY 60d change +1.13%"
+          "description": "DXY 60d change +0.62%"
         },
         {
           "name": "us_10y_real_rate_20d",
@@ -172,27 +172,27 @@
         {
           "name": "price_vs_ma20",
           "score": -1.0,
-          "description": "Price 14584 <= MA20 (14742)"
+          "description": "Price 14562 <= MA20 (14584)"
         },
         {
           "name": "price_vs_ma60",
           "score": 1.0,
-          "description": "Price 14584 > MA60 (14562)"
+          "description": "Price 14562 > MA60 (14494)"
         },
         {
           "name": "price_vs_ma120",
           "score": 1.0,
-          "description": "Price 14584 > MA120 (14230)"
+          "description": "Price 14562 > MA120 (14196)"
         },
         {
           "name": "return_20d",
           "score": 1.0,
-          "description": "20d return +2.69%"
+          "description": "20d return +2.70%"
         },
         {
           "name": "return_60d",
           "score": 1.0,
-          "description": "60d return +4.35%"
+          "description": "60d return +4.20%"
         }
       ],
       "data_gaps": []
@@ -227,12 +227,12 @@
     ]
   },
   "supporting_factors": [
-    "[trend] Price 14584 > MA60 (14562)",
-    "[trend] Price 14584 > MA120 (14230)",
-    "[trend] 60d return +4.35%"
+    "[trend] Price 14562 > MA60 (14494)",
+    "[trend] Price 14562 > MA120 (14196)",
+    "[trend] 60d return +4.20%"
   ],
   "suppressing_factors": [
-    "[trend] Price 14584 <= MA20 (14742)",
+    "[trend] Price 14562 <= MA20 (14584)",
     "[macro_liquidity] US 10Y real rate 60d change +24.68%",
     "[macro_liquidity] US 10Y real rate 20d change +10.77%"
   ],
@@ -246,12 +246,6 @@
     "现货贴水扩大且期限结构转为 contango"
   ],
   "anomalies": [
-    {
-      "severity": "pending",
-      "indicator": "korea_exports_yoy",
-      "date": "2026-03-01",
-      "reason": "Korea exports YoY MoM jump > 18pp (possible source switch / base effect)"
-    },
     {
       "severity": "pending",
       "indicator": "lme_copper_price",

@@ -1,24 +1,20 @@
 {
-  "timestamp": "2026-10-15T08:54:55.686183",
-  "record_count": 779,
+  "timestamp": "2026-10-15T10:43:39.255756",
+  "record_count": 1867,
   "warnings": [
-    "fred:us_10y_real_rate: loaded via API",
-    "fred:korea_exports_yoy: loaded via API",
-    "cme:comex_inventory: skipped (using metal_inventory_monitor.csv)",
-    "derived:term_structure: no spot_premium available",
-    "inventory: using metal_inventory_monitor.csv from 2026-03-16"
+    "fred:us_10y_real_rate: loaded via public CSV (set FRED_API_KEY for API)",
+    "fred:korea_exports_yoy: loaded via public CSV (set FRED_API_KEY for API)",
+    "cme:comex_inventory: skipped (using metal_inventory_monitor.csv)"
   ],
   "errors": [
-    "yahoo:lme_copper_price: Too Many Requests. Rate limited. Try after a while.",
-    "yahoo:dxy: Too Many Requests. Rate limited. Try after a while.",
-    "akshare:china_new_orders_pmi: Expecting value: line 1 column 1 (char 0)",
-    "derived:spot_premium: Too Many Requests. Rate limited. Try after a while."
+    "akshare:china_new_orders_pmi: Expecting value: line 1 column 1 (char 0)"
   ],
   "indicators": [
     "china_new_orders_pmi",
     "china_pmi",
     "comex_inventory",
     "copper_rod_operating_rate",
+    "dxy",
     "global_manufacturing_pmi",
     "grid_investment",
     "grid_investment_amount",
@@ -26,14 +22,17 @@
     "grid_project_new_starts",
     "grid_tender_value",
     "korea_exports_yoy",
+    "lme_copper_price",
     "lme_inventory",
     "m1",
     "new_energy_grid_connection",
     "power_consumption_yoy",
     "shfe_inventory",
     "social_financing",
+    "spot_premium",
     "tc_rc",
     "tc_rc_spot",
+    "term_structure",
     "transformer_tender_value",
     "uhv_approved_projects",
     "us_10y_real_rate",
