@@ -22,6 +22,32 @@ MODULE_LABELS = {
 }
 
 
+def _price_quote_lines(forecast: ForecastResult) -> list[str]:
+    if not forecast.price_quotes:
+        return []
+    lines = [
+        "## 铜价观测",
+        "",
+        "| 指标 | 观测日期 | 数值 | 单位 | 来源 |",
+        "|---|---|---:|---|---|",
+    ]
+    for quote in forecast.price_quotes:
+        if quote.missing or quote.date is None or quote.value is None:
+            lines.append(f"| {quote.indicator} | 缺失 | — | {quote.unit or '—'} | — |")
+            continue
+        lines.append(
+            f"| {quote.indicator} | {quote.date.isoformat()} | {quote.value:.4f} | {quote.unit} | {quote.source} |"
+        )
+    lines.extend(
+        [
+            "",
+            "COMEX 铜价单位是 USD/lb，不换算成 USD/ton，也不与沪铜 CNY/吨比较。",
+            "",
+        ]
+    )
+    return lines
+
+
 def _pct(value: float) -> str:
     return f"{value:.0%}"
 
@@ -59,6 +85,7 @@ def render_report(
         f"生成日期：{forecast.generated_at.strftime('%Y-%m-%d %H:%M')}",
         f"数据截止：{forecast.data_cutoff.isoformat() if forecast.data_cutoff else 'N/A'}",
         "",
+        *_price_quote_lines(forecast),
         "## 结论",
         "",
         f"1 周判断：**{forecast.week_outlook}**",

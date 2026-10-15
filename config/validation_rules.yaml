@@ -22,6 +22,15 @@ anomaly_rules:
     rule: daily_pct_change
     threshold: 0.08
     message: "LME copper daily change > 8%"
+  - indicator: comex_copper_price
+    rule: range
+    min: 1.0
+    max: 20.0
+    message: "COMEX copper outside 1-20 USD/lb (possible lb/ton mixup)"
+  - indicator: comex_copper_price
+    rule: daily_pct_change
+    threshold: 0.08
+    message: "COMEX copper daily change > 8%"
   - indicator: lme_inventory
     rule: daily_pct_change
     threshold: 0.20
@@ -69,6 +78,7 @@ anomaly_rules:
 # Reject negative values for these indicators
 non_negative:
   - lme_copper_price
+  - comex_copper_price
   - lme_inventory
   - shfe_inventory
   - comex_inventory

@@ -43,6 +43,9 @@ modules:
 
 units:
   lme_copper_price: USD/ton
+  # COMEX front-month close. Stored as quoted. Not a scoring input and not
+  # comparable with SHFE CNY/ton or with lme_copper_price USD/ton.
+  comex_copper_price: USD/lb
   # Inventory: all stored as metric ton (公吨); SHFE 吨 ≡ 公吨; COMEX official short ton converted on ingest
   lme_inventory: ton
   shfe_inventory: ton
@@ -73,6 +76,7 @@ units:
 
 frequencies:
   lme_copper_price: daily
+  comex_copper_price: daily
   lme_inventory: daily
   shfe_inventory: daily
   comex_inventory: daily

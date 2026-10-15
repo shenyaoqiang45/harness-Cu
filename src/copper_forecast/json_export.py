@@ -76,6 +76,17 @@ def forecast_to_dict(
     return {
         "generated_at": forecast.generated_at.isoformat(timespec="seconds"),
         "data_cutoff": forecast.data_cutoff.isoformat() if forecast.data_cutoff else None,
+        "price_quotes": [
+            {
+                "indicator": quote.indicator,
+                "date": quote.date.isoformat() if quote.date else None,
+                "value": quote.value,
+                "unit": quote.unit,
+                "source": quote.source,
+                "missing": quote.missing,
+            }
+            for quote in forecast.price_quotes
+        ],
         "total_score": forecast.total_score,
         "direction": forecast.direction,
         "week_outlook": forecast.week_outlook,

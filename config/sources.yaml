@@ -14,6 +14,14 @@ sources:
         source_url: https://finance.yahoo.com/quote/HG=F
         confidence: B
         note: "COMEX front-month proxy for LME copper (USD/ton)"
+      comex_copper_price:
+        ticker: "HG=F"
+        unit: USD/lb
+        frequency: daily
+        source: Yahoo Finance
+        source_url: https://finance.yahoo.com/quote/HG=F
+        confidence: B
+        note: "COMEX front-month close in USD/lb. Do not compare with SHFE CNY/ton or with lme_copper_price USD/ton."
       dxy:
         ticker: "DX-Y.NYB"
         unit: index

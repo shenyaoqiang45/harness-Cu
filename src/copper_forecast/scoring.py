@@ -28,10 +28,24 @@ class ForecastResult:
     risks: list[str] = field(default_factory=list)
     invalidation_conditions: list[str] = field(default_factory=list)
     data_cutoff: date | None = None
+    price_quotes: list["PriceQuote"] = field(default_factory=list)
     generated_at: datetime = field(default_factory=datetime.now)
     cross_validation: "CrossValidationResult | None" = None
     confidence_note: str = ""
     low_confidence: bool = False
+
+
+COPPER_PRICE_INDICATORS = ("lme_copper_price", "comex_copper_price")
+
+
+@dataclass
+class PriceQuote:
+    indicator: str
+    unit: str
+    date: date | None = None
+    value: float | None = None
+    source: str = ""
+    missing: bool = False
 
 
 @dataclass
@@ -321,6 +335,41 @@ def _invalidation_conditions(
     return conditions[:4]
 
 
+def copper_price_quotes(confirmed: list[DataRow], config_dir: Path) -> list[PriceQuote]:
+    """Latest copper prints. A missing series stays missing; units are not converted."""
+    with (config_dir / "indicators.yaml").open(encoding="utf-8") as handle:
+        units = yaml.safe_load(handle).get("units", {})
+    latest: dict[str, DataRow] = {}
+    for row in confirmed:
+        if row.indicator not in COPPER_PRICE_INDICATORS:
+            continue
+        current = latest.get(row.indicator)
+        if current is None or row.date > current.date:
+            latest[row.indicator] = row
+    quotes: list[PriceQuote] = []
+    for indicator in COPPER_PRICE_INDICATORS:
+        row = latest.get(indicator)
+        if row is None or row.numeric_value is None:
+            quotes.append(
+                PriceQuote(
+                    indicator=indicator,
+                    unit=str(units.get(indicator, "")),
+                    missing=True,
+                )
+            )
+            continue
+        quotes.append(
+            PriceQuote(
+                indicator=indicator,
+                unit=row.unit,
+                date=row.date,
+                value=row.numeric_value,
+                source=row.source,
+            )
+        )
+    return quotes
+
+
 def compute_forecast(
     module_scores: dict[str, ModuleScore],
     validation: ValidationResult,
@@ -398,6 +447,7 @@ def compute_forecast(
         risks=risks,
         invalidation_conditions=invalidation,
         data_cutoff=cutoff,
+        price_quotes=copper_price_quotes(confirmed, config_dir),
         cross_validation=cross_validation,
         confidence_note=confidence_note,
         low_confidence=low_confidence,

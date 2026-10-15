@@ -249,6 +249,10 @@ def fetch_eastmoney_quote_fallback(
     except Exception as exc:  # noqa: BLE001
         result.errors.append(f"eastmoney:{indicator}: {exc}")
         return result
+    scale = float(spec["scale"]) if cfg.get("transform") == "comex_lb_to_usd_ton" else 1.0
+    note = spec["note"]
+    if cfg.get("ticker") == "HG=F" and cfg.get("transform") != "comex_lb_to_usd_ton":
+        note = "COMEX HG00Y close in USD/lb; Yahoo fallback. Not converted to USD/ton."
     result.records.extend(
         records_from_eastmoney_klines(
             lines,
@@ -258,8 +262,8 @@ def fetch_eastmoney_quote_fallback(
             source_url=spec["source_url"],
             frequency=cfg["frequency"],
             confidence=cfg["confidence"],
-            note=spec["note"],
-            scale=spec["scale"],
+            note=note,
+            scale=scale,
             before=before,
         )
     )
