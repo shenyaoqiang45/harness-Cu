@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-10-15T10:43:39",
+  "timestamp": "2026-10-15T11:37:05",
   "status": "partial",
   "publish": true,
   "notify": false,
@@ -34,14 +34,17 @@
     ]
   },
   "as_of": "2026-10-15",
-  "record_count": 2279,
+  "record_count": 2686,
   "fetch_errors": [
     "akshare:china_new_orders_pmi: Expecting value: line 1 column 1 (char 0)"
   ],
   "fetch_warnings": [
     "fred:us_10y_real_rate: loaded via public CSV (set FRED_API_KEY for API)",
     "fred:korea_exports_yoy: loaded via public CSV (set FRED_API_KEY for API)",
-    "cme:comex_inventory: skipped (using metal_inventory_monitor.csv)"
+    "cme:comex_inventory: skipped (using metal_inventory_monitor.csv)",
+    "comex_inventory: live fetch failed (cme:comex_inventory: 403 Client Error: Forbidden for url: https://www.cmegroup.com/delivery_reports/Copper_Stocks.xls)",
+    "lme_inventory: matches the monitor, appended after 2026-10-14",
+    "shfe_inventory: matches the monitor, appended after 2026-10-14"
   ],
-  "report": "/home/runner/work/harness-Cu/harness-Cu/reports/runs/live_2026-10-15_104339.md"
+  "report": "/home/runner/work/harness-Cu/harness-Cu/reports/runs/live_2026-10-15_113705.md"
 }

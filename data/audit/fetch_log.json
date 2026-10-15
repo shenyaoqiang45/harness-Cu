@@ -1,10 +1,13 @@
 {
-  "timestamp": "2026-10-15T10:43:39.255756",
-  "record_count": 1867,
+  "timestamp": "2026-10-15T11:37:05.128890",
+  "record_count": 2274,
   "warnings": [
     "fred:us_10y_real_rate: loaded via public CSV (set FRED_API_KEY for API)",
     "fred:korea_exports_yoy: loaded via public CSV (set FRED_API_KEY for API)",
-    "cme:comex_inventory: skipped (using metal_inventory_monitor.csv)"
+    "cme:comex_inventory: skipped (using metal_inventory_monitor.csv)",
+    "comex_inventory: live fetch failed (cme:comex_inventory: 403 Client Error: Forbidden for url: https://www.cmegroup.com/delivery_reports/Copper_Stocks.xls)",
+    "lme_inventory: matches the monitor, appended after 2026-10-14",
+    "shfe_inventory: matches the monitor, appended after 2026-10-14"
   ],
   "errors": [
     "akshare:china_new_orders_pmi: Expecting value: line 1 column 1 (char 0)"
@@ -12,6 +15,7 @@
   "indicators": [
     "china_new_orders_pmi",
     "china_pmi",
+    "comex_copper_price",
     "comex_inventory",
     "copper_rod_operating_rate",
     "dxy",
