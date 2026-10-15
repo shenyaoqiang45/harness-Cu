@@ -1,9 +1,9 @@
 # 关键事件 Checklist（滚动 30 天）
 
 > 用于按月滚动、事件驱动更新 `reports/runs/live_*.md`。  
-> 窗口：**2026-09-09 → 2026-10-08**（含首尾）  
-> 上次刷新：**2026-09-28**  
-> **232 精炼铜签署窗口**（2026-06-30 → **2026-09-28**）跨出本 30 天窗口，见下方专项跟踪。
+> 窗口：**2026-10-09 → 2026-11-07**（含首尾）  
+> 上次刷新：**2026-10-15**  
+> **232 精炼铜签署窗口**（2026-06-30 → **2026-09-28**）已关闭：美东截止日无新 Proclamation，`supply_events.csv` score **0**。
 > 日程来源：国家统计局 [2026 年发布日程](https://www.stats.gov.cn/xxgk/sjfb/fbrcb/202512/t20251224_1962137.html)；Fed FOMC 日历；ISM 发布日历。具体日如有调整以官方为准。
 
 ---
@@ -36,8 +36,8 @@
 | [ ] | P1 | 日 | LME/COMEX 铜价、DXY、美 10Y 实际利率 | 美元利率、价格趋势 | `cli fetch`；异常记入 `data/audit/` |
 | [ ] | P1 | 日 | LME / SHFE / COMEX 铜库存 | 库存现货 | 优先 `metal_inventory_monitor.csv` → `import_metal_inventory_monitor.py` |
 | [ ] | P2 | 日 | SHFE–COMEX 价差、期限结构 | 库存现货 | `cli fetch`（衍生指标） |
-| [ ] | P0↑ | 周 | 智利重大矿山罢工进展 | 供应扰动 | 有官方来源则更新 `supply_events.csv`（`chile_mine_strike`）；**有变化升 P0**。备注：08-04 Codelco 暂停 El Teniente Andes Norte **扩建**（地震风险）；**09-28 再核**：Codelco 09-03 称停工仅限 Andes Norte 开发/建设、El Teniente 其余生产连续，1782 人将再安置；投产或延至 2029；**未改** `chile_mine_strike` 行 |
-| [ ] | P1 | 周 | 美国精炼铜 232 总统签署窗口（起算 **2026-06-30**，约 **90 天至 2026-09-28**） | 供应扰动 | 见下方「232 专项」；签署/拒签/到期 → **P0** 当日 `cli run` |
+| [ ] | P0↑ | 周 | 智利重大矿山罢工进展 | 供应扰动 | 有官方来源则更新 `supply_events.csv`（`chile_mine_strike`）；**有变化升 P0**。备注：08-04 Codelco 暂停 El Teniente Andes Norte **扩建**（地震风险）；**10-15 再核**：Andes Norte 仍为扩建停工，未改 `chile_mine_strike`。10-11 El Teniente 露天矿雪崩致两名承包商遇难，Sernageomin 10-13 暂停事故及类似风险区域，**非全矿停产**，无全年产量损失官方数，**不新开行**。媒体称 Antofagasta Centinela 10-07 起约 709 人罢工、可消化库存、集团产量指引未改；Escondida 主管工会进入调解、尚未罢工。均无已确认减产官方口径，**暂不录入** |
+| [x] | P1 | 周 | 美国精炼铜 232 总统签署窗口（起算 **2026-06-30**，约 **90 天至 2026-09-28**） | 供应扰动 | ✓ **10-15**：窗口已关。Presidential Actions 最新至 10-07（National Energy Dominance Month 等），无 Adjusting Imports of Copper / refined copper / Proclamation 10962 精炼铜专项。Reuters 10-14：仍无决定。score **0** |
 | [ ] | P1 | 月 | Argus CIF Asia 现货 TC/RC | 供应扰动 | 录入 `manual_indicators.csv` → `tc_rc_spot` |
 | [ ] | P1 | 批 | 电网招标 / 变压器招标 / 线缆产量等监控表 | 中国需求 | `import_grid_monitoring.py` 或手工 CSV |
 
@@ -51,7 +51,7 @@
 | 里程碑 | 日期 | 状态 |
 |--------|------|------|
 | 商务部更新报告交白宫 | 2026-06-30 | ✓ 已发生（已录入） |
-| 90 天窗口截止（未签则精炼铜维持零关税） | **2026-09-28** | 待观察 |
+| 90 天窗口截止（未签则精炼铜维持零关税） | **2026-09-28** | ✓ 已过，无签署，score **0** |
 | 若签署：15% 从价税生效 | 2027-01-01 | — |
 | 若签署：30% 从价税生效 | 2028-01-01 | — |
 
@@ -60,7 +60,7 @@
 1. 打开 [Presidential Actions](https://www.whitehouse.gov/presidential-actions/) 与 [Fact Sheets](https://www.whitehouse.gov/fact-sheets/)。
 2. 检索标题/全文是否出现 **Adjusting Imports of Copper**、**refined copper**、或对 **Proclamation 10962** 的精炼铜专项修订。
 3. **不算新签**：2026-04-02 / 2026-06-01 的「Aluminum, Steel, and Copper」公告仅调整衍生品/完税价，**不等于**精炼铜 15%/30% 落地。
-4. **截至 2026-09-28 10:20 CST（美东仍为 09-27 晚，窗口未关）**：本轮核 [Presidential Actions](https://www.whitehouse.gov/presidential-actions/) 与 [Fact Sheets](https://www.whitehouse.gov/fact-sheets/)。页内最新至 09-25（Gold Star Mother’s Day；09-25 中美国事访问 Fact Sheet 谈芬太尼、煤炭、稀土供应链，**无**精炼铜关税）。09-17 之后新增：09-17 狩猎/咸水钓鱼 EO、提名撤回；09-18 H-1B EO 与非移民入境限制；09-25 上述两项。无 Adjusting Imports of Copper / refined copper / Proclamation 10962 精炼铜专项修订。`window_end` 为美东日历日 **2026-09-28**，本轮**不**把 score 打成 0。维持 `confidence B`。
+4. **截至 2026-10-15**：窗口已于美东 **2026-09-28** 关闭。再核 [Presidential Actions](https://www.whitehouse.gov/presidential-actions/)：09-28 之后为提名、09-29 三项 EO（病媒害虫 / Super Intelligence / America.gov）、10-02 National Manufacturing Day、10-05 柴油紧急税收减免、10-07 Columbus Day 与 National Energy Dominance Month、Lisa Cook 调查备忘录。无 Adjusting Imports of Copper / refined copper / Proclamation 10962 精炼铜专项。Reuters 10-14 称仍无决定。`supply_events.csv` score **1/B → 0**。
 
 ### 触发动作（`supply_events.csv`）
 
@@ -122,22 +122,27 @@
 | [x] | P3 | **09-15** | 中国规模以上工业增加值等（8 月，国民经济运行） | 中国需求（间接） | ✓ 09-15 统计局：8 月规上工业增加值同比 **+5.2%**（上月+4.5%）；不入模型 |
 | [x] | P2 | **09 月中旬前后** | 中国用电量 / 能源数据（8 月，能源局） | 中国需求 | ✓ 09-20 NEA：8 月全社会用电同比 **+1.7%**（10332 亿 kWh）；1–8 月累计 **+4.3%**；已录 `power_consumption_yoy` |
 | [x] | P0 | **09-15 ~ 09-16** | **FOMC 议息 + SEP**（9 月场次） | 美元利率、价格趋势 | ✓ 09-16 12–0 加息 25bp，联邦基金目标区间 **3.75–4.00%**；SEP 年末联邦基金中值 **4.1%**；无单独模型字段，靠 `cli fetch` 反映 DXY/实际利率 |
-| [ ] | P1 | **09-20 ~ 09-25** | 中国电网工程投资完成额（8 月，能源局/中电联） | 中国需求 | **已核、待发布、暂不录入**（09-28）；仍无单月 8 月电网工程投资完成额（公开口径仍为上半年电网投资） |
-| [ ] | P1 | **09 月内** | Argus CIF Asia 现货 TC/RC（月度） | 供应扰动 | **已核、Argus 现货 TC 未获官方公开序列，暂不录入**（09-28）；SP Angel 09-03 转述 Argus CIF China 约 -175，SMM/Mysteel 约 -224，均不替代 Argus 录入 |
+| [ ] | P1 | **09-20 ~ 09-25** | 中国电网工程投资完成额（8 月，能源局/中电联） | 中国需求 | **已核、待发布、暂不录入**（10-15）；仍无单月 8 月电网工程投资完成额 |
+| [ ] | P1 | **09 月内** | Argus CIF Asia 现货 TC/RC（月度） | 供应扰动 | **已核、Argus 现货 TC 未获官方公开序列，暂不录入**（10-15）；不拿 Mysteel/SMM 指数替代 Argus |
 | [ ] | P0 | **09-21 ~ 09-28** | **232 精炼铜 90 天签署窗口截止** | 供应扰动 | 截止前最后一次查 White House；无 Proclamation → score **0**；有签 → **A**；`cli run` |
-| [ ] | P3 | **09-27 前后** | 中国规模以上工业企业利润（8 月，统计局） | —（宏观背景） | **已核、待发布、暂不录入**（09-28）；数据发布页最新仍为 1—7 月（08-27，累计 +17.6%）；不入模型 |
-| [ ] | P1 | **09-28 后** | 232 窗口结论写入归档 | 供应扰动 | 更新 checklist 归档；复核报告失效条件 #1 |
-| [ ] | P0 | **09-30** | 中国官方制造业 PMI（9 月） | 中国需求 | 官方日程 **09-30 09:30**；录后 `cli run` |
+| [x] | P3 | **09-27 前后** | 中国规模以上工业企业利润（8 月，统计局） | —（宏观背景） | ✓ 09-28 发布：1—8 月累计同比 **+15.7%**（52719.8 亿元）；不入模型，仅背景 |
+| [x] | P1 | **09-28 后** | 232 窗口结论写入归档 | 供应扰动 | ✓ 10-15：无 Proclamation，score **0**；失效条件 #1 已触发（窗口内未签署） |
+| [x] | P0 | **09-30** | 中国官方制造业 PMI（9 月） | 中国需求 | ✓ 09-30 发布：制造业 PMI **50.1**（+0.3）、新订单 **50.5**（-0.1）；已录 `china_pmi` / `china_new_orders_pmi`；Headline 重回 50 上方 |
 
 ### 2026-10（窗口内后半 / 滚动预告）
 
 | 状态 | 优先级 | 日期 | 事件 | 影响模块 | 触发动作 |
 |:---:|---|---|---|---|---|
-| [ ] | P2 | **10-07** | FOMC 会议纪要（9/15–16 会议） | 美元利率 | 已核日程：10-07 14:00 ET；纪要文本待人工研读，无模型指标录入 |
-| [ ] | P3 | **10-14** | 中国 CPI / PPI（9 月，统计局） | —（宏观背景） | 官方日程 **10-14**；不入模型 |
-| [ ] | P1 | **10 月中旬** | 中国金融数据：社融、M1（9 月，央行） | 中国需求 | 发布后 `cli fetch` / `cli run` |
+| [x] | P2 | **10-07** | FOMC 会议纪要（9/15–16 会议） | 美元利率 | ✓ 日程已过（10-07 14:00 ET）；无单独模型字段，靠 `cli fetch` 反映 DXY/实际利率 |
+| [x] | P3 | **10-14** | 中国 CPI / PPI（9 月，统计局） | —（宏观背景） | ✓ 10-14：CPI 同比 **+0.9%**、PPI 同比 **+5.0%**（环比 +1.2%）；不入模型，仅背景 |
+| [x] | P1 | **10 月中旬** | 中国金融数据：社融、M1（9 月，央行） | 中国需求 | ✓ 10-14 已发布。模型沿用东财口径（非 3.55 万亿头条社融）：`social_financing` **12734**（日期 09-28）、M1 **1167563.84** 亿元 |
 | [ ] | P0 | **10-27 ~ 10-28** | **FOMC 议息**（10 月场次，无 SEP） | 美元利率、价格趋势 | 决议日关注 DXY、美债、铜价；次日 `cli run` |
 | [ ] | P0 | **10-31** | 中国官方制造业 PMI（10 月） | 中国需求 | 官方日程 **10-31**；录后 `cli run` |
+| [ ] | P1 | **11-01** | 韩国出口同比（10 月） | 全球制造业 | 产业通商部通常月初发布；录 `korea_exports_yoy` |
+| [ ] | P1 | **11-02** | 美国 ISM 制造业 PMI（10 月） | 全球制造业 | 11-01 为周日，ISM 顺延至首个工作日；录 `us_ism_manufacturing` |
+| [ ] | P1 | **11-02 ~ 11-03** | 全球制造业 PMI（10 月，S&P Global / JPMorgan） | 全球制造业 | 录 `global_manufacturing_pmi` |
+| [ ] | P2 | **10 月下旬** | 中国用电量（9 月，能源局） | 中国需求 | **已核、待发布、暂不录入**（10-15）；公开最新仍为 8 月全社会用电同比 +1.7% |
+| [ ] | P3 | **10-27 前后** | 中国规模以上工业企业利润（9 月，统计局） | —（宏观背景） | 未到发布日；不入模型 |
 
 ---
 
@@ -156,11 +161,11 @@
 ## 报告更新检查项（每次 `cli run` 后）
 
 - [x] `data/audit/anomalies.json` 无新增 **pending** 核心指标（5 条均为旧 pending：korea_exports 2026-03、铜价/价差 2025-07）
-- [x] `supply_events.csv` 与 checklist 供应项状态一致（232 维持 B，美东窗口日未结束；智利罢工行未改；Andes Norte 仍为扩建停工）
-- [x] A/B 组是否同向；若背离，结论是否标注低置信（本次：**弱确认**，基本面/现货 +0.808 看多、宏观/价格 **+0.029 中性**；置信度 **27%**）
-- [x] 失效条件（232、累库、美元、中国 PMI）是否仍适用（232 美东截止日未过，维持 B；库存监控表仍截至 07-13；Headline PMI 49.8 仍 <50，新订单 50.6 扩张；DXY 09-25 收 101.03）
-- [x] **232 窗口期内**（至 2026-09-28 美东）：是否已查 [Presidential Actions](https://www.whitehouse.gov/presidential-actions/) 无新精炼铜 Proclamation（09-28 10:20 CST 再核，无变化，未改 `supply_events.csv`）
-- [x] 新报告已写入 `reports/runs/live_YYYY-MM-DD_*.md`（`live_2026-09-28_101625.md`；Yahoo 限流，东财 HG00Y / UDI 补至 09-25 收盘，09-17 日内快照改为结算价）
+- [x] `supply_events.csv` 与 checklist 供应项状态一致（232 窗口关闭，score **0**；智利罢工行未改；Centinela / El Teniente 露天局部停产无已确认减产官方口径，未新开行）
+- [x] A/B 组是否同向；若背离，结论是否标注低置信（本次：**相互背离**，基本面/现货 +0.962 看多、宏观/价格 **-0.314 偏空**；置信度 **27%**，周/月展望改为中性偏多）
+- [x] 失效条件（232、累库、美元、中国 PMI）是否仍适用（232 失效条件 #1 **已触发**：窗口内未签署，score 0，不再列为未决风险；库存监控表仍截至 **07-13**；价差仍截至 **09-07**，Yahoo 限流导致衍生价差未刷新；Headline PMI **50.1** 重回扩张，新订单 50.5；DXY 10-14 收 **102.53**）
+- [x] **232 窗口**已于 2026-09-28 美东关闭：10-15 再核 [Presidential Actions](https://www.whitehouse.gov/presidential-actions/) 至 10-07，无精炼铜新 Proclamation
+- [x] 新报告已写入 `reports/runs/live_YYYY-MM-DD_*.md`（`live_2026-10-15_090405.md`；Yahoo 限流，东财 HG00Y / UDI 补至 **10-14** 收盘，不含 10-15 未完成盘；铜 14584 美元/吨）
 - [x] **已 commit 并 `git push origin HEAD`**（仅含本次报告链路文件；message 含日期与触发事件）
 
 ### Push 快速命令（PowerShell）
@@ -177,9 +182,9 @@ git push origin HEAD
 ## 下月滚动模板（复制后改日期）
 
 ```text
-窗口：2026-09-09 → 2026-10-08
-上月归档：reports/runs/live_2026-08-01_*  vs  live_2026-08-31_*
-待延续：232 签署窗口（截止 2026-09-28）/ 智利罢工 / 10 月 FOMC（10-27~28）/ 未发布的用电量·电网投资·Argus TC / 9 月 PMI
+窗口：2026-10-09 → 2026-11-07
+上月归档：reports/runs/live_2026-09-01_*  vs  live_2026-09-28_*
+待延续：智利罢工/Centinela 调解 / 10 月 FOMC（10-27~28）/ 10 月 PMI（10-31）/ 未发布的电网投资·Argus TC·9 月用电量
 ```
 
 ---
