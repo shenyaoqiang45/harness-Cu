@@ -40,7 +40,7 @@
 
 门禁规则在 `config/unattended.yaml`。关键日频序列是铜价、美元指数、美国 10 年期实际利率。月度序列在 `monthly_lag_days` 窗口内记为尚未发布，不判失败。异常值仍走 `config/validation_rules.yaml`：拒绝入库的行丢掉；会覆盖旧值的异常行保留旧值。
 
-库存监控表会在抓取前按公开序列续写。LME 用 Westmetall，SHFE 用东方财富；和表内重叠日期量级不一致时，替换该列而不是把两套数接在一天上。CME 抓不到或对不上重叠日期时，COMEX 列保持原样。`manual_indicators.csv` 和 `supply_events.csv` 不会被这次提交改掉。监控表本身在确认数据有变化时会一并提交。
+库存监控表会在抓取前按公开序列续写。LME 用 Westmetall，SHFE 用东方财富，COMEX 用 MetalCharts 上的 CME 仓库总量（注册仓单加合格库存，短吨换公吨）。和表内重叠日期量级不一致时，替换该列而不是把两套数接在一天上。COMEX 连续段开始之前的旧单元格清空。抓取失败或没有重叠日期时，该列保持原样。`manual_indicators.csv` 和 `supply_events.csv` 不会被这次提交改掉。监控表本身在确认数据有变化时会一并提交。
 
 ## 提交范围
 

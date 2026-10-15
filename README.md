@@ -38,11 +38,11 @@ python -m copper_forecast.cli run
 |------|--------|----------|----------|----------|----------|
 | `lme_inventory` | 伦敦 LME | 铜库存（公吨） | [LME](https://www.lme.com) | 东方财富 / akshare 日更 | `metal_inventory_monitor.csv` → `import_metal_inventory_monitor.py` |
 | `shfe_inventory` | 上海 SHFE | 铜仓单日报（吨） | [SHFE](https://www.shfe.com.cn) | akshare `futures_inventory_em` 日更 | 同上 |
-| `comex_inventory` | 纽约 COMEX | 铜库存（官方短吨 → 入库公吨） | [CME Group](https://www.cmegroup.com) | `Copper_Stocks.xls`（易 403） | `metal_inventory_monitor.csv`（`cli run` 自动同步） |
+| `comex_inventory` | 纽约 COMEX | 铜库存（仓库总量，短吨 → 公吨） | [CME Group](https://www.cmegroup.com) | [MetalCharts](https://metalcharts.org/comex/copper) 日序列（CME 文件易 403） | `metal_inventory_monitor.csv`（`cli run` 自动同步） |
 
 `cli run` / `cli fetch` 在存在 `data/raw/metal_inventory_monitor.csv` 时，会：
 
-1. 用 Westmetall 的 LME 铜库存、东方财富的 SHFE 铜库存去续这张表。重叠日期量级一致才往后追加；量级对不上时，整列改成该公开序列，避免把两套定义接在同一天。CME 当日库存只有和表里已有日期对得上才写入
+1. 用 Westmetall 的 LME 铜库存、东方财富的 SHFE 铜库存、MetalCharts 的 COMEX 仓库总量去续这张表。重叠日期量级一致才往后追加；量级对不上时，整列改成该公开序列，避免把两套定义接在同一天。COMEX 只采用注册仓单加合格库存等于总量的连续段，短吨按 0.90718474 换成公吨；这段开始之前的旧 COMEX 单元格清空
 2. 把表导入 `manual_indicators.csv`（无人值守跑完会还原这个人工文件，不把它提交掉）
 3. 跳过东方财富/akshare/CME 的第二路库存抓取，避免和表里的数再叠一次
 4. 剔除 cutover 日之前的旧库存行

@@ -14,5 +14,5 @@ def test_build_import_rows_maps_three_exchanges():
     sample = next(
         row for row in rows if row["date"] == "2026-06-29" and row["indicator"] == "comex_inventory"
     )
-    assert sample["value"] == 168806.0
+    assert sample["value"] == 599438.65
     assert sample["unit"] == "ton"

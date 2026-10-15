@@ -29,6 +29,10 @@ GLOBAL_CHANGE = "全球总库存变化"
 DATE_COL = "日期"
 _SCALE_TOLERANCE = 0.15
 _FILL_GAP_DAYS = 4
+# COMEX in the monitor was a different series from the CME warehouse total.
+# Replacing it leaves the old level in place before the new series starts
+# unless those cells are cleared.
+_CLEAR_BEFORE_ORIGIN = {"comex_inventory"}
 
 
 def _parse_num(raw: str | None) -> float | None:
@@ -129,6 +133,8 @@ def extend_monitor_rows(
             if mode == "append" and day <= last:
                 continue
             if mode == "replace" and day < origin:
+                if indicator in _CLEAR_BEFORE_ORIGIN:
+                    row[column] = ""
                 continue
             if day in series:
                 row[column] = _fmt(series[day])
@@ -221,30 +227,10 @@ def fetch_shfe_inventory() -> dict[date, float]:
 
 
 def fetch_comex_inventory() -> dict[date, float]:
-    from copper_forecast.fetchers.comex import fetch_comex
+    """CME warehouse total via MetalCharts. The public CME file answers 403."""
+    from copper_forecast.fetchers.metalcharts import fetch_metalcharts_comex
 
-    result = fetch_comex(
-        {
-            "comex_inventory": {
-                "unit": "ton",
-                "frequency": "daily",
-                "source": "CME Group",
-                "source_url": "https://www.cmegroup.com/delivery_reports/Copper_Stocks.xls",
-                "confidence": "A",
-            }
-        },
-        30,
-    )
-    if result.errors:
-        raise RuntimeError(result.errors[0])
-    stocks = {
-        rec.date: float(rec.value)
-        for rec in result.records
-        if rec.indicator == "comex_inventory"
-    }
-    if not stocks:
-        raise ValueError("CME copper inventory series was empty")
-    return stocks
+    return fetch_metalcharts_comex()
 
 
 def retire_mismatched_inventory(

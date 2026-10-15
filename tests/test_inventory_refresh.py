@@ -3,6 +3,8 @@
 from datetime import date
 
 from copper_forecast.fetchers import FetchedRecord
+from copper_forecast.fetchers.comex import SHORT_TON_TO_METRIC_TON
+from copper_forecast.fetchers.metalcharts import parse_comex_inventory_payload, short_tons_to_metric_tons
 from copper_forecast.fetchers.westmetall import parse_lme_copper_stock_html
 from copper_forecast.inventory_refresh import extend_monitor_rows, retire_mismatched_inventory
 
@@ -105,6 +107,42 @@ def test_retire_drops_a_different_scale_and_keeps_a_match():
     kept, notes = retire_mismatched_inventory(existing, incoming)
     assert [rec.indicator for rec in kept] == ["comex_inventory"]
     assert any(note.startswith("lme_inventory: retired") for note in notes)
+
+
+def test_metalcharts_keeps_the_warehouse_total_and_drops_the_broken_stretch():
+    payload = {
+        "data": [
+            {"date": "2026-03-05", "total": 597938, "registered": 376825, "eligible": 221113},
+            {"date": "2026-03-06", "total": 49376, "registered": None, "eligible": None},
+            {"date": "2026-06-12", "total": 650412, "registered": 432757, "eligible": 217655},
+            {"date": "2026-06-16", "total": 650631, "registered": 433383, "eligible": 217248},
+            {"date": "2026-06-17", "total": 650414, "registered": 1, "eligible": 1},
+        ]
+    }
+    stocks = parse_comex_inventory_payload(payload)
+    assert set(stocks) == {date(2026, 6, 12), date(2026, 6, 16)}
+    assert stocks[date(2026, 6, 12)] == short_tons_to_metric_tons(650412)
+    latest = parse_comex_inventory_payload(
+        {"data": [{"date": "2026-10-14", "total": 788272, "registered": 471249, "eligible": 317023}]}
+    )
+    assert latest[date(2026, 10, 14)] == round(788272 * SHORT_TON_TO_METRIC_TON, 2)
+
+
+def test_comex_replace_clears_the_old_series_before_the_new_origin():
+    rows = [
+        _row("2026-06-11", 100, 50, 167775),
+        _row("2026-06-12", 100, 50, 167000),
+    ]
+    updated, notes = extend_monitor_rows(
+        rows,
+        {"comex_inventory": {date(2026, 6, 12): 590000, date(2026, 6, 15): 590100}},
+    )
+    by_day = {row["日期"]: row for row in updated}
+    assert any("comex_inventory: monitor scale differs" in note for note in notes)
+    assert by_day["2026-06-11"]["COMEX铜库存(公吨)"] == ""
+    assert by_day["2026-06-11"]["全球总库存(公吨)"] == ""
+    assert by_day["2026-06-12"]["COMEX铜库存(公吨)"] == "590000"
+    assert by_day["2026-06-12"]["LME铜库存(公吨)"] == "100"
 
 
 def test_no_overlap_does_not_splice_a_later_print():
