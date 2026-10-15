@@ -42,10 +42,11 @@ python -m copper_forecast.cli run
 
 `cli run` / `cli fetch` 在存在 `data/raw/metal_inventory_monitor.csv` 时，会：
 
-1. 自动导入三所库存到 `manual_indicators.csv`
-2. 跳过东方财富/akshare/CME 的库存自动抓取
-3. 剔除 cutover 日之前的旧库存行
-4. 生成报告到 `reports/runs/live_YYYY-MM-DD_HHMMSS.md`（保留历史；`reports/live.md` 仅在手写 `-o` 时更新）
+1. 用 Westmetall 的 LME 铜库存、东方财富的 SHFE 铜库存去续这张表。重叠日期量级一致才往后追加；量级对不上时，整列改成该公开序列，避免把两套定义接在同一天。CME 当日库存只有和表里已有日期对得上才写入
+2. 把表导入 `manual_indicators.csv`（无人值守跑完会还原这个人工文件，不把它提交掉）
+3. 跳过东方财富/akshare/CME 的第二路库存抓取，避免和表里的数再叠一次
+4. 剔除 cutover 日之前的旧库存行
+5. 生成报告到 `reports/runs/live_YYYY-MM-DD_HHMMSS.md`（保留历史；`reports/live.md` 仅在手写 `-o` 时更新）
 
 也可单独导入监控表后拉数：
 

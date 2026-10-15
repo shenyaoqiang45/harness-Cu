@@ -407,8 +407,12 @@ def run_unattended(
     manual_blob = manual_path.read_bytes() if manual_path.exists() else b""
 
     monitor = None
+    refresh_notes: list[str] = []
     monitor_cfg = cfg.get("inventory_monitor", {})
     if monitor_cfg.get("enabled", True):
+        from copper_forecast.inventory_refresh import refresh_inventory_monitor
+
+        refresh_notes = refresh_inventory_monitor(project_root, monitor_cfg.get("path"))
         monitor = sync_monitor_to_manual(project_root, monitor_cfg.get("path"))
 
     try:
@@ -434,8 +438,13 @@ def run_unattended(
     finally:
         _restore({manual_path: manual_blob})
 
+    fetched.warnings.extend(refresh_notes)
     unique, dropped = dedupe_incoming(fetched.records)
+    from copper_forecast.inventory_refresh import retire_mismatched_inventory
+
+    existing, retire_notes = retire_mismatched_inventory(existing, unique)
     protected, notes = protect_trusted_rows(existing, unique, config_dir)
+    notes = retire_notes + notes
     protected = filter_inventory_records(protected, monitor)
     decision = evaluate_gate(
         existing, protected, fetched, config_dir, as_of, notes, dropped

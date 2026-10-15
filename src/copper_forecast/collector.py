@@ -173,7 +173,11 @@ def run_fetch(
     monitor_cfg = cfg.get("inventory_monitor", {})
     monitor_path_cfg = monitor_cfg.get("path")
     monitor = None
+    refresh_notes: list[str] = []
     if monitor_cfg.get("enabled", True):
+        from copper_forecast.inventory_refresh import refresh_inventory_monitor
+
+        refresh_notes = refresh_inventory_monitor(project_root, monitor_path_cfg)
         monitor = sync_monitor_to_manual(project_root, monitor_path_cfg)
 
     existing: list[FetchedRecord] = []
@@ -198,6 +202,7 @@ def run_fetch(
         existing = filter_inventory_records(existing, monitor)
 
     fetched = collect_all(config_dir, project_root, monitor)
+    fetched.warnings.extend(refresh_notes)
     if monitor is not None:
         fetched.warnings.append(
             f"inventory: using metal_inventory_monitor.csv from {monitor.cutover.isoformat()}"

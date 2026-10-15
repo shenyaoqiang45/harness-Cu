@@ -79,6 +79,7 @@ jobs:
           git add -- \
             data/raw/live.csv \
             data/raw/history.csv \
+            data/raw/metal_inventory_monitor.csv \
             data/validated/latest.csv \
             data/clean/latest.csv \
             data/audit/fetch_log.json \
