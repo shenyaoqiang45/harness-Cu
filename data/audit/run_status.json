@@ -1,11 +1,11 @@
 {
-  "timestamp": "2026-10-15T12:01:24",
+  "timestamp": "2026-10-16T09:03:53",
   "status": "partial",
   "publish": true,
   "notify": false,
   "exit_code": 0,
   "reasons": [
-    "duplicates_collapsed:12",
+    "duplicates_collapsed:14",
     "source_groups_failed:akshare",
     "anomaly_dropped:korea_exports_yoy:2026-03-01",
     "anomaly_dropped:spot_premium:2026-09-10",
@@ -16,10 +16,10 @@
       "china_new_orders_pmi"
     ],
     "not_published": [
-      "china_new_orders_pmi:age=44:lag=45",
-      "china_pmi:age=44:lag=45",
-      "m1:age=17:lag=45",
-      "social_financing:age=17:lag=45"
+      "china_new_orders_pmi:age=45:lag=45",
+      "china_pmi:age=45:lag=45",
+      "m1:age=18:lag=45",
+      "social_financing:age=18:lag=45"
     ],
     "anomaly": [
       "anomaly_dropped:korea_exports_yoy:2026-03-01",
@@ -30,11 +30,11 @@
     "summary": [
       "source_success_rate=0.83",
       "pending_new=0",
-      "duplicates_dropped=12"
+      "duplicates_dropped=14"
     ]
   },
-  "as_of": "2026-10-15",
-  "record_count": 2665,
+  "as_of": "2026-10-16",
+  "record_count": 2674,
   "fetch_errors": [
     "akshare:china_new_orders_pmi: Expecting value: line 1 column 1 (char 0)"
   ],
@@ -46,5 +46,5 @@
     "shfe_inventory: matches the monitor, appended after 2026-10-14",
     "comex_inventory: matches the monitor, appended after 2026-10-14"
   ],
-  "report": "/home/runner/work/harness-Cu/harness-Cu/reports/runs/live_2026-10-15_120124.md"
+  "report": "/home/runner/work/harness-Cu/harness-Cu/reports/runs/live_2026-10-16_090353.md"
 }
