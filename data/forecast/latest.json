@@ -1,31 +1,31 @@
 {
-  "generated_at": "2026-10-16T09:03:53",
-  "data_cutoff": "2026-10-15",
+  "generated_at": "2026-10-21T09:07:04",
+  "data_cutoff": "2026-10-20",
   "price_quotes": [
     {
       "indicator": "lme_copper_price",
-      "date": "2026-10-15",
-      "value": 14455.7109,
+      "date": "2026-10-20",
+      "value": 14591.2953,
       "unit": "USD/ton",
       "source": "Yahoo Finance",
       "missing": false
     },
     {
       "indicator": "comex_copper_price",
-      "date": "2026-10-15",
-      "value": 6.557,
+      "date": "2026-10-20",
+      "value": 6.6185,
       "unit": "USD/lb",
       "source": "Yahoo Finance",
       "missing": false
     }
   ],
-  "total_score": 0.22499999999999998,
-  "direction": "偏多",
-  "week_outlook": "中性偏多（低置信）",
-  "month_outlook": "中性偏多（低置信）",
-  "confidence": 0.09218045530496126,
-  "data_health": 0.8193818249329891,
-  "confidence_note": "方向为低置信信号，建议按中性偏多对待，不宜作为单边交易依据（A/B 交叉验证方向背离；置信度 9% 低于 25% 阈值）",
+  "total_score": 0.13999999999999999,
+  "direction": "中性",
+  "week_outlook": "中性",
+  "month_outlook": "中性",
+  "confidence": 0.037158040189937756,
+  "data_health": 0.7962437183558092,
+  "confidence_note": "方向为低置信信号，建议按中性偏多对待，不宜作为单边交易依据（A/B 交叉验证方向背离；置信度 4% 低于 25% 阈值）",
   "low_confidence": true,
   "modules": [
     {
@@ -64,27 +64,27 @@
     {
       "key": "inventory",
       "label": "库存现货",
-      "score": 0.0,
+      "score": -0.5,
       "signals": [
         {
           "name": "global_inv_chg_20d",
-          "score": 1.0,
-          "description": "Global inventory 20d change -0.57%"
+          "score": -1.0,
+          "description": "Global inventory 20d change +1.32%"
         },
         {
           "name": "global_inv_chg_60d",
           "score": -1.0,
-          "description": "Global inventory 60d change +2.79%"
+          "description": "Global inventory 60d change +4.92%"
         },
         {
           "name": "inv_high_percentile",
           "score": -1.0,
-          "description": "Global inventory at 85% 3y percentile (high)"
+          "description": "Global inventory at 86% 3y percentile (high)"
         },
         {
           "name": "shfe_comex_spread",
           "score": 1.0,
-          "description": "SHFE-COMEX spread +1827.3 USD/ton (SHFE rich vs COMEX)"
+          "description": "SHFE-COMEX spread +1814.8 USD/ton (SHFE rich vs COMEX)"
         }
       ],
       "data_gaps": []
@@ -97,22 +97,22 @@
         {
           "name": "dxy_20d",
           "score": -1.0,
-          "description": "DXY 20d change +1.83%"
+          "description": "DXY 20d change +1.17%"
         },
         {
           "name": "dxy_60d",
           "score": -1.0,
-          "description": "DXY 60d change +1.25%"
+          "description": "DXY 60d change +2.07%"
         },
         {
           "name": "us_10y_real_rate_20d",
           "score": -1.0,
-          "description": "US 10Y real rate 20d change +8.40%"
+          "description": "US 10Y real rate 20d change +4.48%"
         },
         {
           "name": "us_10y_real_rate_60d",
           "score": -1.0,
-          "description": "US 10Y real rate 60d change +20.85%"
+          "description": "US 10Y real rate 60d change +15.23%"
         }
       ],
       "data_gaps": []
@@ -185,32 +185,32 @@
     {
       "key": "trend",
       "label": "价格趋势",
-      "score": -0.2,
+      "score": 0.6,
       "signals": [
         {
           "name": "price_vs_ma20",
-          "score": -1.0,
-          "description": "Price 14456 <= MA20 (14581)"
+          "score": 1.0,
+          "description": "Price 14591 > MA20 (14535)"
         },
         {
           "name": "price_vs_ma60",
-          "score": -1.0,
-          "description": "Price 14456 <= MA60 (14503)"
+          "score": 1.0,
+          "description": "Price 14591 > MA60 (14521)"
         },
         {
           "name": "price_vs_ma120",
           "score": 1.0,
-          "description": "Price 14456 > MA120 (14204)"
+          "description": "Price 14591 > MA120 (14213)"
         },
         {
           "name": "return_20d",
           "score": -1.0,
-          "description": "20d return -0.45%"
+          "description": "20d return -2.09%"
         },
         {
           "name": "return_60d",
           "score": 1.0,
-          "description": "60d return +3.72%"
+          "description": "60d return +2.84%"
         }
       ],
       "data_gaps": []
@@ -223,8 +223,8 @@
       {
         "name": "A_fundamental_spot",
         "label": "基本面/现货组",
-        "score": 0.5769230769230769,
-        "direction": "看多",
+        "score": 0.3846153846153846,
+        "direction": "偏多",
         "modules": [
           "china_demand",
           "inventory",
@@ -234,7 +234,7 @@
       {
         "name": "B_macro_price",
         "label": "宏观/价格组",
-        "score": -0.4285714285714286,
+        "score": -0.3142857142857143,
         "direction": "偏空",
         "modules": [
           "macro_liquidity",
@@ -245,22 +245,22 @@
     ]
   },
   "supporting_factors": [
-    "[trend] Price 14456 > MA120 (14204)",
-    "[trend] 60d return +3.72%",
-    "[supply] confirmed strike at major mine (source: official_news)"
+    "[trend] Price 14591 > MA60 (14521)",
+    "[trend] Price 14591 > MA20 (14535)",
+    "[trend] Price 14591 > MA120 (14213)"
   ],
   "suppressing_factors": [
-    "[trend] Price 14456 <= MA60 (14503)",
-    "[trend] Price 14456 <= MA20 (14581)",
-    "[trend] 20d return -0.45%"
+    "[trend] 20d return -2.09%",
+    "[macro_liquidity] US 10Y real rate 60d change +15.23%",
+    "[macro_liquidity] US 10Y real rate 20d change +4.48%"
   ],
   "risks": [
     "多空模块严重分裂，方向判断不确定性较高"
   ],
   "invalidation_conditions": [
-    "全球显性库存连续两周大幅累库（>5%）",
-    "美元指数突破近期高点且实际利率持续上行",
-    "中国 PMI 跌破 50 且新订单分项走弱",
+    "任一核心模块分数突破 ±0.5 将触发方向调整",
+    "库存或宏观流动性出现单边趋势性变化",
+    "中国需求数据出现方向性拐点",
     "DXY 与实际利率同步走强超过 4 周"
   ],
   "anomalies": [
