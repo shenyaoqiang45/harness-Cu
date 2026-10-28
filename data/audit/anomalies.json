@@ -1,34 +1,34 @@
 [
   {
-    "timestamp": "2026-10-23T09:08:56.566789",
+    "timestamp": "2026-10-28T08:53:45.858551",
     "severity": "pending",
     "indicator": "lme_copper_price",
     "date": "2025-07-08",
-    "line": 903,
+    "line": 912,
     "reason": "LME copper daily change > 8%"
   },
   {
-    "timestamp": "2026-10-23T09:08:56.566798",
+    "timestamp": "2026-10-28T08:53:45.858565",
     "severity": "pending",
     "indicator": "spot_premium",
     "date": "2025-07-08",
-    "line": 1698,
+    "line": 1716,
     "reason": "SHFE-COMEX spread daily change > 50% (check FX / stale leg)"
   },
   {
-    "timestamp": "2026-10-23T09:08:56.566801",
+    "timestamp": "2026-10-28T08:53:45.858567",
     "severity": "pending",
     "indicator": "spot_premium",
     "date": "2025-07-10",
-    "line": 1700,
+    "line": 1718,
     "reason": "SHFE-COMEX spread daily change > 50% (check FX / stale leg)"
   },
   {
-    "timestamp": "2026-10-23T09:08:56.566803",
+    "timestamp": "2026-10-28T08:53:45.858570",
     "severity": "pending",
     "indicator": "spot_premium",
     "date": "2025-07-31",
-    "line": 1715,
+    "line": 1733,
     "reason": "SHFE-COMEX spread daily change > 50% (check FX / stale leg)"
   }
 ]
