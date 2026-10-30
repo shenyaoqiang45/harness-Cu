@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-10-29T08:53:19",
+  "timestamp": "2026-10-30T08:54:17",
   "status": "partial",
   "publish": true,
   "notify": false,
@@ -16,9 +16,9 @@
       "china_new_orders_pmi"
     ],
     "not_published": [
-      "grid_investment:age=31:lag=45",
-      "m1:age=31:lag=45",
-      "social_financing:age=31:lag=45"
+      "grid_investment:age=32:lag=45",
+      "m1:age=32:lag=45",
+      "social_financing:age=32:lag=45"
     ],
     "anomaly": [
       "anomaly_dropped:korea_exports_yoy:2026-03-01",
@@ -32,8 +32,8 @@
       "duplicates_dropped=14"
     ]
   },
-  "as_of": "2026-10-29",
-  "record_count": 2756,
+  "as_of": "2026-10-30",
+  "record_count": 2765,
   "fetch_errors": [
     "akshare:china_new_orders_pmi: Expecting value: line 1 column 1 (char 0)"
   ],
@@ -41,9 +41,9 @@
     "fred:us_10y_real_rate: loaded via public CSV (set FRED_API_KEY for API)",
     "fred:korea_exports_yoy: loaded via public CSV (set FRED_API_KEY for API)",
     "cme:comex_inventory: skipped (using metal_inventory_monitor.csv)",
-    "lme_inventory: matches the monitor, appended after 2026-10-27",
-    "shfe_inventory: matches the monitor, appended after 2026-10-27",
-    "comex_inventory: matches the monitor, appended after 2026-10-27"
+    "lme_inventory: matches the monitor, appended after 2026-10-28",
+    "shfe_inventory: matches the monitor, appended after 2026-10-28",
+    "comex_inventory: matches the monitor, appended after 2026-10-28"
   ],
-  "report": "/home/runner/work/harness-Cu/harness-Cu/reports/runs/live_2026-10-29_085319.md"
+  "report": "/home/runner/work/harness-Cu/harness-Cu/reports/runs/live_2026-10-30_085417.md"
 }

@@ -1,31 +1,31 @@
 {
-  "generated_at": "2026-10-29T08:53:19",
-  "data_cutoff": "2026-10-28",
+  "generated_at": "2026-10-30T08:54:17",
+  "data_cutoff": "2026-10-29",
   "price_quotes": [
     {
       "indicator": "lme_copper_price",
-      "date": "2026-10-28",
-      "value": 14727.9815,
+      "date": "2026-10-29",
+      "value": 14477.7566,
       "unit": "USD/ton",
       "source": "Yahoo Finance",
       "missing": false
     },
     {
       "indicator": "comex_copper_price",
-      "date": "2026-10-28",
-      "value": 6.6805,
+      "date": "2026-10-29",
+      "value": 6.567,
       "unit": "USD/lb",
       "source": "Yahoo Finance",
       "missing": false
     }
   ],
-  "total_score": 0.26,
+  "total_score": 0.32,
   "direction": "偏多",
   "week_outlook": "中性偏多（低置信）",
   "month_outlook": "中性偏多（低置信）",
-  "confidence": 0.06860802017084063,
-  "data_health": 0.791631001971238,
-  "confidence_note": "方向为低置信信号，建议按中性偏多对待，不宜作为单边交易依据（置信度 7% 低于 25% 阈值）",
+  "confidence": 0.12656861502764363,
+  "data_health": 0.7910538439227727,
+  "confidence_note": "方向为低置信信号，建议按中性偏多对待，不宜作为单边交易依据（置信度 13% 低于 25% 阈值）",
   "low_confidence": true,
   "modules": [
     {
@@ -69,12 +69,12 @@
         {
           "name": "global_inv_chg_20d",
           "score": -1.0,
-          "description": "Global inventory 20d change +4.87%"
+          "description": "Global inventory 20d change +4.83%"
         },
         {
           "name": "global_inv_chg_60d",
           "score": -1.0,
-          "description": "Global inventory 60d change +11.14%"
+          "description": "Global inventory 60d change +11.85%"
         },
         {
           "name": "inv_high_percentile",
@@ -84,7 +84,7 @@
         {
           "name": "shfe_comex_spread",
           "score": 1.0,
-          "description": "SHFE-COMEX spread +1681.0 USD/ton (SHFE rich vs COMEX)"
+          "description": "SHFE-COMEX spread +1856.7 USD/ton (SHFE rich vs COMEX)"
         }
       ],
       "data_gaps": []
@@ -92,27 +92,27 @@
     {
       "key": "macro_liquidity",
       "label": "美元利率",
-      "score": -0.5,
+      "score": 0.0,
       "signals": [
         {
           "name": "dxy_20d",
-          "score": -1.0,
-          "description": "DXY 20d change +0.79%"
+          "score": 1.0,
+          "description": "DXY 20d change -0.32%"
         },
         {
           "name": "dxy_60d",
           "score": -1.0,
-          "description": "DXY 60d change +2.63%"
+          "description": "DXY 60d change +1.97%"
         },
         {
           "name": "us_10y_real_rate_20d",
           "score": 1.0,
-          "description": "US 10Y real rate 20d change -8.97%"
+          "description": "US 10Y real rate 20d change -8.25%"
         },
         {
           "name": "us_10y_real_rate_60d",
           "score": -1.0,
-          "description": "US 10Y real rate 60d change +6.88%"
+          "description": "US 10Y real rate 60d change +9.88%"
         }
       ],
       "data_gaps": []
@@ -185,40 +185,40 @@
     {
       "key": "trend",
       "label": "价格趋势",
-      "score": 1.0,
+      "score": 0.2,
       "signals": [
         {
           "name": "price_vs_ma20",
           "score": 1.0,
-          "description": "Price 14728 > MA20 (14467)"
+          "description": "Price 14478 > MA20 (14472)"
         },
         {
           "name": "price_vs_ma60",
-          "score": 1.0,
-          "description": "Price 14728 > MA60 (14503)"
+          "score": -1.0,
+          "description": "Price 14478 <= MA60 (14500)"
         },
         {
           "name": "price_vs_ma120",
           "score": 1.0,
-          "description": "Price 14728 > MA120 (14231)"
+          "description": "Price 14478 > MA120 (14236)"
         },
         {
           "name": "return_20d",
           "score": 1.0,
-          "description": "20d return +1.85%"
+          "description": "20d return +1.31%"
         },
         {
           "name": "return_60d",
-          "score": 1.0,
-          "description": "60d return +1.67%"
+          "score": -1.0,
+          "description": "60d return -0.47%"
         }
       ],
       "data_gaps": []
     }
   ],
   "cross_validation": {
-    "agreement": "弱确认",
-    "note": "一组给出方向，另一组偏中性",
+    "agreement": "同向确认",
+    "note": "A/B 两组给出一致方向",
     "groups": [
       {
         "name": "A_fundamental_spot",
@@ -234,8 +234,8 @@
       {
         "name": "B_macro_price",
         "label": "宏观/价格组",
-        "score": 0.028571428571428553,
-        "direction": "中性",
+        "score": 0.2,
+        "direction": "偏多",
         "modules": [
           "macro_liquidity",
           "global_cycle",
@@ -245,14 +245,14 @@
     ]
   },
   "supporting_factors": [
-    "[trend] Price 14728 > MA60 (14503)",
-    "[trend] Price 14728 > MA20 (14467)",
-    "[trend] Price 14728 > MA120 (14231)"
+    "[trend] Price 14478 > MA20 (14472)",
+    "[trend] Price 14478 > MA120 (14236)",
+    "[trend] 20d return +1.31%"
   ],
   "suppressing_factors": [
-    "[macro_liquidity] US 10Y real rate 60d change +6.88%",
-    "[macro_liquidity] DXY 60d change +2.63%",
-    "[macro_liquidity] DXY 20d change +0.79%"
+    "[trend] Price 14478 <= MA60 (14500)",
+    "[trend] 60d return -0.47%",
+    "[macro_liquidity] US 10Y real rate 60d change +9.88%"
   ],
   "risks": [
     "多空模块严重分裂，方向判断不确定性较高"
@@ -260,8 +260,7 @@
   "invalidation_conditions": [
     "全球显性库存连续两周大幅累库（>5%）",
     "美元指数突破近期高点且实际利率持续上行",
-    "中国 PMI 跌破 50 且新订单分项走弱",
-    "DXY 与实际利率同步走强超过 4 周"
+    "中国 PMI 跌破 50 且新订单分项走弱"
   ],
   "anomalies": [
     {

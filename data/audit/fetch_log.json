@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-10-29T08:53:19.408266",
-  "record_count": 2284,
+  "timestamp": "2026-10-30T08:54:17.847164",
+  "record_count": 2287,
   "warnings": [
     "fred:us_10y_real_rate: loaded via public CSV (set FRED_API_KEY for API)",
     "fred:korea_exports_yoy: loaded via public CSV (set FRED_API_KEY for API)",
     "cme:comex_inventory: skipped (using metal_inventory_monitor.csv)",
-    "lme_inventory: matches the monitor, appended after 2026-10-27",
-    "shfe_inventory: matches the monitor, appended after 2026-10-27",
-    "comex_inventory: matches the monitor, appended after 2026-10-27"
+    "lme_inventory: matches the monitor, appended after 2026-10-28",
+    "shfe_inventory: matches the monitor, appended after 2026-10-28",
+    "comex_inventory: matches the monitor, appended after 2026-10-28"
   ],
   "errors": [
     "akshare:china_new_orders_pmi: Expecting value: line 1 column 1 (char 0)"
