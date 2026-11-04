@@ -1,47 +1,47 @@
 {
-  "generated_at": "2026-10-30T08:54:17",
-  "data_cutoff": "2026-10-29",
+  "generated_at": "2026-11-04T08:45:08",
+  "data_cutoff": "2026-11-03",
   "price_quotes": [
     {
       "indicator": "lme_copper_price",
-      "date": "2026-10-29",
-      "value": 14477.7566,
+      "date": "2026-11-03",
+      "value": 14080.9249,
       "unit": "USD/ton",
       "source": "Yahoo Finance",
       "missing": false
     },
     {
       "indicator": "comex_copper_price",
-      "date": "2026-10-29",
-      "value": 6.567,
+      "date": "2026-11-03",
+      "value": 6.387,
       "unit": "USD/lb",
       "source": "Yahoo Finance",
       "missing": false
     }
   ],
-  "total_score": 0.32,
-  "direction": "偏多",
-  "week_outlook": "中性偏多（低置信）",
-  "month_outlook": "中性偏多（低置信）",
-  "confidence": 0.12656861502764363,
-  "data_health": 0.7910538439227727,
-  "confidence_note": "方向为低置信信号，建议按中性偏多对待，不宜作为单边交易依据（置信度 13% 低于 25% 阈值）",
+  "total_score": -0.03999999999999998,
+  "direction": "中性",
+  "week_outlook": "中性",
+  "month_outlook": "中性",
+  "confidence": 0.01070981802233409,
+  "data_health": 0.8032363516750572,
+  "confidence_note": "方向为低置信信号，建议按中性偏空对待，不宜作为单边交易依据（置信度 1% 低于 25% 阈值）",
   "low_confidence": true,
   "modules": [
     {
       "key": "china_demand",
       "label": "中国需求",
-      "score": 1.0,
+      "score": 0.2,
       "signals": [
         {
           "name": "china_pmi_level",
-          "score": 1.0,
-          "description": "China PMI 50.1"
+          "score": -1.0,
+          "description": "China PMI 49.3"
         },
         {
           "name": "china_pmi_mom",
-          "score": 1.0,
-          "description": "China PMI mom +0.3"
+          "score": -1.0,
+          "description": "China PMI mom -0.8"
         },
         {
           "name": "new_orders_pmi",
@@ -69,22 +69,22 @@
         {
           "name": "global_inv_chg_20d",
           "score": -1.0,
-          "description": "Global inventory 20d change +4.83%"
+          "description": "Global inventory 20d change +9.12%"
         },
         {
           "name": "global_inv_chg_60d",
           "score": -1.0,
-          "description": "Global inventory 60d change +11.85%"
+          "description": "Global inventory 60d change +16.95%"
         },
         {
           "name": "inv_high_percentile",
           "score": -1.0,
-          "description": "Global inventory at 85% 3y percentile (high)"
+          "description": "Global inventory at 88% 3y percentile (high)"
         },
         {
           "name": "shfe_comex_spread",
           "score": 1.0,
-          "description": "SHFE-COMEX spread +1856.7 USD/ton (SHFE rich vs COMEX)"
+          "description": "SHFE-COMEX spread +1827.8 USD/ton (SHFE rich vs COMEX)"
         }
       ],
       "data_gaps": []
@@ -97,22 +97,22 @@
         {
           "name": "dxy_20d",
           "score": 1.0,
-          "description": "DXY 20d change -0.32%"
+          "description": "DXY 20d change -0.09%"
         },
         {
           "name": "dxy_60d",
           "score": -1.0,
-          "description": "DXY 60d change +1.97%"
+          "description": "DXY 60d change +1.77%"
         },
         {
           "name": "us_10y_real_rate_20d",
           "score": 1.0,
-          "description": "US 10Y real rate 20d change -8.25%"
+          "description": "US 10Y real rate 20d change -10.27%"
         },
         {
           "name": "us_10y_real_rate_60d",
           "score": -1.0,
-          "description": "US 10Y real rate 60d change +9.88%"
+          "description": "US 10Y real rate 60d change +7.82%"
         }
       ],
       "data_gaps": []
@@ -120,7 +120,7 @@
     {
       "key": "global_cycle",
       "label": "全球制造业",
-      "score": 0.6,
+      "score": 0.0,
       "signals": [
         {
           "name": "us_ism_manufacturing_level",
@@ -134,13 +134,8 @@
         },
         {
           "name": "global_manufacturing_pmi_level",
-          "score": 1.0,
-          "description": "Global PMI 53.0"
-        },
-        {
-          "name": "global_manufacturing_pmi_mom",
-          "score": 1.0,
-          "description": "Global PMI mom +0.7"
+          "score": -1.0,
+          "description": "Global PMI 49.3"
         },
         {
           "name": "korea_exports",
@@ -148,7 +143,9 @@
           "description": "Korea exports YoY +83.5% (improving)"
         }
       ],
-      "data_gaps": []
+      "data_gaps": [
+        "global_manufacturing_pmi mom skipped (source switch, not comparable)"
+      ]
     },
     {
       "key": "supply",
@@ -185,46 +182,46 @@
     {
       "key": "trend",
       "label": "价格趋势",
-      "score": 0.2,
+      "score": -1.0,
       "signals": [
         {
           "name": "price_vs_ma20",
-          "score": 1.0,
-          "description": "Price 14478 > MA20 (14472)"
+          "score": -1.0,
+          "description": "Price 14081 <= MA20 (14442)"
         },
         {
           "name": "price_vs_ma60",
           "score": -1.0,
-          "description": "Price 14478 <= MA60 (14500)"
+          "description": "Price 14081 <= MA60 (14486)"
         },
         {
           "name": "price_vs_ma120",
-          "score": 1.0,
-          "description": "Price 14478 > MA120 (14236)"
+          "score": -1.0,
+          "description": "Price 14081 <= MA120 (14243)"
         },
         {
           "name": "return_20d",
-          "score": 1.0,
-          "description": "20d return +1.31%"
+          "score": -1.0,
+          "description": "20d return -3.15%"
         },
         {
           "name": "return_60d",
           "score": -1.0,
-          "description": "60d return -0.47%"
+          "description": "60d return -3.18%"
         }
       ],
       "data_gaps": []
     }
   ],
   "cross_validation": {
-    "agreement": "同向确认",
-    "note": "A/B 两组给出一致方向",
+    "agreement": "均为中性",
+    "note": "两组都没有给出明确方向",
     "groups": [
       {
         "name": "A_fundamental_spot",
         "label": "基本面/现货组",
-        "score": 0.3846153846153846,
-        "direction": "偏多",
+        "score": 0.015384615384615398,
+        "direction": "中性",
         "modules": [
           "china_demand",
           "inventory",
@@ -234,8 +231,8 @@
       {
         "name": "B_macro_price",
         "label": "宏观/价格组",
-        "score": 0.2,
-        "direction": "偏多",
+        "score": -0.14285714285714285,
+        "direction": "中性",
         "modules": [
           "macro_liquidity",
           "global_cycle",
@@ -245,22 +242,22 @@
     ]
   },
   "supporting_factors": [
-    "[trend] Price 14478 > MA20 (14472)",
-    "[trend] Price 14478 > MA120 (14236)",
-    "[trend] 20d return +1.31%"
+    "[supply] confirmed strike at major mine (source: official_news)",
+    "[supply] TC/RC spot mom Δ -7.5 USD/ton",
+    "[supply] TC/RC spot at 0% historical percentile (low)"
   ],
   "suppressing_factors": [
-    "[trend] Price 14478 <= MA60 (14500)",
-    "[trend] 60d return -0.47%",
-    "[macro_liquidity] US 10Y real rate 60d change +9.88%"
+    "[trend] Price 14081 <= MA60 (14486)",
+    "[trend] Price 14081 <= MA20 (14442)",
+    "[trend] Price 14081 <= MA120 (14243)"
   ],
   "risks": [
-    "多空模块严重分裂，方向判断不确定性较高"
+    "global_cycle 存在数据缺口: global_manufacturing_pmi mom skipped (source switch, not comparable)"
   ],
   "invalidation_conditions": [
-    "全球显性库存连续两周大幅累库（>5%）",
-    "美元指数突破近期高点且实际利率持续上行",
-    "中国 PMI 跌破 50 且新订单分项走弱"
+    "任一核心模块分数突破 ±0.5 将触发方向调整",
+    "库存或宏观流动性出现单边趋势性变化",
+    "中国需求数据出现方向性拐点"
   ],
   "anomalies": [
     {
