@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-11-06T08:44:50.815892",
-  "record_count": 2313,
+  "timestamp": "2026-11-11T08:45:42.612559",
+  "record_count": 2328,
   "warnings": [
     "fred:us_10y_real_rate: loaded via public CSV (set FRED_API_KEY for API)",
     "fred:korea_exports_yoy: loaded via public CSV (set FRED_API_KEY for API)",
     "cme:comex_inventory: skipped (using metal_inventory_monitor.csv)",
-    "lme_inventory: matches the monitor, appended after 2026-11-04",
-    "shfe_inventory: matches the monitor, appended after 2026-11-04",
-    "comex_inventory: matches the monitor, appended after 2026-11-04"
+    "lme_inventory: matches the monitor, appended after 2026-11-05",
+    "shfe_inventory: matches the monitor, appended after 2026-11-05",
+    "comex_inventory: matches the monitor, appended after 2026-11-05"
   ],
   "errors": [],
   "indicators": [
