@@ -1,19 +1,19 @@
 {
-  "generated_at": "2026-11-18T08:47:47",
-  "data_cutoff": "2026-11-17",
+  "generated_at": "2026-11-19T08:47:16",
+  "data_cutoff": "2026-11-18",
   "price_quotes": [
     {
       "indicator": "lme_copper_price",
-      "date": "2026-11-17",
-      "value": 13185.8478,
+      "date": "2026-11-18",
+      "value": 12566.3485,
       "unit": "USD/ton",
       "source": "Yahoo Finance",
       "missing": false
     },
     {
       "indicator": "comex_copper_price",
-      "date": "2026-11-17",
-      "value": 5.981,
+      "date": "2026-11-18",
+      "value": 5.7,
       "unit": "USD/lb",
       "source": "Yahoo Finance",
       "missing": false
@@ -23,8 +23,8 @@
   "direction": "偏空",
   "week_outlook": "中性偏空（低置信）",
   "month_outlook": "中性偏空（低置信）",
-  "confidence": 0.09452016117461205,
-  "data_health": 0.7876680097884338,
+  "confidence": 0.09446438832054468,
+  "data_health": 0.7872032360045391,
   "confidence_note": "方向为低置信信号，建议按中性偏空对待，不宜作为单边交易依据（置信度 9% 低于 25% 阈值）",
   "low_confidence": true,
   "modules": [
@@ -69,12 +69,12 @@
         {
           "name": "global_inv_chg_20d",
           "score": -1.0,
-          "description": "Global inventory 20d change +8.12%"
+          "description": "Global inventory 20d change +7.30%"
         },
         {
           "name": "global_inv_chg_60d",
           "score": -1.0,
-          "description": "Global inventory 60d change +11.71%"
+          "description": "Global inventory 60d change +12.21%"
         },
         {
           "name": "inv_high_percentile",
@@ -84,7 +84,7 @@
         {
           "name": "shfe_comex_spread",
           "score": 1.0,
-          "description": "SHFE-COMEX spread +2340.3 USD/ton (SHFE rich vs COMEX)"
+          "description": "SHFE-COMEX spread +2138.3 USD/ton (SHFE rich vs COMEX)"
         }
       ],
       "data_gaps": []
@@ -97,22 +97,22 @@
         {
           "name": "dxy_20d",
           "score": -1.0,
-          "description": "DXY 20d change +1.84%"
+          "description": "DXY 20d change +2.00%"
         },
         {
           "name": "dxy_60d",
           "score": -1.0,
-          "description": "DXY 60d change +4.47%"
+          "description": "DXY 60d change +4.69%"
         },
         {
           "name": "us_10y_real_rate_20d",
           "score": -1.0,
-          "description": "US 10Y real rate 20d change +6.57%"
+          "description": "US 10Y real rate 20d change +3.21%"
         },
         {
           "name": "us_10y_real_rate_60d",
           "score": -1.0,
-          "description": "US 10Y real rate 60d change +24.26%"
+          "description": "US 10Y real rate 60d change +22.98%"
         }
       ],
       "data_gaps": []
@@ -187,27 +187,27 @@
         {
           "name": "price_vs_ma20",
           "score": -1.0,
-          "description": "Price 13186 <= MA20 (14005)"
+          "description": "Price 12566 <= MA20 (13911)"
         },
         {
           "name": "price_vs_ma60",
           "score": -1.0,
-          "description": "Price 13186 <= MA60 (14345)"
+          "description": "Price 12566 <= MA60 (14312)"
         },
         {
           "name": "price_vs_ma120",
           "score": -1.0,
-          "description": "Price 13186 <= MA120 (14204)"
+          "description": "Price 12566 <= MA120 (14194)"
         },
         {
           "name": "return_20d",
           "score": -1.0,
-          "description": "20d return -8.92%"
+          "description": "20d return -12.88%"
         },
         {
           "name": "return_60d",
           "score": -1.0,
-          "description": "60d return -10.86%"
+          "description": "60d return -13.56%"
         }
       ],
       "data_gaps": []
@@ -247,9 +247,9 @@
     "[supply] TC/RC spot at 0% historical percentile (low)"
   ],
   "suppressing_factors": [
-    "[trend] Price 13186 <= MA60 (14345)",
-    "[trend] Price 13186 <= MA20 (14005)",
-    "[trend] Price 13186 <= MA120 (14204)"
+    "[trend] Price 12566 <= MA60 (14312)",
+    "[trend] Price 12566 <= MA20 (13911)",
+    "[trend] Price 12566 <= MA120 (14194)"
   ],
   "risks": [
     "多空模块严重分裂，方向判断不确定性较高",
