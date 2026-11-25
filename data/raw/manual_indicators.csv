@@ -4,8 +4,10 @@ date,indicator,value,unit,source,source_url,updated_at,frequency,confidence,note
 2026-07-01,china_new_orders_pmi,48.5,index,国家统计局,https://www.stats.gov.cn/,2026-07-31T09:30:00,monthly,A,NBS manufacturing new orders sub-index July 2026 (released 2026-07-31; -2.7pp vs June 51.2)
 2026-08-01,china_new_orders_pmi,50.6,index,国家统计局,https://www.stats.gov.cn/sj/zxfb/202608/t20260831_1965154.html,2026-08-31T09:30:00,monthly,A,NBS manufacturing new orders sub-index August 2026 (released 2026-08-31; +2.1pp vs July 48.5)
 2026-09-01,china_new_orders_pmi,50.5,index,国家统计局,https://www.stats.gov.cn/sj/zxfb/202609/t20260930_1965449.html,2026-09-30T09:30:00,monthly,A,NBS manufacturing new orders sub-index September 2026 (released 2026-09-30; -0.1pp vs August 50.6)
+2026-10-01,china_new_orders_pmi,49.4,index,国家统计局,https://www.stats.gov.cn/sj/zxfb/202610/t20261031_1965718.html,2026-10-31T09:30:00,monthly,A,NBS manufacturing new orders October 2026 (released 2026-10-31; 49.4; -1.1pp vs September 50.5)
 2026-08-01,china_pmi,49.8,index,东方财富-国家统计局,https://data.eastmoney.com/cjsj/pmi.html,2026-08-31T09:30:00,monthly,A,NBS manufacturing PMI August 2026 49.8 (+0.6 vs July 49.2; official https://www.stats.gov.cn/sj/zxfb/202608/t20260831_1965154.html)
 2026-09-01,china_pmi,50.1,index,东方财富-国家统计局,https://www.stats.gov.cn/sj/zxfb/202609/t20260930_1965449.html,2026-09-30T09:30:00,monthly,A,NBS manufacturing PMI September 2026 50.1 (+0.3 vs August 49.8; back above 50; same NBS series as August)
+2026-10-01,china_pmi,49.3,index,东方财富-国家统计局,https://www.stats.gov.cn/sj/zxfb/202610/t20261031_1965718.html,2026-10-31T09:30:00,monthly,A,NBS manufacturing PMI October 2026 49.3 (-0.8 vs September 50.1)
 2026-03-16,comex_inventory,171455.0,ton,金属库存监控,,2026-10-15T08:54:34,daily,B,from metal_inventory_monitor.csv
 2026-03-17,comex_inventory,172689.0,ton,金属库存监控,,2026-10-15T08:54:34,daily,B,from metal_inventory_monitor.csv
 2026-03-18,comex_inventory,173237.0,ton,金属库存监控,,2026-10-15T08:54:34,daily,B,from metal_inventory_monitor.csv
@@ -154,6 +156,7 @@ date,indicator,value,unit,source,source_url,updated_at,frequency,confidence,note
 2026-07-01,korea_exports_yoy,62.8,pct,韩国产业通商资源部,https://www.yna.co.kr/view/AKR20260801021151003,2026-08-01T08:00:00,monthly,A,MOTIE July 2026 exports YoY +62.8% ($98.89bn; 2nd highest monthly; semiconductors +178.8%; official Aug 1)
 2026-08-01,korea_exports_yoy,68.7,pct,韩国产业通商资源部,https://english.motir.go.kr/eng/article/EATCLdfa319ada/2719/view,2026-09-01T08:00:00,monthly,A,MOTIE August 2026 exports YoY +68.7% ($98.25bn; 3rd consecutive month >$90bn; semiconductors +209%; official Sep 1; +5.9pp vs July 62.8 not >18pp)
 2026-09-01,korea_exports_yoy,83.5,pct,韩国产业通商资源部,https://english.motir.go.kr/eng/article/EATCLdfa319ada/2743/view,2026-10-01T08:00:00,monthly,A,MOTIE September 2026 exports YoY +83.5% ($120.94bn record; semiconductors +263%; official Oct 1; +14.8pp vs August 68.7 not >18pp)
+2026-10-01,korea_exports_yoy,93.9,pct,韩国关税厅,https://www.korea.kr/briefing/pressReleaseView.do?newsId=156789294,2026-11-16T00:00:00,monthly,A,Korea Customs final October 2026 exports YoY +93.9% ($115.41bn; released 2026-11-16; +10.4pp vs September MOTIE 83.5)
 2026-03-16,lme_inventory,119060.0,ton,金属库存监控,,2026-10-15T08:54:34,daily,B,from metal_inventory_monitor.csv
 2026-03-17,lme_inventory,123784.0,ton,金属库存监控,,2026-10-15T08:54:34,daily,B,from metal_inventory_monitor.csv
 2026-03-18,lme_inventory,123814.0,ton,金属库存监控,,2026-10-15T08:54:34,daily,B,from metal_inventory_monitor.csv
@@ -418,6 +421,7 @@ date,indicator,value,unit,source,source_url,updated_at,frequency,confidence,note
 2026-07-01,us_ism_manufacturing,55.6,index,ISM,https://www.prnewswire.com/news-releases/manufacturing-pmi-at-55-6-july-2026-ism-manufacturing-pmi-report-302840669.html,2026-08-03T10:00:00,monthly,A,July 2026 official release; PMI 55.6 (+2.3 vs June 53.3; highest since May 2022)
 2026-08-01,us_ism_manufacturing,54.6,index,ISM,https://www.prnewswire.com/news-releases/manufacturing-pmi-at-54-6-august-2026-ism-manufacturing-pmi-report-302865127.html,2026-09-01T10:00:00,monthly,A,August 2026 official release; PMI 54.6 (-1.0 vs July 55.6; 8th consecutive month of expansion)
 2026-09-01,us_ism_manufacturing,54.5,index,ISM,https://www.ismworld.org/supply-management-news-and-reports/reports/ism-pmi-reports/pmi/september/,2026-10-01T10:00:00,monthly,A,September 2026 official release; PMI 54.5 (-0.1 vs August 54.6; 9th consecutive month of expansion)
+2026-10-01,us_ism_manufacturing,55.5,index,ISM,https://www.ismworld.org/supply-management-news-and-reports/reports/ism-pmi-reports/pmi/october/,2026-11-02T10:00:00,monthly,A,October 2026 official release; PMI 55.5 (+1.0 vs September 54.5; 10th consecutive month of expansion)
 2026-01-01,wire_cable_output_yoy,5.5,pct,国家统计局,,2026-01-18T09:00:00,monthly,B,from 电网指标监控数据_2026-06-29.csv
 2026-02-01,wire_cable_output_yoy,4.3,pct,国家统计局,,2026-02-18T09:00:00,monthly,B,from 电网指标监控数据_2026-06-29.csv
 2026-03-01,wire_cable_output_yoy,3.3,pct,国家统计局,,2026-03-18T09:00:00,monthly,B,from 电网指标监控数据_2026-06-29.csv
