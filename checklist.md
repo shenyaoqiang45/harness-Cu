@@ -160,13 +160,13 @@
 
 ## 报告更新检查项（每次 `cli run` 后）
 
-- [x] `data/audit/anomalies.json` 无新增 **pending** 核心指标（5 条均为旧 pending：korea_exports 2026-03、铜价/价差 2025-07）
-- [x] `supply_events.csv` 与 checklist 供应项状态一致（232 窗口关闭，score **0**；智利罢工行未改；Centinela / El Teniente 露天局部停产无已确认减产官方口径，未新开行）
-- [x] A/B 组是否同向；若背离，结论是否标注低置信（本次：**相互背离**，基本面/现货 +0.962 看多、宏观/价格 **-0.314 偏空**；置信度 **27%**，周/月展望改为中性偏多）
-- [x] 失效条件（232、累库、美元、中国 PMI）是否仍适用（232 失效条件 #1 **已触发**：窗口内未签署，score 0，不再列为未决风险；库存监控表仍截至 **07-13**；价差仍截至 **09-07**，Yahoo 限流导致衍生价差未刷新；Headline PMI **50.1** 重回扩张，新订单 50.5；DXY 10-14 收 **102.53**）
-- [x] **232 窗口**已于 2026-09-28 美东关闭：10-15 再核 [Presidential Actions](https://www.whitehouse.gov/presidential-actions/) 至 10-07，无精炼铜新 Proclamation
-- [x] 新报告已写入 `reports/runs/live_YYYY-MM-DD_*.md`（`live_2026-10-15_090405.md`；Yahoo 限流，东财 HG00Y / UDI 补至 **10-14** 收盘，不含 10-15 未完成盘；铜 14584 美元/吨）
-- [x] **已 commit 并 `git push origin HEAD`**（仅含本次报告链路文件；message 含日期与触发事件）
+- [x] `data/audit/anomalies.json` 无新增 **pending** 核心指标（4 条均为旧 pending：铜价/价差 2025-07；korea_exports 2026-03 已 dropped）
+- [x] `supply_events.csv` 与 checklist 供应项状态一致（232 窗口关闭，score **0**；智利罢工行未改；本次无新的官方减产口径，未新开行）
+- [x] A/B 组是否同向；若背离，结论是否标注低置信（本次：基本面/现货 **-0.169 中性**、宏观/价格 **-0.619 看空**；置信度 **8%**，周/月展望为中性偏空）
+- [x] 失效条件（232、累库、美元、中国 PMI）是否仍适用（232 失效条件 #1 **已触发**；全球库存 20 日 **+5.89%**、60 日 **+12.44%**，92% 分位；Headline PMI **49.3**、新订单 **49.4**；DXY 20 日 **+1.53%**）
+- [x] **232 窗口**已于 2026-09-28 美东关闭：10-15 再核无精炼铜新 Proclamation，本次未重开
+- [x] 新报告已写入 `reports/runs/live_YYYY-MM-DD_*.md`（`live_2026-11-25_093115.md`；Yahoo `HG=F` 至 **11-24**，5.4535 USD/lb、12022.91 USD/ton）
+- [x] **已 commit 并 `git push origin HEAD`**（`99af8df`；10 月 PMI / ISM / 韩国出口在 `138b25e`）
 
 ### Push 快速命令（PowerShell）
 
