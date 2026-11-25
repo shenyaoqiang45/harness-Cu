@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-11-20T08:45:47",
+  "timestamp": "2026-11-25T08:48:26",
   "status": "partial",
   "publish": true,
   "notify": false,
@@ -18,8 +18,8 @@
       "m1"
     ],
     "not_published": [
-      "china_new_orders_pmi:age=20:lag=45",
-      "social_financing:age=23:lag=45"
+      "china_new_orders_pmi:age=25:lag=45",
+      "social_financing:age=28:lag=45"
     ],
     "anomaly": [
       "anomaly_dropped:korea_exports_yoy:2026-03-01",
@@ -33,8 +33,8 @@
       "duplicates_dropped=12"
     ]
   },
-  "as_of": "2026-11-20",
-  "record_count": 2900,
+  "as_of": "2026-11-25",
+  "record_count": 2927,
   "fetch_errors": [
     "akshare:china_new_orders_pmi: index_pmi_man_cx 已在 1.20.48 更名为 macro_china_pmi_manufacturing_cx，请改用 ak.macro_china_pmi_manufacturing_cx；参数与返回的列也可能有调整，用 ak.interface_info(\"macro_china_pmi_manufacturing_cx\") 查看。完整对照见 https://akshare.akfamily.xyz/changelog.html#changelog-rename",
     "akshare:m1: macro_china_money_supply 已在 1.20.42 更名为 macro_china_money_supply_em，请改用 ak.macro_china_money_supply_em；参数与返回的列也可能有调整，用 ak.interface_info(\"macro_china_money_supply_em\") 查看。完整对照见 https://akshare.akfamily.xyz/changelog.html#changelog-rename",
@@ -44,9 +44,9 @@
     "fred:us_10y_real_rate: loaded via public CSV (set FRED_API_KEY for API)",
     "fred:korea_exports_yoy: loaded via public CSV (set FRED_API_KEY for API)",
     "cme:comex_inventory: skipped (using metal_inventory_monitor.csv)",
-    "lme_inventory: matches the monitor, appended after 2026-11-18",
-    "shfe_inventory: matches the monitor, appended after 2026-11-18",
-    "comex_inventory: matches the monitor, appended after 2026-11-18"
+    "lme_inventory: matches the monitor, appended after 2026-11-19",
+    "shfe_inventory: matches the monitor, appended after 2026-11-19",
+    "comex_inventory: matches the monitor, appended after 2026-11-19"
   ],
-  "report": "/home/runner/work/harness-Cu/harness-Cu/reports/runs/live_2026-11-20_084547.md"
+  "report": "/home/runner/work/harness-Cu/harness-Cu/reports/runs/live_2026-11-25_084826.md"
 }
